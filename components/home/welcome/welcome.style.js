@@ -39,9 +39,6 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingHorizontal: SIZES.medium,
   },
-  searchPlaceHolder: {
-    color: COLORS.gray2,
-  },
   searchBtn: {
     width: 50,
     height: "100%",
