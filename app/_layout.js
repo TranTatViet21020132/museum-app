@@ -1,26 +1,68 @@
-import { Stack } from 'expo-router';
-import { useCallback } from 'react';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import 'react-native-gesture-handler';
+import { Stack } from "expo-router";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useFonts } from "expo-font";
+import { Ionicons } from '@expo/vector-icons';
+import SearchScreen from './search/_layout';
 
-SplashScreen.preventAutoHideAsync();
+const Tab = createBottomTabNavigator();
+
+const HomeStack = () => {
+  return (
+    <Stack initialRouteName="home">
+      <Stack.Screen name="home" />
+    </Stack>
+  );
+};
 
 const Layout = () => {
-    const [fontsLoaded] = useFonts({
-        DMBold: require ('../assets/fonts/DMSans-Bold.ttf'),
-        DMMedium: require ('../assets/fonts/DMSans-Medium.ttf'),
-        DMRegular: require ('../assets/fonts/DMSans-Regular.ttf'),
-    })
+  const [fontsLoaded] = useFonts({
+    DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
+    DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
+    DMRegular: require("../assets/fonts/DMSans-Regular.ttf"),
+  });
 
-    const onLayoutRootView = useCallback (async () => {
-        if (fontsLoaded) {
-            await SplashScreen.hideAsync();
-        }
-    }, [fontsLoaded])
-    
-    if (!fontsLoaded) return null;
+  if (!fontsLoaded) {
+    return null;
+  }
 
-    return <Stack onLayout = {onLayoutRootView}/>;
-}
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'search') {
+            iconName = focused ? 'search' : 'search-outline';
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        headerShown: false,
+        tabBarStyle: { backgroundColor: "#333333", display: "flex" },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'white',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <Tab.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null
+      }}
+      name="home" component={HomeStack} />
+      <Tab.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null
+      }}
+      name="search" component={SearchScreen} />
+    </Tab.Navigator>
+  );
+};
 
 export default Layout;

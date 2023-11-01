@@ -8,7 +8,7 @@ import { ScreenHeaderBtn, NearbyJobCard } from '../../components'
 import { COLORS, icons, SIZES } from '../../constants'
 import styles from '../../styles/search'
 
-const JobSearch = () => {
+const SearchDetails = () => {
     const params = useSearchParams();
     const router = useRouter()
 
@@ -26,7 +26,7 @@ const JobSearch = () => {
                 method: "GET",
                 url: `https://jsearch.p.rapidapi.com/search`,
                 headers: {
-                    "X-RapidAPI-Key": '236b7f4435msh6cd171f61e8ec17p14002fjsn501996df95b6',
+                    "X-RapidAPI-Key": '39c508f5b2msh38a3e7d0c419f60p107408jsn87b6686efd21',
                     "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
                 },
                 params: {
@@ -133,4 +133,4 @@ const JobSearch = () => {
     )
 }
 
-export default JobSearch
+export default SearchDetails;
