@@ -7,19 +7,21 @@ const Stack = createStackNavigator();
 
 const SearchScreen = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator>
       <Stack.Screen
       options={{
         headerShadowVisible: false,
         headerTitle: "",
-        href: null
+        href: null,
+        headerShown: false
       }}
+      
        name="search" component={SearchBar}/>
        <Stack.Screen
       options={{
         headerShadowVisible: false,
         headerTitle: "",
-        href: null
+        href: null,
       }}
        name="[id]" component={SearchDetails}/>
     </Stack.Navigator>

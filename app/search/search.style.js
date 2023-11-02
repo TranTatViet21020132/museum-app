@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: SIZES.medium,
+    backgroundColor: COLORS.gray3,
     height: "100%",
   },
   searchInput: {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   searchBtn: {
     width: 50,
     height: "100%",
-    backgroundColor: COLORS.tertiary,
+    backgroundColor: COLORS.gray,
     borderRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",

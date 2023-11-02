@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: SIZES.medium,
     borderRadius: SIZES.small,
-    backgroundColor: "#FFF",
-    ...SHADOWS.medium,
+    backgroundColor: "#333333",
+    ...SHADOWS.small,
     shadowColor: COLORS.white,
   },
   logoContainer: {

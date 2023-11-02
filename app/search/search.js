@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   Image,
@@ -24,7 +23,7 @@ const SearchBar = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <View style={styles.searchContainer}>
         <View style={styles.searchWrapper}>
           <TextInput

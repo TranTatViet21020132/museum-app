@@ -2,12 +2,12 @@ import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react
 import { useRouter } from 'expo-router';
 import { useState } from "react";
 
-import styles from './popularjobs.style'
+import styles from './popular.style'
 import { COLORS, SIZES } from '../../../constants';
-import PopularJobCard from '../../common/cards/popular/PopularJobCard'
+import PopularCard from '../../common/cards/popular/PopularCard'
 import useFetch from '../../../hook/useFetch';
 
-const Popularjobs = () => {
+const Popular = () => {
   const router = useRouter();
 
   const { data, isLoading, error } = useFetch('search', {
@@ -41,7 +41,7 @@ const Popularjobs = () => {
           <FlatList
             data={data}
             renderItem={({ item }) => (
-              <PopularJobCard
+              <PopularCard
                 item={item}
                 selectedJob={selectedJob}
                 handleCardPress={handleCardPress}
@@ -57,4 +57,4 @@ const Popularjobs = () => {
   )
 }
 
-export default Popularjobs;
+export default Popular;

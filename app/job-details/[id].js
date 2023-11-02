@@ -12,7 +12,6 @@ import {
 import {
   Company,
   JobAbout,
-  JobFooter,
   JobTabs,
   ScreenHeaderBtn,
   Specifics,
@@ -69,10 +68,10 @@ const JobDetails = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerStyle: { backgroundColor: COLORS.background },
           headerShadowVisible: false,
           headerBackVisible: false,
           headerLeft: () => (
@@ -83,7 +82,7 @@ const JobDetails = () => {
             />
           ),
           headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.share} dimension='60%' />
+            <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
           ),
           headerTitle: "",
         }}
@@ -119,8 +118,6 @@ const JobDetails = () => {
             </View>
           )}
         </ScrollView>
-
-        <JobFooter url={data[0]?.job_google_link ?? 'https://careers.google.com/jobs/results/'} />
       </>
     </SafeAreaView>
   );

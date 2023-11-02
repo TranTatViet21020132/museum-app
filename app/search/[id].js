@@ -4,7 +4,8 @@ import { Stack, useRouter, useSearchParams } from 'expo-router'
 import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
 
-import { ScreenHeaderBtn, NearbyJobCard } from '../../components'
+import NearbyCard from '../../components/common/cards/nearby/NearbyCard'
+import ScreenHeaderBtn from '../../components/common/header/ScreenHeaderBtn'
 import { COLORS, icons, SIZES } from '../../constants'
 import styles from '../../styles/search'
 
@@ -26,7 +27,7 @@ const SearchDetails = () => {
                 method: "GET",
                 url: `https://jsearch.p.rapidapi.com/search`,
                 headers: {
-                    "X-RapidAPI-Key": '39c508f5b2msh38a3e7d0c419f60p107408jsn87b6686efd21',
+                    "X-RapidAPI-Key": '401242bfccmsh9f954493f22afdbp14f0d9jsndaecd2b91d52',
                     "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
                 },
                 params: {
@@ -60,26 +61,26 @@ const SearchDetails = () => {
     }, [])
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: COLORS.lightWhite },
-                    headerShadowVisible: false,
-                    headerLeft: () => (
-                        <ScreenHeaderBtn
-                            iconUrl={icons.left}
-                            dimension='60%'
-                            handlePress={() => router.back()}
-                        />
-                    ),
-                    headerTitle: "",
+                headerStyle: { backgroundColor: COLORS.background },
+                headerShadowVisible: false,
+                headerBackVisible: false,
+                headerLeft: () => (
+                    <ScreenHeaderBtn
+                    iconUrl={icons.left}
+                    dimension='60%'
+                    handlePress={() => router.back()}
+                    />
+                ),
+                headerTitle: "",
                 }}
             />
-
             <FlatList
                 data={searchResult}
                 renderItem={({ item }) => (
-                    <NearbyJobCard
+                    <NearbyCard
                         job={item}
                         handleNavigate={() => router.push(`/job-details/${item.job_id}`)}
                     />
