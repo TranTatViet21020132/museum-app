@@ -22,7 +22,7 @@ const Home = () => {
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
           ),
-          headerTitle: "",
+          
         }}
       />
 
@@ -41,5 +41,7 @@ const Home = () => {
     </SafeAreaView>
   );
 };
+
+
 
 export default Home;
