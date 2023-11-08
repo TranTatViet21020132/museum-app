@@ -3,7 +3,7 @@ import { View, TextInput, Text, TouchableOpacity , StyleSheet} from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // import Button from "./login/Button"
-import { COLORS, Icons } from '../constants';
+import { COLORS, Icons } from '../../constants';
 
 const Button = () => {
     return (
@@ -26,7 +26,7 @@ const Button = () => {
     )
 }
 
-const user = () => {
+const User = () => {
 
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   return (
@@ -128,4 +128,4 @@ const user = () => {
 };
 
 
-export default user;
+export default User;

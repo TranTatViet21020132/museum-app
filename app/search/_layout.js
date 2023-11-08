@@ -23,7 +23,7 @@ const SearchScreen = () => {
         headerTitle: "",
         href: null,
       }}
-       name="[id]" component={SearchDetails}/>
+       name="search/[id]" component={SearchDetails}/>
     </Stack.Navigator>
   )
 }

@@ -1,13 +1,13 @@
 import { SafeAreaView, ScrollView, View } from "react-native";
 import { Stack } from "expo-router";
 
-import { COLORS, icons, images, SIZES } from "../constants";
+import { COLORS, icons, images, SIZES } from "../../constants";
 import {
   Nearby,
   Popular,
   ScreenHeaderBtn,
   Welcome,
-} from "../components";
+} from "../../components";
 
 const Home = () => {
   return (

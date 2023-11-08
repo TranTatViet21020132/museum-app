@@ -18,6 +18,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const handleClick = () => {
     if (searchTerm) {
+      console.log(searchTerm);
       router.push(`/search/${searchTerm}`)
     }
   }
