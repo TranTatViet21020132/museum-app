@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.gray2
     },
     paginationText: {
         fontFamily: FONT.bold,
         fontSize: SIZES.medium,
-        color: COLORS.primary
+        color: COLORS.gray3
     }
 });
 

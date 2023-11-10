@@ -5,7 +5,7 @@ import { COLORS, FONT, SIZES } from "../../../constants";
 const styles = StyleSheet.create({
   container: {
     marginTop: SIZES.large,
-    backgroundColor: "#FFF",
+    backgroundColor: COLORS.gray3,
     borderRadius: SIZES.medium,
     padding: SIZES.medium,
   },
@@ -13,6 +13,23 @@ const styles = StyleSheet.create({
     fontSize: SIZES.large,
     color: COLORS.primary,
     fontFamily: FONT.bold,
+  },
+  tabsContainer: {
+    flex: 1,
+    width: "100%",
+    marginTop: SIZES.xSmall,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  image: {
+    marginTop: SIZES.xSmall,
+    width: "100%",
+    height: 200,
+    marginBottom: SIZES.medium,
+  },
+  text: {
+    color: COLORS.lightWhite,
   },
   contentBox: {
     marginVertical: SIZES.small,

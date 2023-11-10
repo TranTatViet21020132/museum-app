@@ -11,7 +11,7 @@ import styles from '../../styles/search'
 
 const SearchDetails = () => {
     const params = useSearchParams();
-    const router = useRouter()
+    const router = useRouter();
 
     const [searchResult, setSearchResult] = useState([]);
     const [searchLoader, setSearchLoader] = useState(false);

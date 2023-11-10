@@ -5,9 +5,10 @@ import { COLORS, FONT, SIZES } from "../../../constants";
 const styles = StyleSheet.create({
   container: {
     marginTop: SIZES.large,
-    backgroundColor: "#FFF",
+    backgroundColor: COLORS.gray3,
     borderRadius: SIZES.medium,
     padding: SIZES.medium,
+    paddingBottom: 0
   },
   title: {
     fontSize: SIZES.large,
@@ -17,24 +18,12 @@ const styles = StyleSheet.create({
   pointsContainer: {
     marginVertical: SIZES.small,
   },
-  pointWrapper: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    marginVertical: SIZES.small / 1.25,
+  paragraph: {
+    width: "100%",
+    display: "flex",
   },
-  pointDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 6,
-    backgroundColor: COLORS.gray2,
-    marginTop: 6,
-  },
-  pointText: {
-    fontSize: SIZES.medium - 2,
-    color: COLORS.gray,
-    fontFamily: FONT.regular,
-    marginLeft: SIZES.small,
+  text: {
+    color: COLORS.lightWhite,
   },
 });
 

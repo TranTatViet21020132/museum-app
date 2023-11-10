@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import SearchScreen from '../search/_layout';
 import HomeScreen from '../main/home';
 import JobDetails from '../job-details/[id]';
+import ExhibitScreen from '../exhibits/_layout';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -18,7 +19,6 @@ const HomeStack = () => {
         headerShadowVisible: false,
         headerTitle: "",
         href: null,
-        headerShown: false
       }}
       
        name="home" component={HomeScreen}/>
@@ -27,7 +27,6 @@ const HomeStack = () => {
         headerShadowVisible: false,
         headerTitle: "",
         href: null,
-        headerShown: false
       }}
       
        name="job-details/[id]" component={JobDetails}/>
@@ -55,13 +54,13 @@ const Layout = () => {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'search') {
             iconName = focused ? 'search' : 'search-outline';
-          } else if (route.name === "user") {
-            iconName = focused ? "person" : "person-outline";
+          } else if (route.name === "exhibits") {
+            iconName = focused ? "copy" : "copy-outline";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        headerShown: false,
+        
         tabBarStyle: { backgroundColor: "#333333", display: "flex" },
       })}
       tabBarOptions={{
@@ -73,14 +72,24 @@ const Layout = () => {
       options={{
         headerShadowVisible: false,
         headerTitle: "",
-        href: null
+        href: null,
+        headerShown: false,
       }}
+      
       name="home" component={HomeStack} />
       <Tab.Screen
       options={{
         headerShadowVisible: false,
         headerTitle: "",
-        href: null
+        href: null,
+      }}
+      name="exhibits" component={ExhibitScreen} />
+      <Tab.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+        headerShown: false,
       }}
       name="search" component={SearchScreen} />
     </Tab.Navigator>

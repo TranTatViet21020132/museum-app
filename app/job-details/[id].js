@@ -73,7 +73,6 @@ const JobDetails = () => {
         options={{
           headerStyle: { backgroundColor: COLORS.background },
           headerShadowVisible: false,
-          headerBackVisible: false,
           headerLeft: () => (
             <ScreenHeaderBtn
               iconUrl={icons.left}
