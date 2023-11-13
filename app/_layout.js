@@ -1,13 +1,16 @@
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import MainScreen from '../app/main/_layout'
-import LoginScreen from '../app/user/_layout'
+import LoginScreen from './login/Login'
+import Log from "../app/login/log"
+import RegisterScreen from "../app/register/Register"
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <Stack.Navigator>
+      <Stack.Navigator>
       <Stack.Screen options={{
         headerShadowVisible: false,
         headerTitle: "",
@@ -19,7 +22,13 @@ const App = () => {
         headerTitle: "",
         href: null,
         headerShown: false
-      }} name="user" component={LoginScreen}/>
+      }} name="login" component={Log}/>
+      <Stack.Screen options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+        headerShown: false
+      }} name="register" component={RegisterScreen}/>
     </Stack.Navigator>
   );
 };

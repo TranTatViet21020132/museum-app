@@ -3,7 +3,6 @@ import { ActivityIndicator, FlatList, Image, TouchableOpacity, View } from 'reac
 import { Stack, useRouter, useSearchParams } from 'expo-router'
 import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
-
 import NearbyCard from '../../components/common/cards/nearby/NearbyCard'
 import ScreenHeaderBtn from '../../components/common/header/ScreenHeaderBtn'
 import { COLORS, icons, SIZES } from '../../constants'
@@ -22,17 +21,37 @@ const SearchDetails = () => {
         setSearchLoader(true);
         setSearchResult([])
 
+        // try {
+        //     const response = await axios.get('https://jsearch.p.rapidapi.com/search', {
+        //         headers: {
+        //             'X-RapidAPI-Key': 'fe9aad9640msh4dd0f7155173007p1e414fjsn27697d7b6eae',
+        //             "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
+        //         },
+        //         params: {
+        //           query: params.id,
+        //           page: 1,
+        //         },
+        //       });
+        //     setSearchResult(response.data.data);
+
+        // }  catch (error) {
+        //         setSearchError(error);
+        //         console.log(error);
+        //     } finally {
+        //         setSearchLoader(false);
+        //     }
         try {
             const options = {
                 method: "GET",
                 url: `https://jsearch.p.rapidapi.com/search`,
                 headers: {
-                    "X-RapidAPI-Key": 'd17a95158bmsh40ea7b04e08337ap18e2edjsnb661d5872c26',
+                    'X-RapidAPI-Key': 'fe9aad9640msh4dd0f7155173007p1e414fjsn27697d7b6eae',
                     "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
                 },
                 params: {
                     query: params.id,
-                    page: page.toString(),
+                    // page: page.toString(),
+                    page: 1,
                 },
             };
 

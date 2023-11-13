@@ -1,131 +1,140 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity , StyleSheet} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
-// import Button from "./login/Button"
-import { COLORS, Icons } from '../../constants';
+import React from 'react';
+import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 
-const Button = () => {
-    return (
-        <TouchableOpacity
-            style={{
-                width: "95%",
-                marginTop: 20,
-                paddingBottom: 16,
-                paddingVertical: 10,
-                borderColor: COLORS.background,
-                borderWidth: 2,
-                borderRadius: 12,
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
-            onPress={() => navigation.navigate("home")}
-        >
-            <Text>Login</Text>
-        </TouchableOpacity>
-    )
-}
-
-const User = () => {
-
-  const [isPasswordShow, setIsPasswordShow] = useState(false);
+const ProfileCard = ({name, gender, phone, imageUri}) => {
   return (
-    
-    <SafeAreaView>
-      <View style={{marginLeft: 15}}>
-        <View style={{ flex: 1, backgroundColor: COLORS.lightWhite, justifyContent:"center", alignContent:"center" }}>
-          <Text style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            marginVerical: 12,
-            marginLeft: "40%",
-            marginTop: 30,
-            color: COLORS.background,
-          }}>
-            Login</Text>
-        </View>
-
-        <View style={{ marginBottom: 12, marginTop: 20 }}>
-          <Text style={{
-              fontSize: 20,
-              fontWeight: 400,
-              marginVertical: 10,
-          }}>Email address</Text>
-
-          <View style={{
-              width: "95%",
-              height: 48,
-              borderColor: COLORS.background,
-              borderWidth: 1,
-              borderRadius: 8,
-              //alignItems: "center",
-              justifyContent: "center",
-              paddingLeft: 22
-          }}>
-              <TextInput
-                  placeholder='Enter your email address'
-                  placeholderTextColor={COLORS.background}
-                  keyboardType='email-address'
-                  style={{
-                      width: "95%",
-                      fontSize: 20,
-                      outlineColor: 'transparent'
-                  }}
-              />
+    <View style={styles.container}>
+      <View style={styles.body}>
+        <View style={styles.card}>
+          <View style={styles.imgPlaceholder}>
+            <Image
+              source={{
+                uri:
+                 imageUri
+              }}
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.gender}>{gender}</Text>
+            <Text style={styles.phoneNumber}>{phone}</Text>
           </View>
         </View>
-        <View style={{ marginBottom: 12 }}>
-          <Text style={{
-              fontSize: 20,
-              fontWeight: 400,
-              marginVertical: 8
-          }}>Password</Text>
-
-          <View style={{
-              width: "95%",
-              height: 48,
-              borderColor: COLORS.black,
-              borderWidth: 1,
-              borderRadius: 8,
-              // alignItems: "center",
-              justifyContent: "center",
-              paddingLeft: 22
-          }}>
-              <TextInput
-                  placeholder='Enter your password'
-                  placeholderTextColor={COLORS.background}
-                  secureTextEntry={!isPasswordShow}
-                  style={{
-                      width: "95%",
-                      fontSize: 20,
-                      outlineColor: 'transparent'
-                  }}
-              />
-              <TouchableOpacity
-                onPress={() => setIsPasswordShow(!isPasswordShow)}
-                style={{
-                  position: "absolute",
-                  bottom: 8,
-                  right: 12,
-                }}
-              >
-                {
-                    isPasswordShow == true 
-                  ? (<Ionicons name="eye" size={24} color={COLORS.background} />) 
-                  : (<Ionicons name="eye-off" size={24} color={COLORS.background} />)
-                }
-              </TouchableOpacity>
-              </View>
-          </View>
-        
-          <View style={{fontSize: 25}}>
-            <Button></Button>
-          </View>
-          
       </View>
-    </SafeAreaView>
-  )
+    </View>
+  );
 };
 
 
+
+
+function User() {
+  const handleLogout = () => {
+    navigation.navigate("../login");
+  }
+  const [profile,setProfile]=useState([])
+
+  const fetchProfile=()=>{
+   fetch("https://randomuser.me/api/?page=1&results=1&seed=abc")
+   .then(response=>{
+    return response.json()
+   })
+   .then(data=>{
+    setProfile(data.results)
+   })
+  }
+
+   useEffect(()=>{
+   fetchProfile()
+  //  console.log(profile)
+   },[])
+
+
+  return (
+  
+    <View style={styless.container}>
+     
+      {profile.map((user)=>( 
+         <ProfileCard
+        name={`${user.name.title} ${user.name.first} ${user.name.last}`}
+        gender={user.gender}
+        phoneNumber={user.phone}
+        imageUri={user.picture.large}
+      />
+      ))}
+      {/* <Button onPress={handleLogout} title='Log out'></Button> */}
+      <TouchableOpacity style={{display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "#FF5A2D",
+                                padding: 10,
+                                width: "100%",
+                                marginTop: 10,
+                                backgroundColor:"#e58a2e",
+                                }}
+                        onPress={handleLogout}>
+          <Text style={{color: "white", fontSize: 20, fontWeight: "bold",}}>Log out</Text>
+        </TouchableOpacity>
+    </View>
+  );
+}
+
+const styless = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#BCD4E6',
+  },
+  body: {
+    padding: 25,
+  },
+  card: {
+    width: 370,
+    borderWidth: 1,
+    borderColor: '#eee',
+    borderRadius: 15,
+    padding: 20,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    elevation: 5,
+  },
+  imgPlaceholder: {
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: 12,
+    elevation: 5,
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+  details: {
+    marginLeft: 20,
+  },
+  name: {
+    fontWeight: '600',
+  },
+  gender: {
+    fontWeight: '600',
+    marginTop: 10,
+    color: '#888',
+  },
+  phoneNumber: {
+    color: 'blue',
+    marginTop: 6,
+  },
+});
 export default User;
