@@ -7,6 +7,7 @@ import SearchScreen from '../search/_layout';
 import HomeScreen from '../main/home';
 import JobDetails from '../job-details/[id]';
 import ExhibitScreen from '../exhibits/_layout';
+import User from '../user/_layout';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -56,6 +57,8 @@ const Layout = () => {
             iconName = focused ? 'search' : 'search-outline';
           } else if (route.name === "exhibits") {
             iconName = focused ? "copy" : "copy-outline";
+          }else if (route.name === "user") {
+            iconName = focused ? "person" : "person-outline";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -92,6 +95,14 @@ const Layout = () => {
         headerShown: false,
       }}
       name="search" component={SearchScreen} />
+      <Tab.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+        headerShown: false,
+      }}
+      name="user" component={User} />
     </Tab.Navigator>
   );
 };
