@@ -1,44 +1,31 @@
-import { SafeAreaView, ScrollView, View } from "react-native";
-import { Stack } from "expo-router";
+import 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
+import ExhibitMain from './home';
+import ExhibitLinks from './[id]';
 
-import { COLORS, icons, images, SIZES } from "../../constants";
-import {
-  ScreenHeaderBtn
-} from "../../components";
+const Stack = createStackNavigator();
 
-import ExhibitWelcome from '../../components/exhibits/exhibits-welcome/ExhibitWelcome'
-
-const Exhibit = () => {
+const ExhibitScreen = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <Stack.Navigator>
       <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.background },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
-          ),
-          
-        }}
-      />
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+      }}
+      
+       name="trung-bay-thuong-xuyen-p1" component={ExhibitMain}/>
+       <Stack.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+        
+      }}
+       name="[id]" component={ExhibitLinks}/>
+    </Stack.Navigator>
+  )
+}
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            flex: 1,
-            padding: SIZES.medium,
-          }}
-        >
-          <ExhibitWelcome />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-
-
-export default Exhibit;
+export default ExhibitScreen;

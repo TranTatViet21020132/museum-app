@@ -1,12 +1,7 @@
 import {
   View,
   Text,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  ActivityIndicator,
-  RefreshControl,
-  SafeAreaView
+  Image
 } from "react-native";
 
 import styles from "./about.style";
@@ -16,7 +11,7 @@ const About = ({ info }) => {
     <View style={styles.container}>
       <Text style={styles.headText}>Images:</Text>
 
-      {info.map((img, index) => (
+      {info?.map((img, index) => (
         <View style={styles.tabsContainer} key={index}>
           <Image
             source={{ uri: img.image }}

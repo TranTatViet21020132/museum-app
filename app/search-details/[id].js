@@ -9,15 +9,40 @@ import {
   JobAbout,
   JobTabs,
   Specifics,
-} from "../../../components";
+  ScreenHeaderBtn
+} from "../../components";
+import { Stack } from "expo-router";
+import SearchSpecifics from "../../components/details/specifics/SearchSpecifics";
+import { useRouter, useSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { COLORS, icons, images, SIZES } from "../../../constants";
-import styles from "./exhibitwelcome.style";
+import { COLORS, icons, SIZES } from "../../constants";
+import styles from "./id.style";
 import axios from "axios";
 
 const tabs = ["Contents", "Images", "Related Articles"];
 
-const ExhibitWelcome = () => {
+const SearchLinks = () => {
+  const params = useSearchParams();
+  const router = useRouter();
+  const [titleParamStack, setTitleParamStack] = useState([]);
+
+  useEffect(() => {
+    if (params.id) {
+      setTitleParamStack((prevStack) => [...prevStack, params.id]);
+    }
+  }, [params.id]);
+
+  const handleBack = () => {
+    titleParamStack.pop();
+    if (titleParamStack.length != 0) {
+      const prevTitleParam = titleParamStack.pop();
+      router.push(`search-details/${prevTitleParam}`);
+    } else {
+      router.back();
+    }
+  };
+  
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,7 +50,7 @@ const ExhibitWelcome = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://192.168.1.128:5000/gallery/trung-bay-thuong-xuyen-p1");
+      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -37,7 +62,7 @@ const ExhibitWelcome = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [params.id]);
 
   const refetch = () => {
     setIsLoading(true);
@@ -100,7 +125,7 @@ const ExhibitWelcome = () => {
             <ActivityIndicator size='large' color={COLORS.primary} />
           ) : error ? (
             <Text>Something went wrong</Text>
-          ) : <Specifics
+          ) : <SearchSpecifics
             title='Related Articles'
             points={error ? ["N/A"] : data?.navigator }
             />
@@ -115,23 +140,50 @@ const ExhibitWelcome = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-      <View style={styles.container}>
-      <Text style={styles.title}>{data.title}</Text>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}>
-        
-        <View style={{ padding: SIZES.medium }}>
-            <JobTabs
-              tabs={tabs}
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: COLORS.background },
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.left}
+              dimension='60%'
+              handlePress={() => handleBack()}
             />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
+          ),
+          headerTitle: "",
+        }}
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            flex: 1,
+            padding: SIZES.medium,
+          }}
+        >
+          <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+            <View style={styles.container}>
+              {data && data.title && <Text style={styles.title}>{data.title}</Text>}
+              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}> 
+                <View style={{ padding: SIZES.medium }}>
+                  <JobTabs
+                    tabs={tabs}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                  />
 
-            {displayTabContent()}
-          </View>
+                  {displayTabContent()}
+                </View>
+              </ScrollView>
+            </View>
+          </SafeAreaView>
+        </View>
       </ScrollView>
-      </View>
     </SafeAreaView>
   );
 };
 
-export default ExhibitWelcome;
+export default SearchLinks;

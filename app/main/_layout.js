@@ -5,7 +5,7 @@ import { useFonts } from "expo-font";
 import { Ionicons } from '@expo/vector-icons';
 import SearchScreen from '../search/_layout';
 import HomeScreen from '../main/home';
-import JobDetails from '../job-details/[id]';
+
 import ExhibitScreen from '../exhibits/_layout';
 import User from '../user/_layout';
 
@@ -23,14 +23,7 @@ const HomeStack = () => {
       }}
       
        name="home" component={HomeScreen}/>
-      <Stack.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-      }}
       
-       name="job-details/[id]" component={JobDetails}/>
     </Stack.Navigator>
   );
 };
@@ -60,7 +53,6 @@ const Layout = () => {
           }else if (route.name === "user") {
             iconName = focused ? "person" : "person-outline";
           }
-
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         
@@ -85,6 +77,7 @@ const Layout = () => {
         headerShadowVisible: false,
         headerTitle: "",
         href: null,
+        headerShown: false,
       }}
       name="exhibits" component={ExhibitScreen} />
       <Tab.Screen

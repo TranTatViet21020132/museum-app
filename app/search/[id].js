@@ -9,56 +9,45 @@ import ScreenHeaderBtn from '../../components/common/header/ScreenHeaderBtn'
 import { COLORS, icons, SIZES } from '../../constants'
 import styles from '../../styles/search'
 
-const SearchDetails = () => {
+const SearchList = () => {
     const params = useSearchParams();
     const router = useRouter();
-
+  
     const [searchResult, setSearchResult] = useState([]);
     const [searchLoader, setSearchLoader] = useState(false);
     const [searchError, setSearchError] = useState(null);
     const [page, setPage] = useState(1);
-
+  
     const handleSearch = async () => {
-        setSearchLoader(true);
-        setSearchResult([])
-
-        try {
-            const options = {
-                method: "GET",
-                url: `https://jsearch.p.rapidapi.com/search`,
-                headers: {
-                    "X-RapidAPI-Key": 'd17a95158bmsh40ea7b04e08337ap18e2edjsnb661d5872c26',
-                    "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
-                },
-                params: {
-                    query: params.id,
-                    page: page.toString(),
-                },
-            };
-
-            const response = await axios.request(options);
-            setSearchResult(response.data.data);
-        } catch (error) {
-            setSearchError(error);
-            console.log(error);
-        } finally {
-            setSearchLoader(false);
-        }
+      setSearchLoader(true);
+      setSearchResult([]);
+  
+      try {
+        const response = await axios.post('http://192.168.1.128:5000/gallery/search/', {
+          query: params.id, // Assuming params.id is the query parameter
+        });
+  
+        setSearchResult(response.data); // Set the search results from the API response
+      } catch (error) {
+        setSearchError('Oops, something went wrong'); // Handle error appropriately
+      } finally {
+        setSearchLoader(false);
+      }
     };
-
+  
     const handlePagination = (direction) => {
-        if (direction === 'left' && page > 1) {
-            setPage(page - 1)
-            handleSearch()
-        } else if (direction === 'right') {
-            setPage(page + 1)
-            handleSearch()
-        }
-    }
-
+      if (direction === 'left' && page > 1) {
+        setPage(page - 1);
+        handleSearch();
+      } else if (direction === 'right') {
+        setPage(page + 1);
+        handleSearch();
+      }
+    };
+  
     useEffect(() => {
-        handleSearch()
-    }, [])
+      handleSearch();
+    }, [page]);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
@@ -82,16 +71,15 @@ const SearchDetails = () => {
                 renderItem={({ item }) => (
                     <NearbyCard
                         job={item}
-                        handleNavigate={() => router.push(`/job-details/${item.job_id}`)}
+                        handleNavigate={() => router.push(`/search-details/${item.titleParam}`)}
                     />
                 )}
-                keyExtractor={(item) => item.job_id}
+                keyExtractor={(item) => item.titleParam}
                 contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
                 ListHeaderComponent={() => (
                     <>
                         <View style={styles.container}>
-                            <Text style={styles.searchTitle}>{params.id}</Text>
-                            <Text style={styles.noOfSearchedJobs}>Job Opportunities</Text>
+                            <Text style={styles.searchTitle}>Searching results for: {params.id}</Text>
                         </View>
                         <View style={styles.loaderContainer}>
                             {searchLoader ? (
@@ -134,4 +122,4 @@ const SearchDetails = () => {
     )
 }
 
-export default SearchDetails;
+export default SearchList;

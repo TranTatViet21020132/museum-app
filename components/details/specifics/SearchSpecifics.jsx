@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useRouter } from 'expo-router';
 
 import styles from "./specifics.style";
-import ExhibitCard from '../../common/cards/exhibits/ExhibitCard'
+import SearchCard from '../../common/cards/search/SearchCard'
 
-const Specifics = ({ title, points }) => {
+const SearchSpecifics = ({ title, points }) => {
   const router = useRouter();
   
   const [selectedExhibit, setSelectedExhibit] = useState();
 
   const handleCardPress = (item) => {
-    router.push(`/exhibits/${item.titleParam}`);
+    router.push(`/search/search-details/${item.titleParam}`);
     setSelectedExhibit(item.titleParam);
     console.log("working");
   };
@@ -32,8 +32,8 @@ const Specifics = ({ title, points }) => {
         <View style={styles.container}>
           <Text style={styles.title}>{title}:</Text>
           <View style = {{display: "flex", flexDirection: "row", flex: 1, flexWrap: "wrap", gap: 5, marginTop: 10, paddingBottom: 30 }}>
-            {points.map((exhibit, index) => (
-              <ExhibitCard
+            {points?.map((exhibit, index) => (
+              <SearchCard
               key = {index}
               item = {exhibit}
               selectedExhibit = {selectedExhibit}
@@ -48,4 +48,4 @@ const Specifics = ({ title, points }) => {
   );
 };
 
-export default Specifics;
+export default SearchSpecifics;
