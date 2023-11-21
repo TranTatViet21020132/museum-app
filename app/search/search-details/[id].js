@@ -10,14 +10,15 @@ import {
   JobTabs,
   Specifics,
   ScreenHeaderBtn
-} from "../../components";
+} from "../../../components";
 import { Stack } from "expo-router";
-import SearchSpecifics from "../../components/details/specifics/SearchSpecifics";
+import SearchSpecifics from "../../../components/details/specifics/SearchSpecifics";
 import { useRouter, useSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { COLORS, icons, SIZES } from "../../constants";
+import { COLORS, icons, SIZES } from "../../../constants";
 import styles from "./id.style";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 const tabs = ["Contents", "Images", "Related Articles"];
 
@@ -42,7 +43,6 @@ const SearchLinks = () => {
     }
   };
   
-
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -64,10 +64,17 @@ const SearchLinks = () => {
     fetchData();
   }, [params.id]);
 
-  const refetch = () => {
+  const refetch = async () => {
     setIsLoading(true);
     fetchData();
   };
+
+  useFocusEffect(() => {
+    if (router && router.params && router.params.refetch) {
+      refetch();
+      router.params.refetch = false; // reset refetch flag
+    }
+  });
 
   const paragraphs = data?.paragraph?.map((item, index, array) => {
     const newText = (item.text.startsWith('-') || /^\d/.test(item.text))

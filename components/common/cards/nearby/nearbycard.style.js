@@ -1,46 +1,48 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, SHADOWS, SIZES } from "../../../../constants";
+import { COLORS, FONT, SHADOWS, SIZES } from "../../../../constants";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: SIZES.medium,
-    borderRadius: SIZES.small,
-    backgroundColor: "#333333",
-    ...SHADOWS.small,
-    shadowColor: COLORS.white,
-  },
-  logoContainer: {
-    width: 50,
-    height: 50,
-    backgroundColor: COLORS.white,
+  container: (selectedExhibit, item) => ({
+    width: 135,
+    margin: 10,
+    backgroundColor: selectedExhibit === item.titleParam ? COLORS.gray : "#333333",
     borderRadius: SIZES.medium,
+    justifyContent: "space-between",
+    ...SHADOWS.medium,
+    shadowColor: COLORS.white,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "left"
+  }),
+  logoContainer: (selectedExhibit, item) => ({
+    width: 135,
+    height: 135,
+    backgroundColor: selectedExhibit === item.titleParam ? "#FFF" : COLORS.white,
+    borderTopLeftRadius: SIZES.medium,
+    borderTopRightRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
+  }),
+  logoImage: {
+    width: "100%",
+    height: "100%",
   },
-  logImage: {
-    width: "70%",
-    height: "70%",
+  infoContainer: {
+    marginTop: SIZES.xSmall,
+    marginLeft: SIZES.xSmall,
+    paddingBottom: SIZES.small
   },
-  textContainer: {
-    flex: 1,
-    marginHorizontal: SIZES.medium,
-  },
-  jobName: {
+  title: (selectedExhibit, item) => ({
     fontSize: SIZES.medium,
-    fontFamily: "DMBold",
-    color: COLORS.primary,
-  },
-  jobType: {
-    fontSize: SIZES.small + 2,
-    fontFamily: "DMRegular",
-    color: COLORS.gray,
-    marginTop: 3,
-    textTransform: "capitalize",
+    fontFamily: FONT.medium,
+    color: selectedExhibit === item.titleParam ? COLORS.white : COLORS.primary,
+    marginBottom: SIZES.xSmall
+  }),
+  viewed: {
+    fontSize: SIZES.medium - 3,
+    fontFamily: FONT.regular,
+    color: "#B3AEC6",
   },
 });
 

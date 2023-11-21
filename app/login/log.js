@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { COLORS, Icons } from '../../constants';
 import axios from 'axios';
 
-function log() {
+function Log() {
     const [ agree, setAgree] = useState(false);
     const [warning, setWarning] = useState(false);
     const [email, setemail] = useState("");
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
         textAlign: "center",
     }
 })
-export default log
+export default Log

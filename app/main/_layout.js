@@ -22,7 +22,7 @@ const HomeStack = () => {
         href: null,
       }}
       
-       name="home" component={HomeScreen}/>
+       name="home-screen" component={HomeScreen}/>
       
     </Stack.Navigator>
   );
@@ -55,13 +55,13 @@ const Layout = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        
-        tabBarStyle: { backgroundColor: "#333333", display: "flex" },
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: [
+          { backgroundColor: "#333333", display: "flex" },
+          null
+        ]
       })}
-      tabBarOptions={{
-        activeTintColor: 'white',
-        inactiveTintColor: 'gray',
-      }}
     >
       <Tab.Screen
       options={{

@@ -1,35 +1,33 @@
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import ExhibitMain from './home';
-import ExhibitStack from './exhibit/_layout';
+import ExhibitLinks from './[id]';
+
+import AudioPlayerScreen from './audio/[id]'; // Import the AudioPlayerScreen component
 
 const Stack = createStackNavigator();
 
-const ExhibitScreen = () => {
+const ExhibitStack = () => {
   return (
-    <Stack.Navigator initialRouteName='trung-bay-thuong-xuyen-p1'>
+    <Stack.Navigator>
       <Stack.Screen
         options={{
           headerShadowVisible: false,
           headerTitle: "",
 
         }}
-        name="trung-bay-thuong-xuyen-p1"
-        component={ExhibitMain}
+        name="[id]"
+        component={ExhibitLinks}
       />
       <Stack.Screen
         options={{
           headerShadowVisible: false,
           headerTitle: "",
-
-          headerShown: false,
         }}
-        name="exhibit"
-        
-        component={ExhibitStack}
+        name="audio/[id]"
+        component={AudioPlayerScreen}
       />
     </Stack.Navigator>
   );
 };
 
-export default ExhibitScreen;
+export default ExhibitStack;
