@@ -1,4 +1,3 @@
-// AudioPlayerScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, Image } from 'react-native';
 import { Audio } from 'expo-av';
@@ -7,9 +6,10 @@ import { useRouter, useSearchParams } from "expo-router";
 import {
   ScreenHeaderBtn
 } from "../../../../components";
-import { COLORS, icons, SIZES } from "../../../../constants";
+import { COLORS, icons } from "../../../../constants";
 import Slider from '@react-native-community/slider';
 import axios from "axios";
+import styles from './id.style';
 
 const AudioPlayerScreen = () => {
   const params = useSearchParams();
@@ -56,7 +56,7 @@ const AudioPlayerScreen = () => {
     }
 
     const { sound: newSound, status } = await Audio.Sound.createAsync(
-      { uri: data?.speech }, // Use the online link from the data
+      { uri: data.speech }, // Use the online link from the data
       { shouldPlay: true, positionMillis: lastPosition, progressUpdateIntervalMillis: 500 } // Use the last position if available
     );
 
@@ -71,7 +71,7 @@ const AudioPlayerScreen = () => {
     setDuration(status.durationMillis || 0); // Set duration when loading sound with default value 0
     setIsPlaying(true);
   };
-
+  
   const onSeekBarValueChange = (value) => {
     setPosition(value);
   };
@@ -114,7 +114,7 @@ const AudioPlayerScreen = () => {
   }, [sound]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <SafeAreaView style={styles.container}>
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: COLORS.background },
@@ -132,30 +132,19 @@ const AudioPlayerScreen = () => {
           headerTitle: "",
         }}
       />
-      <View style={{ flex: 1, alignItems: "center" }}>
-        <Text style={{ marginTop: SIZES.medium, color: COLORS.lightWhite, fontSize: SIZES.large }}>
-          {data.title}
+      <View style={styles.audioContainer}>
+        <Text style={styles.audioTitle}>
+          {data?.title}
         </Text>
-        <TouchableOpacity style={{ 
-          width: 135,
-          height: 135,
-          backgroundColor: COLORS.lightWhite,
-          borderRadius: SIZES.small,
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: SIZES.medium
-        }}>
+        <View style={styles.thumbnailContainer}>
           <Image
-            source={{ uri: data.thumbnail }}
-            style={{
-              width: "100%",
-              height: "100%"
-            }}
+            source={{ uri: data?.thumbnail }}
+            style={styles.thumbnail}
             resizeMode="contain"
           /> 
-        </TouchableOpacity>
+        </View>
         <Slider
-          style={{ width: '80%'}}
+          style={styles.seekBar}
           minimumValue={0}
           maximumValue={duration}
           value={position}
@@ -165,24 +154,42 @@ const AudioPlayerScreen = () => {
           maximumTrackTintColor={COLORS.gray}
           thumbTintColor={COLORS.primary}
         />
-        <View>
-          {isPlaying ? 
-            <ScreenHeaderBtn
-              iconUrl={icons.pause}
-              dimension='60%'
-              handlePress={() => togglePlayPause()}
-              />
-              : 
-            <ScreenHeaderBtn
-              iconUrl={icons.play}
-              dimension='60%'
-              handlePress={() => togglePlayPause()}
+        <View style={styles.playbacks}>
+          <TouchableOpacity style={styles.timerControl}>
+            <Image
+              source={icons.replay}
+              resizeMode='cover'
+              style={styles.btnImg}
             />
-          }
+          </TouchableOpacity>
+          <View>
+            {isPlaying ?
+              <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
+                <Image
+                source={icons.pause}
+                resizeMode='cover'
+                style={styles.btnImg}
+                />
+              </TouchableOpacity>
+                : 
+              <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
+                <Image
+                source={icons.play}
+                resizeMode='cover'
+                style={styles.btnImg}
+                />
+              </TouchableOpacity>
+            }
+          </View>
+          <TouchableOpacity style={styles.timerControl}>
+            <Image
+              source={icons.forward}
+              resizeMode='cover'
+              style={styles.btnImg}
+            />
+          </TouchableOpacity>
         </View>
-          
       </View>
-
     </SafeAreaView>
   );
 };

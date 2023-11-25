@@ -24,10 +24,6 @@ const useFetch = (endpoint) => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const refetch = () => {
     setIsLoading(true);
     fetchData();

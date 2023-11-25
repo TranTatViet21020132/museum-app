@@ -20,10 +20,10 @@ const HomeStack = () => {
         headerShadowVisible: false,
         headerTitle: "",
         href: null,
+        unmountOnBlur: true,
       }}
       
        name="home-screen" component={HomeScreen}/>
-      
     </Stack.Navigator>
   );
 };
@@ -55,6 +55,7 @@ const Layout = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: [

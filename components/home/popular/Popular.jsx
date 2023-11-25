@@ -15,7 +15,7 @@ const Popular = () => {
   const [selectedExhibit, setSelectedExhibit] = useState();
 
   const handleCardPress = (item) => {
-    router.push(`/exhibits/exhibit/${item.titleParam}`);
+    router.replace(`/exhibits/exhibit/${item.titleParam}`);
     console.log(item.titleParam);
     setSelectedExhibit(item.titleParam);
   };

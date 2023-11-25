@@ -7,12 +7,12 @@ const Stack = createStackNavigator();
 
 const ExhibitScreen = () => {
   return (
-    <Stack.Navigator initialRouteName='trung-bay-thuong-xuyen-p1'>
+    <Stack.Navigator>
       <Stack.Screen
         options={{
           headerShadowVisible: false,
           headerTitle: "",
-
+          
         }}
         name="trung-bay-thuong-xuyen-p1"
         component={ExhibitMain}

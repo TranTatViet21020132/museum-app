@@ -40,7 +40,7 @@ const ExhibitLinks = () => {
       console.log(prevTitleParam);
       router.push(`exhibits/exhibit/${prevTitleParam}`);
     } else {
-      router.back();
+      router.push(`exhibits/exhibit/trung-bay-thuong-xuyen-p1`);
     }
   };
   
@@ -152,6 +152,22 @@ const ExhibitLinks = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+      {params.id === "trung-bay-thuong-xuyen-p1" 
+      ? 
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: COLORS.background },
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
+          ),
+          
+        }}
+      />
+      :
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: COLORS.background },
@@ -177,6 +193,8 @@ const ExhibitLinks = () => {
           headerTitle: "",
         }}
       />
+      }
+      
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{

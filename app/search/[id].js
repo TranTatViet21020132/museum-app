@@ -4,7 +4,7 @@ import { Stack, useRouter, useSearchParams } from 'expo-router'
 import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
 
-import NearbyCard from '../../components/common/cards/nearby/NearbyCard'
+import SearchListCard from '../../components/common/cards/search/SearchListCard'
 import ScreenHeaderBtn from '../../components/common/header/ScreenHeaderBtn'
 import { COLORS, icons, SIZES } from '../../constants'
 import styles from '../../styles/search'
@@ -69,9 +69,9 @@ const SearchList = () => {
             <FlatList
                 data={searchResult}
                 renderItem={({ item }) => (
-                    <NearbyCard
-                        job={item}
-                        handleNavigate={() => router.push(`/search-details/${item.titleParam}`)}
+                    <SearchListCard
+                        item={item}
+                        handleNavigate={() => router.push(`search/search-details/${item.titleParam}`)}
                     />
                 )}
                 keyExtractor={(item) => item.titleParam}
