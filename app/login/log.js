@@ -1,99 +1,111 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, AsyncStorage, Alert } from 'react-native'
+// import { useNavigation } from '@react-navigation/native';
+
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, Dimensions } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, Icons } from '../../constants';
 import axios from 'axios';
+import { Redirect } from 'expo-router';
 
-function log() {
-    const [ agree, setAgree] = useState(false);
+const widthWindow = Dimensions.get("window").width * 0.9;
+function log({ navigation }) {
+    // const navigation = useNavigation();
+
+    const [agree, setAgree] = useState(false);
     const [warning, setWarning] = useState(false);
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
 
     const [isPasswordShow, setIsPasswordShow] = useState(false);
 
+
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/login', {
+            const response = await axios.post('http://192.168.1.6:5000/login', {
                 email,
                 password,
-              });
-            
-              if (email === "" || password === "") {
+            });
+
+            if (email === "" || password === "") {
                 setWarning(true)
                 setAgree(false);
-              } else if(response.data === "0") {
+            } else if (response.data === "0") {
                 setWarning(true);
                 setAgree(false)
                 console.log("Failed")
-              } else {
+            } else {
+                await AsyncStorage.setItem("user-id", response.data._id);
                 setWarning(false);
                 setAgree(true)
-                navigation.navigate("main/home")
-              }
+                navigation.navigate("main")
+                setLogin(true);
+            }
         } catch (error) {
             console.error('An error occurred during login:', error);
         }
     }
+
     const handleRegister = () => {
         navigation.navigate('../register')
     }
-  return (
-    <View style={styles.mainContainer}>
-        <Text style={styles.mainHeader}>Login Form</Text>
-        <Text style={styles.para}>Login and discover museum</Text>
+    return (
+        <View style={styles.mainContainer}>
+            <Text style={styles.mainHeader}>Login Form</Text>
+            <Text style={styles.para}>Login and discover museum</Text>
 
-        <View style={{marginBottom: 10}}>
-            <Text style={{color: "red", fontSize: 16}}>{warning ? "Wrong email or password" : ""}</Text>
-        </View>
-        <View>
-            <TextInput style={styles.lableInput} value={email}
-            onChangeText={(emailData) => {
-                setemail(emailData);
-            }} autoCapitalize='none' autoCorrect={false}
-            placeholder='Enter your email' 
-            placeholderTextColor='#7d7d7d' />
-        </View>
-        <View>
-            <TextInput style={styles.lableInput} value={password}
-            onChangeText={(passwordData) => {
-                setPassword(passwordData);
-            }} autoCapitalize='none' secureTextEntry={!isPasswordShow}
-            placeholder='Enter your password' 
-            placeholderTextColor='#7d7d7d' />
+            <View style={{ marginBottom: 10 }}>
+                <Text style={{ color: "red", fontSize: 16 }}>{warning ? "Wrong email or password" : ""}</Text>
+            </View>
+            <View>
+                <TextInput style={styles.lableInput} value={email}
+                    onChangeText={(emailData) => {
+                        setemail(emailData);
+                    }} autoCapitalize='none' autoCorrect={false}
+                    placeholder='Enter your email'
+                    placeholderTextColor='#7d7d7d' />
+            </View>
+            <View>
+                <TextInput style={styles.lableInput} value={password}
+                    onChangeText={(passwordData) => {
+                        setPassword(passwordData);
+                    }} autoCapitalize='none' secureTextEntry={!isPasswordShow}
+                    placeholder='Enter your password'
+                    placeholderTextColor='#7d7d7d' />
 
-            <TouchableOpacity
-                onPress={() => setIsPasswordShow(!isPasswordShow)}
-                style={{
-                  position: "absolute",
-                  bottom: 30,
-                  right: 15,
-                }}
-              >
-                {
-                    isPasswordShow == true 
-                  ? (<Ionicons name="eye" size={24} color={COLORS.background} />) 
-                  : (<Ionicons name="eye-off" size={24} color={COLORS.background} />)
-                }
-              </TouchableOpacity>
-        </View>
+                <TouchableOpacity
+                    onPress={() => setIsPasswordShow(!isPasswordShow)}
+                    style={{
+                        position: "absolute",
+                        bottom: 34,
+                        right: 15,
+                    }}
+                >
+                    {
+                        isPasswordShow == true
+                            ? (<Ionicons name="eye" size={24} color={COLORS.background} />)
+                            : (<Ionicons name="eye-off" size={24} color={COLORS.background} />)
+                    }
+                </TouchableOpacity>
+            </View>
 
-        <TouchableOpacity style={[styles.buttonStyle, {backgroundColor:"#e58a2e"}]} disabled={agree} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        
-        <Text style={styles.forgotStyle} onPress={handleRegister}>
-            <Text style={{color:"gray", fontSize:17}}>Don't have an account?</Text>
-            Sign Up
-        </Text>
-    </View>
+            <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} disabled={agree} onPress={handleLogin}>
+                <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.forgotStyle} onPress={handleRegister}>
+                <Text style={{ color: "gray", fontSize: 17 }}>Don't have an account?</Text>
+                Sign Up
+            </Text>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     mainContainer: {
+        marginTop: 50,
         height: "100%",
-        paddingHorizontal: 30,
+        paddingHorizontal: 15,
         paddingTop: 40,
     },
     mainHeader: {
@@ -107,7 +119,7 @@ const styles = StyleSheet.create({
     },
     para: {
         fontSize: 20,
-        color: "#7d7d7d",
+        color: "black",
         paddingBottom: 30,
         lineHeight: 25,
     },
@@ -116,7 +128,7 @@ const styles = StyleSheet.create({
         borderColor: "gray",
         backgroundColor: "#EEEDF1",
         borderRadius: 10,
-        width: 350,
+        width: widthWindow,
         height: 55,
         marginBottom: 20,
         paddingLeft: 20,
@@ -143,7 +155,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF5A2D",
         padding: 10,
         borderRadius: 10,
-        width: 350,
+        width: widthWindow,
         marginTop: 10,
     },
     buttonText: {

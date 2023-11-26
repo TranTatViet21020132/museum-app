@@ -1,151 +1,151 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity } from 'react-native';
-import { useEffect, useState } from 'react';
+// import React from 'react';
+// import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+// import { useEffect, useState } from 'react';
+// import {Ionicons} from "@expo/vector-icons"
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import axios from 'axios';
 
+// const handleLogout = async () => {
+//   await AsyncStorage.removeItem("user-id");
+//   navigation.navigate("../login");
+// }
 
-const ProfileCard = ({ name, gender, phoneNumber,imageUri }) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.body}>
-        <View style={styles.card}>
-          <View style={styles.imgPlaceholder}>
-            <Image
-              source={{
-                uri:
-                 imageUri
-              }}
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.details}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.gender}>{gender}</Text>
-            <Text style={styles.phoneNumber}>{phoneNumber}</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
-};
-
-const handleLogout = () => {
-  navigation.navigate("../login");
-}
-
-export default function User() {
-  const [list, setList] = useState([])
-  const [profile,setProfile]=useState([])
-
-  const fetchProfile=()=>{
-   fetch("https://randomuser.me/api/?page=1&results=1&seed=abc")
-   .then(response=>{
-    return response.json()
-   })
-   .then(data=>{
-    setProfile(data.results)
-    // setList(data)
-   })
-  }
-
-   useEffect(()=>{
-   fetchProfile()
-   },[])
-
-
-  return (
+// export default function User() {
+//   const [list, setList] = useState([])
+//   const [profile,setProfile]=useState([])
+//   const [userID, setUserID] = useState(null);
   
-    <SafeAreaView>
-      {/* <View>
-        <Text>User</Text>
-      </View> */}
-      <View style={styless.container}>
-     
-        {profile.map((user)=>( 
-            <ProfileCard
-          name={`${user.name.title} ${user.name.first} ${user.name.last}`}
-          gender={user.gender}
-          phoneNumber={user.phone}
-          imageUri={user.picture.large}
-        />
-        ))}
-     
-      </View>
-
-      <TouchableOpacity style={{display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "#FF5A2D",
-                                padding: 10,
-                                borderRadius: 10,
-                                width: "100%",
-                                marginTop: 10,
-                                backgroundColor:"#e58a2e"}} onPress={handleLogout}>
-            <Text style={{color: "white",
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        }}>
-                          Log out</Text>
-        </TouchableOpacity>
-    </SafeAreaView>
+//   // getUser();
+//   const fetchProfile= async ()=>{
+//     const getUser = async () => {
+//       const user = await AsyncStorage.getItem("user-id");
+//       setUserID(user);
+//       // console.log(user);
+//     }
+//     getUser();
     
-  );
+//     fetch("http://localhost:5000/user/" + userID)
+//       .then(response => response.json()
+//       .then(data => {
+//         // console.log(data);
+//         setProfile(data);
+        
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       }))
+//       // const response = await axios.get("http://localhost:5000/user/" + userID)
+//       // console.log(response.data);
+//       // setProfile(response.data);
+    
+    
+//     // const pro = JSON.parse(response.data);
+//     // console.log(pro);
+//     // setProfile(JSON.stringify(response.data));
+//     // console.log(Object.getPrototypeOf(profile));
+//   }
+
+//    useEffect(()=>{
+//    fetchProfile()
+//    })
+
+//   return (
+  
+//     <SafeAreaView style={styles.container}>
+//       <ScrollView showsVerticalScrollIndicator={false}>
+//       <View>
+//         {/* <Text>User</Text> */}
+//         <Ionicons style={styles.icon} name="person" size={70} color="black" />
+//         <Text style={styles.idUser}>ID: {profile._id}</Text>
+      
+//         <TextInput style={styles.input}
+//         value={profile.email}/>
+//         <TextInput style={styles.input}
+//         value={profile.name}/>
+//         <TextInput style={styles.input}
+//         value={profile.age}/>
+//         <TextInput style={styles.input}
+//         value={profile.gender}/>
+
+//       </View>     
+//       <TouchableOpacity style={{display: "flex",
+//                                 justifyContent: "center",
+//                                 alignItems: "center",
+//                                 backgroundColor: "#83829A",
+//                                 padding: 10,
+//                                 borderRadius: 10,
+//                                 width: "100%",
+//                                 marginTop: 10,
+//                                 }} onPress={handleLogout}>
+//             <Text style={{color: "white",
+//                         fontSize: 20,
+//                         fontWeight: "bold",
+//                         }}>
+//                           Log out
+//               </Text>
+//         </TouchableOpacity>
+//       </ScrollView>
+       
+     
+//     </SafeAreaView>
+    
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     // backgroundColor: "#6b6b67",
+//   },  
+//   icon:{
+//     justifyContent: "center",
+//     alignItems: "center",
+//     display: "flex",
+//     marginTop: 20,
+//     borderRadius: "100%",
+//     borderColor: "black",
+//   },
+//   idUser: {
+//     justifyContent: "center",
+//     alignItems: "center",
+//     display: "flex",
+//     fontSize: 20
+//   },
+//   input: {
+//     height: 40,
+//     margin: 12,
+//     borderWidth: 1,
+//     padding: 10,
+//     borderBottomColor: "black"
+//   },
+// })
+
+import 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
+import User from "./user"
+import Favourite from "./favourite";
+
+const Stack = createStackNavigator();
+
+const UserScreen = () => {
+  return(
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+      }}
+      
+       name="user" component={User}/>
+       <Stack.Screen
+      options={{
+        headerShadowVisible: true,
+        headerTitle: "",
+        href: null,
+      }}
+       name="favourite" component={Favourite}/>
+    </Stack.Navigator>
+  )
 }
 
-const styless = StyleSheet.create({
-  container: {
-    // flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-
-const styles = StyleSheet.create({
-  container: {
-    height: 790,
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#BCD4E6',
-  },
-  body: {
-    padding: 25,
-  },
-  card: {
-    width: 400,
-    borderWidth: 1,
-    borderColor: '#eee',
-    borderRadius: 15,
-    padding: 20,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    elevation: 5,
-  },
-  imgPlaceholder: {
-    position: 'relative',
-    overflow: 'hidden',
-    borderRadius: 12,
-    elevation: 5,
-  },
-  image: {
-    width: 100,
-    height: 100,
-  },
-  details: {
-    marginLeft: 20,
-  },
-  name: {
-    fontWeight: '600',
-  },
-  gender: {
-    fontWeight: '600',
-    marginTop: 10,
-    color: '#888',
-  },
-  phoneNumber: {
-    color: 'blue',
-    marginTop: 6,
-  },
-});
-
+export default UserScreen

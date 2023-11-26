@@ -9,21 +9,21 @@ const ExhibitScreen = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-      }}
-      
-       name="trung-bay-thuong-xuyen-p1" component={ExhibitMain}/>
-       <Stack.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        
-      }}
-       name="[id]" component={ExhibitLinks}/>
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+        }}
+
+        name="trung-bay-thuong-xuyen-p1" component={ExhibitMain} />
+      <Stack.Screen
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+
+        }}
+        name="[id]" component={ExhibitLinks} />
     </Stack.Navigator>
   )
 }

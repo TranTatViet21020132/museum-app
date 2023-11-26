@@ -23,7 +23,7 @@ const SearchList = () => {
       setSearchResult([]);
   
       try {
-        const response = await axios.post('http://192.168.1.128:5000/gallery/search/', {
+        const response = await axios.post('http://localhost:5000/gallery/search/', {
           query: params.id, // Assuming params.id is the query parameter
         });
   
