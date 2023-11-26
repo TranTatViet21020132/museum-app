@@ -4,12 +4,13 @@ import MainScreen from '../app/main/_layout'
 import LoginScreen from '../app/login/log'
 import Register from '../app/register/_layout';
 import User from "./user/_layout"
+import Welcome from './welcome/_layout';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='login'>
       
       <Stack.Screen options={{
         headerShadowVisible: false,
@@ -29,6 +30,12 @@ const App = () => {
         href: null,
         headerShown: false
       }} name="register" component={Register} />
+      <Stack.Screen options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+        headerShown: false
+      }} name="welcome" component={Welcome} />
     </Stack.Navigator>
   );
 };

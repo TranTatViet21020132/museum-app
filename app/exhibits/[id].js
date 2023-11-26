@@ -40,7 +40,7 @@ const ExhibitLinks = () => {
       router.back();
     }
   };
-  
+
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +49,7 @@ const ExhibitLinks = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
+      const response = await axios.get(`http://192.168.1.6:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -92,44 +92,44 @@ const ExhibitLinks = () => {
       case "Contents":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <Specifics
-            title='Contents'
-            points={paragraphs ?? ["N/A"]}
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <Specifics
+              title='Contents'
+              points={paragraphs ?? ["N/A"]}
             />
-          }
+            }
           </>
-          
+
         );
 
       case "Images":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <JobAbout info={data?.images ?? "No data provided"} />
-          }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <JobAbout info={data?.images ?? "No data provided"} />
+            }
           </>
         );
 
       case "Related Articles":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <Specifics
-            title='Related Articles'
-            points={error ? ["N/A"] : data?.navigator }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <Specifics
+              title='Related Articles'
+              points={error ? ["N/A"] : data?.navigator}
             />
-          }
-          </>  
+            }
+          </>
         );
 
       default:
@@ -166,7 +166,7 @@ const ExhibitLinks = () => {
           <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <View style={styles.container}>
               <Text style={styles.title}>{data.title}</Text>
-              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}> 
+              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}>
                 <View style={{ padding: SIZES.medium }}>
                   <JobTabs
                     tabs={tabs}

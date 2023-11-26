@@ -122,7 +122,7 @@ function Register() {
             <Picker.Item  label="Other" value="Other" style={styles.pickerItem} />
           </Picker>
         </View>
-        <TouchableOpacity style={[styles.buttonStyle, {backgroundColor:"#e58a2e"}]} disabled={agree} onPress={handleRegister}>
+        <TouchableOpacity style={[styles.buttonStyle, {backgroundColor:"#83829A"}]} disabled={agree} onPress={handleRegister}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
         
