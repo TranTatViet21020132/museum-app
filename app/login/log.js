@@ -9,9 +9,10 @@ import axios from 'axios';
 import { Redirect } from 'expo-router';
 
 const widthWindow = Dimensions.get("window").width * 0.9;
-function log({ navigation }) {
+function Log({ navigation }) {
     // const navigation = useNavigation();
 
+    const [login, setLogin] = useState(false);
     const [agree, setAgree] = useState(false);
     const [warning, setWarning] = useState(false);
     const [email, setemail] = useState("");
@@ -35,11 +36,12 @@ function log({ navigation }) {
                 setAgree(false)
                 console.log("Failed")
             } else {
-                await AsyncStorage.setItem("user-id", response.data._id);
+                AsyncStorage.setItem("user-id", response.data._id);
                 setWarning(false);
                 setAgree(true)
-                navigation.navigate("main")
+                navigation.navigate("main", { screen: "main" })
                 setLogin(true);
+
             }
         } catch (error) {
             console.error('An error occurred during login:', error);
@@ -47,7 +49,7 @@ function log({ navigation }) {
     }
 
     const handleRegister = () => {
-        navigation.navigate('../register')
+        navigation.navigate('register', { screen: "register" })
     }
     return (
         <View style={styles.mainContainer}>
@@ -89,7 +91,7 @@ function log({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} disabled={agree} onPress={handleLogin}>
+            <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 
@@ -167,8 +169,8 @@ const styles = StyleSheet.create({
         color: "#FF5A2D",
         fontSize: 18,
         fontWeight: "bold",
-        paddingTop: 30,
+        marginTop: 30,
         textAlign: "center",
     }
 })
-export default log
+export default Log

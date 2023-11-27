@@ -3,54 +3,44 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT, SHADOWS, SIZES } from "../../../../constants";
 
 const styles = StyleSheet.create({
-  container: (selectedJob, item) => ({
-    width: 250,
-    
-    backgroundColor: selectedJob === item.job_id ? COLORS.gray : "#333333",
+  container: (selectedExhibit, item) => ({
+    width: 135,
+    margin: 10,
+    backgroundColor: selectedExhibit === item.titleParam ? COLORS.gray : "#333333",
     borderRadius: SIZES.medium,
     justifyContent: "space-between",
     ...SHADOWS.medium,
     shadowColor: COLORS.white,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "left"
   }),
-  logoContainer: (selectedJob, item) => ({
-    width: 250,
-    height: 250,
-    backgroundColor: selectedJob === item.job_id ? "#FFF" : COLORS.white,
-    borderRadius: SIZES.medium,
+  logoContainer: (selectedExhibit, item) => ({
+    width: 135,
+    height: 135,
+    backgroundColor: selectedExhibit === item.titleParam ? "#FFF" : COLORS.white,
+    borderTopLeftRadius: SIZES.medium,
+    borderTopRightRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
   }),
   logoImage: {
-    width: "70%",
-    height: "70%",
-  },
-  companyName: {
-    fontSize: SIZES.medium,
-    fontFamily: FONT.regular,
-    color: "#B3AEC6",
-    marginTop: SIZES.small / 1.5,
+    width: "100%",
+    height: "100%",
   },
   infoContainer: {
-    marginTop: SIZES.large,
+    marginTop: SIZES.xSmall,
+    marginLeft: SIZES.xSmall,
+    paddingBottom: SIZES.small
   },
-  jobName: (selectedJob, item) => ({
-    fontSize: SIZES.large,
+  title: (selectedExhibit, item) => ({
+    fontSize: SIZES.medium,
     fontFamily: FONT.medium,
-    color: selectedJob === item.job_id ? COLORS.white : COLORS.primary,
+    color: selectedExhibit === item.titleParam ? COLORS.white : COLORS.primary,
+    marginBottom: SIZES.xSmall
   }),
-  infoWrapper: {
-    flexDirection: "row",
-    marginTop: 5,
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  publisher: (selectedJob, item) => ({
-    fontSize: SIZES.medium - 2,
-    fontFamily: FONT.regular,
-    color: selectedJob === item.job_id ? COLORS.white : COLORS.primary,
-  }),
-  location: {
-    fontSize: SIZES.medium - 2,
+  viewed: {
+    fontSize: SIZES.medium - 3,
     fontFamily: FONT.regular,
     color: "#B3AEC6",
   },

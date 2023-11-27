@@ -10,14 +10,15 @@ import {
   JobTabs,
   Specifics,
   ScreenHeaderBtn
-} from "../../components";
+} from "../../../components";
 import { Stack } from "expo-router";
-import SearchSpecifics from "../../components/details/specifics/SearchSpecifics";
+import SearchSpecifics from "../../../components/details/specifics/SearchSpecifics";
 import { useRouter, useSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { COLORS, icons, SIZES } from "../../constants";
+import { COLORS, icons, SIZES } from "../../../constants";
 import styles from "./id.style";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 const tabs = ["Contents", "Images", "Related Articles"];
 
@@ -41,7 +42,6 @@ const SearchLinks = () => {
       router.back();
     }
   };
-  
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +50,7 @@ const SearchLinks = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
+      const response = await axios.get(`http://192.168.1.6:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -64,10 +64,17 @@ const SearchLinks = () => {
     fetchData();
   }, [params.id]);
 
-  const refetch = () => {
+  const refetch = async () => {
     setIsLoading(true);
     fetchData();
   };
+
+  useFocusEffect(() => {
+    if (router && router.params && router.params.refetch) {
+      refetch();
+      router.params.refetch = false; // reset refetch flag
+    }
+  });
 
   const paragraphs = data?.paragraph?.map((item, index, array) => {
     const newText = (item.text.startsWith('-') || /^\d/.test(item.text))
@@ -93,44 +100,44 @@ const SearchLinks = () => {
       case "Contents":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <Specifics
-            title='Contents'
-            points={paragraphs ?? ["N/A"]}
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <Specifics
+              title='Contents'
+              points={paragraphs ?? ["N/A"]}
             />
-          }
+            }
           </>
-          
+
         );
 
       case "Images":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <JobAbout info={data?.images ?? "No data provided"} />
-          }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <JobAbout info={data?.images ?? "No data provided"} />
+            }
           </>
         );
 
       case "Related Articles":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <SearchSpecifics
-            title='Related Articles'
-            points={error ? ["N/A"] : data?.navigator }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <SearchSpecifics
+              title='Related Articles'
+              points={error ? ["N/A"] : data?.navigator}
             />
-          }
-          </>  
+            }
+          </>
         );
 
       default:
@@ -167,7 +174,7 @@ const SearchLinks = () => {
           <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <View style={styles.container}>
               {data && data.title && <Text style={styles.title}>{data.title}</Text>}
-              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}> 
+              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}>
                 <View style={{ padding: SIZES.medium }}>
                   <JobTabs
                     tabs={tabs}
