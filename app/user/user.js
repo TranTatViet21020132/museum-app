@@ -44,7 +44,6 @@ export default function User({ navigation }) {
       } catch (error) {
         console.log(error);
       }
-
     }
     getUser();
 
