@@ -1,32 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = (endpoint, query) => {
+const useFetch = (endpoint) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const options = {
-    method: 'GET',
-    url: `https://jsearch.p.rapidapi.com/${endpoint}`,
-    params: {
-      ...query,
-    },
-    headers: {
-      'X-RapidAPI-Key': 'd17a95158bmsh40ea7b04e08337ap18e2edjsnb661d5872c26',
-      'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-    }
-  };
-
   const fetchData = async () => {
     setIsLoading(true);
-
     try {
-      const response = await axios.request(options);
-
-      setData(response.data.data);
+      const response = await axios.get(`http://192.168.1.6:5000/${endpoint}`);
+      setData(response.data);
       setIsLoading(false);
     } catch (error) {
+      console.log(error);
       setError(error);
     } finally {
       setIsLoading(false);

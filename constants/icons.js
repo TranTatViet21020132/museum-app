@@ -8,6 +8,11 @@ import share from "../assets/icons/share.png";
 import location from "../assets/icons/location.png";
 import chevronLeft from '../assets/icons/chevron-left.png'
 import chevronRight from '../assets/icons/chevron-right.png'
+import headphones from '../assets/icons/headphones.png';
+import pause from '../assets/icons/pause.png';
+import play from '../assets/icons/play.png';
+import forward from '../assets/icons/forward5s.png';
+import replay from '../assets/icons/replay5s.png';
 
 export default {
   heart,
@@ -19,5 +24,10 @@ export default {
   share,
   location,
   chevronLeft,
-  chevronRight
+  chevronRight,
+  headphones,
+  pause,
+  play,
+  forward,
+  replay
 };

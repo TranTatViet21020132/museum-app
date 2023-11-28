@@ -11,9 +11,8 @@ const Specifics = ({ title, points }) => {
   const [selectedExhibit, setSelectedExhibit] = useState();
 
   const handleCardPress = (item) => {
-    router.push(`/exhibits/${item.titleParam}`);
+    router.push(`/exhibits/exhibit/${item.titleParam}`);
     setSelectedExhibit(item.titleParam);
-    console.log("working");
   };
 
   return (
@@ -32,7 +31,7 @@ const Specifics = ({ title, points }) => {
         <View style={styles.container}>
           <Text style={styles.title}>{title}:</Text>
           <View style = {{display: "flex", flexDirection: "row", flex: 1, flexWrap: "wrap", gap: 5, marginTop: 10, paddingBottom: 30 }}>
-            {points.map((exhibit, index) => (
+            {points?.map((exhibit, index) => (
               <ExhibitCard
               key = {index}
               item = {exhibit}

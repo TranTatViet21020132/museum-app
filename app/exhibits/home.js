@@ -21,7 +21,7 @@ const Exhibit = () => {
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
           ),
-          
+
         }}
       />
 
