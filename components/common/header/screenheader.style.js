@@ -18,6 +18,15 @@ const styles = StyleSheet.create({
     height: dimension,
     borderRadius: SIZES.small / 1.25,
   }),
+  dropdownContainer: {
+    marginLeft: 20,
+    width: 160,
+  },
+  categoryText: {
+    fontSize: SIZES.medium,
+    marginVertical: 10,
+    color: COLORS.lightWhite,
+  },
 });
 
 export default styles;

@@ -16,6 +16,13 @@ import Specifics from "./details/specifics/Specifics";
 import NearbyCard from "./common/cards/nearby/NearbyCard";
 import PopularCard from "./common/cards/popular/PopularCard";
 
+import Introduction from './home/museum/introduction/Introduction';
+import Visits from './home/museum/visits/Visits';
+import Regulations from './home/museum/regulations/Regulations';
+import History from './home/museum/history/History';
+import Fees from './home/museum/fees/Fees';
+import Location from "./home/museum/location/Location";
+
 export {
   ScreenHeaderBtn,
   Welcome,
@@ -28,4 +35,10 @@ export {
   Specifics,
   NearbyCard,
   PopularCard,
+  Introduction,
+  Visits,
+  Regulations,
+  History,
+  Fees,
+  Location
 };
