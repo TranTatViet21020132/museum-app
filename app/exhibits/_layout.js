@@ -12,22 +12,18 @@ const ExhibitScreen = () => {
         options={{
           headerShadowVisible: false,
           headerTitle: "",
-          
+          href: null,
         }}
-        name="trung-bay-thuong-xuyen-p1"
-        component={ExhibitMain}
-      />
+
+        name="trung-bay-thuong-xuyen-p1" component={ExhibitMain} />
       <Stack.Screen
         options={{
           headerShadowVisible: false,
           headerTitle: "",
-
+          href: null,
           headerShown: false,
         }}
-        name="exhibit"
-        
-        component={ExhibitStack}
-      />
+        name="exhibit" component={ExhibitStack} />
     </Stack.Navigator>
   );
 };
