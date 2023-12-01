@@ -1,8 +1,13 @@
 import React from 'react'
+import { SafeAreaView, View, Text } from 'react-native'
 
-function Favourite() {
+const Favourite = () => {
   return (
-    <div>favourite</div>
+    <SafeAreaView>
+      <View>
+        <Text>Favourite</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 

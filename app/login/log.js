@@ -20,7 +20,6 @@ function Log({ navigation }) {
 
     const [isPasswordShow, setIsPasswordShow] = useState(false);
 
-
     const handleLogin = async () => {
         try {
             const response = await axios.post('http://192.168.1.6:5000/login', {
@@ -41,7 +40,6 @@ function Log({ navigation }) {
                 setAgree(true)
                 navigation.navigate("main", { screen: "main" })
                 setLogin(true);
-
             }
         } catch (error) {
             console.error('An error occurred during login:', error);
@@ -55,7 +53,6 @@ function Log({ navigation }) {
         <View style={styles.mainContainer}>
             <Text style={styles.mainHeader}>Login Form</Text>
             <Text style={styles.para}>Login and discover museum</Text>
-
             <View style={{ marginBottom: 10 }}>
                 <Text style={{ color: "red", fontSize: 16 }}>{warning ? "Wrong email or password" : ""}</Text>
             </View>
