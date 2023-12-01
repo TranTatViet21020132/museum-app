@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView, TouchableOpacity, TextInput, Animated, Dimensions } from 'react-native';
+import { StyleSheet, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import Modal from "react-native-modal";
-import { Picker } from '@react-native-picker/picker';
-import { ListItem, Icon } from '@rneui/themed'
-import { useEffect, useState, useRef } from 'react';
+import { ListItem } from '@rneui/themed'
+import { useEffect, useState } from 'react';
 import { Ionicons } from "@expo/vector-icons"
+import { COLORS } from "../../constants"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {
@@ -15,12 +15,9 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 
-const widthWindow = Dimensions.get("window").width * 0.9;
-
 export default function User({ navigation }) {
   const [profile, setProfile] = useState([])
   const [userID, setUserID] = useState("");
-  let user = "";
   const [expanded, setExpanded] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
@@ -35,38 +32,24 @@ export default function User({ navigation }) {
   };
 
   useEffect(() => {
-
     const getUser = async () => {
       try {
-        user = await AsyncStorage.getItem("user-id");
-        setUserID(user);
-        console.log(user);
+        const user = await AsyncStorage.getItem("user-id");
+        setUserID(user)
+        axios.get(`http://192.168.1.6:5000/user/${user}`)
+          .then(response => { setProfile(response.data) })
+          .catch(error =>
+            console.error(error)
+          )
       } catch (error) {
         console.log(error);
       }
     }
     getUser();
-
-    // axios.get("http://192.168.1.6:5000/user/" + userID)
-    //   .then(response => { setProfile(response.data) })
-    //   .catch(error => console.error(error))
-    fetch("http://192.168.1.6:5000/user/" + userID)
-      .then(response => response.json()
-        .then(data => {
-          console.log(data);
-          setProfile(data);
-
-        })
-        .catch(error => {
-          console.error(error)
-        }))
-
-
   }, [])
+
   const [name, setName] = useState(profile.name);
   const [age, setAge] = useState(profile.age);
-  const [gender, setGender] = useState(profile.gender)
-  // const [password, setPassword] = useState(profile.password)
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("");
   const [messageChangePassword, setMessageChangePassword] = useState("none");
@@ -97,7 +80,6 @@ export default function User({ navigation }) {
     }
   }
 
-  console.log(name, age, gender)
   const handleChangeInformation = async (name, age, gender, userID) => {
     try {
       const response = await axios.patch(("http://192.168.1.6:5000/user/" + userID + "/"), {
@@ -119,7 +101,6 @@ export default function User({ navigation }) {
       console.error(error)
     }
   }
-
   return (
 
     <SafeAreaView style={styles.container}>
@@ -143,24 +124,20 @@ export default function User({ navigation }) {
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
           <Ionicons name="locate-outline" color="#777777" size={25} />
-          <Text style={{ color: "#777777", marginLeft: 20, fontSize: 20 }}>ID: {profile._id}</Text>
+          <Text style={{ color: "#777777", marginLeft: 20, fontSize: 20, color: "white" }}>ID: {profile._id}</Text>
         </View>
         <View style={styles.row}>
           <Ionicons name="mail-outline" color="#777777" size={25} />
-          <Text style={{ color: "#777777", marginLeft: 20, fontSize: 20 }}>{profile.email}</Text>
+          <Text style={{ color: "#777777", marginLeft: 20, fontSize: 20, color: "white" }}>{profile.email}</Text>
         </View>
         <View style={styles.row}>
           <Ionicons name="calendar-outline" color="#777777" size={25} />
-          <Text style={{ color: "#777777", marginLeft: 20, fontSize: 20 }}>{profile.age} tuổi</Text>
-        </View>
-        <View style={styles.row}>
-          <Ionicons name="male-female-outline" color="#777777" size={25} />
-          <Text style={{ color: "#777777", marginLeft: 20, fontSize: 20 }}>{profile.gender}</Text>
+          <Text style={{ color: "#777777", marginLeft: 20, fontSize: 20, color: "white" }}>{profile.age} tuổi</Text>
         </View>
       </View>
 
       <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => { }}>
+        <TouchableRipple onPress={() => { navigation.navigate("favourite") }}>
           <View style={styles.menuItem}>
             <Ionicons name="heart-outline" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}>Your Favorites</Text>
@@ -176,90 +153,15 @@ export default function User({ navigation }) {
         </TouchableRipple>
         {expanded &&
           <>
-            <TouchableRipple onPress={() => toggleModal1()}>
-              <ListItem>
-                <ListItem.Content style={{ marginLeft: 30 }}>
-                  <ListItem.Title>Change Password</ListItem.Title>
-                </ListItem.Content>
-              </ListItem>
-            </TouchableRipple>
+            <View >
+              <TouchableRipple onPress={() => toggleModal1()} style={{ backgroundColor: "grey" }}>
+                <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Password</Text>
+              </TouchableRipple>
+            </View>
+
             {
-              // <Modal
-              //   visible={modalVisible1}
-              //   transparent
-              //   animationType="none"
-              //   onRequestClose={closeModal1}
-              //   style={{ borderRadius: 10 }}
-              // >
-
-              //   <Animated.View
-              //     style={{
-              //       position: 'absolute',
-              //       bottom: 0,
-              //       left: 0,
-              //       right: 0,
-              //       height: '90%',
-              //       backgroundColor: 'white',
-              //       transform: [{ translateY: modalTranslateY }],
-              //     }}
-              //   >
-              //     {/* Content of the floating screen */}
-              //     <TouchableOpacity activeOpacity={1}>
-              //       <View style={{ flex: 1, flexDirection: "row", justifyContent: 'right', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5 }}>
-              //         <Ionicons name='close-outline' size={26} color="black" onPress={closeModal1} />
-              //       </View>
-              //       <View style={styles.changePassword}>
-              //         <Text style={{ fontSize: 23, fontWeight: 'bold', justifyContent: "center", alignItems: "center", display: "flex", marginBottom: 50 }}>Change Password</Text>
-
-              //         <TextInput style={styles.input}
-              //           placeholder='Old Password'
-              //           secureTextEntry={!isPasswordShow}
-              //         />
-              //         <TouchableOpacity
-              //           onPress={() => setIsPasswordShow(!isPasswordShow)}
-              //           style={{
-              //             position: "absolute",
-              //             bottom: 170,
-              //             right: 30,
-              //           }}
-              //         >
-              //           {
-              //             isPasswordShow == true
-              //               ? (<Ionicons name="eye" size={24} color="black" />)
-              //               : (<Ionicons name="eye-off" size={24} color="black" />)
-              //           }
-              //         </TouchableOpacity>
-              //         <TextInput style={[styles.input]}
-              //           placeholder='New Password'
-              //           secureTextEntry={!isPasswordShow}
-              //         />
-              //         <TouchableOpacity
-              //           onPress={() => setIsPasswordShow(!isPasswordShow)}
-              //           style={{
-              //             position: "absolute",
-              //             bottom: 100,
-              //             right: 30,
-              //           }}
-              //         >
-              //           {
-              //             isPasswordShow == true
-              //               ? (<Ionicons name="eye" size={24} color="black" />)
-              //               : (<Ionicons name="eye-off" size={24} color="black" />)
-              //           }
-              //         </TouchableOpacity>
-
-              //         <Text style={{ color: "red", fontSize: 16, marginVertical: 10, marginLeft: "5%" }}>Old password is wrong</Text>
-
-              //         <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} onPress={handleChangePassword}>
-              //           <Text style={styles.buttonText}>Submit</Text>
-              //         </TouchableOpacity>
-              //       </View>
-              //     </TouchableOpacity>
-
-              //   </Animated.View>
-              // </Modal> 
               <Modal isVisible={modalVisible1} style={{ display: "flex", margin: "0%", marginTop: "20%", borderRadius: 10 }}>
-                <View style={{ backgroundColor: "white", paddingBottom: "65%" }}>
+                <View style={{ backgroundColor: "#D3D3D3", paddingBottom: "65%" }}>
                   <View style={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end", paddingHorizontal: 10, paddingVertical: 5 }}>
                     <Ionicons name='close-outline' size={26} color="black" onPress={toggleModal1} />
                   </View>
@@ -327,64 +229,15 @@ export default function User({ navigation }) {
                 </View>
               </Modal>
             }
-            <TouchableRipple onPress={() => { toggleModal2() }}>
-              <ListItem>
-                <ListItem.Content style={{ marginLeft: 30 }}>
-                  <ListItem.Title>Change Information</ListItem.Title>
-                </ListItem.Content>
-              </ListItem>
-            </TouchableRipple>
+
+            <View>
+              <TouchableRipple onPress={() => toggleModal2()} style={{ backgroundColor: "grey" }}>
+                <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Password</Text>
+              </TouchableRipple>
+            </View>
             {
-              // <Modal
-              //   visible={modalVisible2}
-              //   transparent
-              //   animationType="none"
-              //   onRequestClose={closeModal2}
-              // >
-              //   <Animated.View
-              //     style={{
-              //       position: 'absolute',
-              //       bottom: 0,
-              //       left: 0,
-              //       right: 0,
-              //       height: '90%',
-              //       backgroundColor: 'white',
-              //       transform: [{ translateY: modalTranslateY }],
-              //     }}
-              //   >
-              //     {/* Content of the floating screen */}
-              //     <TouchableOpacity activeOpacity={1}>
-              //       {/* <View style={{ flex: 1, flexDirection: "row", justifyContent: 'right', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5 }}> */}
-              //       <Ionicons name='close-outline' size={26} color="black" onPress={closeModal2} />
-              //       {/* </View> */}
-              //       <View style={styles.changePassword}>
-              //         <Text style={{ fontSize: 23, fontWeight: 'bold', justifyContent: "center", alignItems: "center", display: "flex", marginBottom: 30 }}>Change Information</Text>
-
-              //         <TextInput style={styles.input}
-              //           placeholder='Name'
-              //         />
-              //         <TextInput style={styles.input}
-              //           placeholder='Age'
-              //           inputMode='numeric'
-              //         />
-              //         <Picker
-
-              //           style={styles.picker}
-              //         >
-              //           <Picker.Item label="Male" value="Male" />
-              //           <Picker.Item label="Female" value="Female" />
-              //           <Picker.Item label="Other" value="Other" />
-              //         </Picker>
-              //         <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} >
-              //           <Text style={styles.buttonText}>Submit</Text>
-              //         </TouchableOpacity>
-              //       </View>
-              //     </TouchableOpacity>
-
-              //   </Animated.View>
-              // </Modal>
               <Modal isVisible={modalVisible2} style={{ display: "flex", margin: "0%", marginTop: "20%", borderRadius: 10 }}>
-                <View style={{ backgroundColor: "white", paddingBottom: "65%" }}>
+                <View style={{ backgroundColor: "#D3D3D3", paddingBottom: "65%" }}>
                   <View style={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end", paddingHorizontal: 10, paddingVertical: 5 }}>
                     <Ionicons name='close-outline' size={26} color="black" onPress={toggleModal2} />
                   </View>
@@ -395,27 +248,16 @@ export default function User({ navigation }) {
                     </View>
 
                     <TextInput style={styles.input}
-                      // defaultValue={profile.name}
-                      // value={profile.name}
+
                       onChangeText={(nameData) => setName(nameData)}
                       placeholder='Name'
                     />
                     <TextInput style={styles.input}
-                      // defaultValue={profile.age}
-                      // value={profile.age}
                       onChangeText={(ageData) => setAge(ageData)}
                       placeholder='Age'
                       inputMode='numeric'
                     />
-                    <Picker
-                      selectedValue={gender}
-                      onValueChange={(value, index) => { setGender(value) }}
-                      style={styles.picker}
-                    >
-                      <Picker.Item label="Male" value="Male" />
-                      <Picker.Item label="Female" value="Female" />
-                      <Picker.Item label="Other" value="Other" />
-                    </Picker>
+
                     {messageChangeInformation == "none" ?
                       <Text></Text>
                       :
@@ -450,19 +292,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 30,
+    backgroundColor: COLORS.background,
+    color: "white",
   },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 25,
+    color: "white"
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: "white"
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
     fontWeight: '500',
+    color: "white"
   },
   row: {
     flexDirection: 'row',
@@ -480,14 +327,13 @@ const styles = StyleSheet.create({
     border: "1px solid transparent",
   },
   menuItemText: {
-    color: '#777777',
+    color: 'white',
     marginLeft: 20,
     fontWeight: '600',
     fontSize: 16,
     lineHeight: 26,
   },
   changePassword: {
-    // marginTop: "20%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
@@ -495,12 +341,11 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: "gray",
-    backgroundColor: "#EEEDF1",
+    backgroundColor: "#E6E6FA",
     borderRadius: 10,
     width: "90%",
     height: 50,
     marginBottom: 20,
-    // marginLeft: "5%",
     paddingLeft: 20,
     alignItems: "center",
     textAlign: "left",
@@ -514,22 +359,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "90%",
     marginTop: 10,
-    // marginLeft: "5%"
   },
   buttonText: {
     color: "white",
     fontSize: 20,
     fontWeight: "bold",
-  },
-  picker: {
-    marginRight: "38%",
-    marginBottom: 10,
-    paddingLeft: 20,
-    width: 200,
-    height: 50,
-    borderRadius: 8,
-    fontSize: 16,
-    border: "1px solid black",
-    borderWidth: 1,
   },
 });
