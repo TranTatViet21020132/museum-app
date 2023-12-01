@@ -42,7 +42,7 @@ const SearchLinks = () => {
       router.back();
     }
   };
-  
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -100,44 +100,44 @@ const SearchLinks = () => {
       case "Contents":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <Specifics
-            title='Contents'
-            points={paragraphs ?? ["N/A"]}
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <Specifics
+              title='Contents'
+              points={paragraphs ?? ["N/A"]}
             />
-          }
+            }
           </>
-          
+
         );
 
       case "Images":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <JobAbout info={data?.images ?? "No data provided"} />
-          }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <JobAbout info={data?.images ?? "No data provided"} />
+            }
           </>
         );
 
       case "Related Articles":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <SearchSpecifics
-            title='Related Articles'
-            points={error ? ["N/A"] : data?.navigator }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <SearchSpecifics
+              title='Related Articles'
+              points={error ? ["N/A"] : data?.navigator}
             />
-          }
-          </>  
+            }
+          </>
         );
 
       default:
@@ -174,7 +174,7 @@ const SearchLinks = () => {
           <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <View style={styles.container}>
               {data && data.title && <Text style={styles.title}>{data.title}</Text>}
-              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}> 
+              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}>
                 <View style={{ padding: SIZES.medium }}>
                   <JobTabs
                     tabs={tabs}

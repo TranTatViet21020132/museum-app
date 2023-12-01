@@ -12,58 +12,58 @@ import styles from '../../styles/search'
 const SearchList = () => {
     const params = useSearchParams();
     const router = useRouter();
-  
+
     const [searchResult, setSearchResult] = useState([]);
     const [searchLoader, setSearchLoader] = useState(false);
     const [searchError, setSearchError] = useState(null);
     const [page, setPage] = useState(1);
-  
+
     const handleSearch = async () => {
-      setSearchLoader(true);
-      setSearchResult([]);
-  
-      try {
-        const response = await axios.post('http://192.168.1.128:5000/gallery/search/', {
-          query: params.id, // Assuming params.id is the query parameter
-        });
-  
-        setSearchResult(response.data); // Set the search results from the API response
-      } catch (error) {
-        setSearchError('Oops, something went wrong'); // Handle error appropriately
-      } finally {
-        setSearchLoader(false);
-      }
+        setSearchLoader(true);
+        setSearchResult([]);
+
+        try {
+            const response = await axios.post('http://192.168.1.128:5000/gallery/search/', {
+                query: params.id, // Assuming params.id is the query parameter
+            });
+
+            setSearchResult(response.data); // Set the search results from the API response
+        } catch (error) {
+            setSearchError('Oops, something went wrong'); // Handle error appropriately
+        } finally {
+            setSearchLoader(false);
+        }
     };
-  
+
     const handlePagination = (direction) => {
-      if (direction === 'left' && page > 1) {
-        setPage(page - 1);
-        handleSearch();
-      } else if (direction === 'right') {
-        setPage(page + 1);
-        handleSearch();
-      }
+        if (direction === 'left' && page > 1) {
+            setPage(page - 1);
+            handleSearch();
+        } else if (direction === 'right') {
+            setPage(page + 1);
+            handleSearch();
+        }
     };
-  
+
     useEffect(() => {
-      handleSearch();
+        handleSearch();
     }, [page]);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <Stack.Screen
                 options={{
-                headerStyle: { backgroundColor: COLORS.background },
-                headerShadowVisible: false,
-                headerBackVisible: false,
-                headerLeft: () => (
-                    <ScreenHeaderBtn
-                    iconUrl={icons.left}
-                    dimension='60%'
-                    handlePress={() => router.back()}
-                    />
-                ),
-                headerTitle: "",
+                    headerStyle: { backgroundColor: COLORS.background },
+                    headerShadowVisible: false,
+                    headerBackVisible: false,
+                    headerLeft: () => (
+                        <ScreenHeaderBtn
+                            iconUrl={icons.left}
+                            dimension='60%'
+                            handlePress={() => router.back()}
+                        />
+                    ),
+                    headerTitle: "",
                 }}
             />
             <FlatList

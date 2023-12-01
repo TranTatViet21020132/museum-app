@@ -71,7 +71,7 @@ const AudioPlayerScreen = () => {
     setDuration(status.durationMillis || 0); // Set duration when loading sound with default value 0
     setIsPlaying(true);
   };
-  
+
   const onSeekBarValueChange = (value) => {
     setPosition(value);
   };
@@ -107,9 +107,9 @@ const AudioPlayerScreen = () => {
   React.useEffect(() => {
     return sound
       ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
+        console.log('Unloading Sound');
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound]);
 
@@ -127,7 +127,7 @@ const AudioPlayerScreen = () => {
             />
           ),
           headerRight: () => (
-              <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
+            <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
           ),
           headerTitle: "",
         }}
@@ -141,7 +141,7 @@ const AudioPlayerScreen = () => {
             source={{ uri: data?.thumbnail }}
             style={styles.thumbnail}
             resizeMode="contain"
-          /> 
+          />
         </View>
         <Slider
           style={styles.seekBar}
@@ -166,17 +166,17 @@ const AudioPlayerScreen = () => {
             {isPlaying ?
               <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
                 <Image
-                source={icons.pause}
-                resizeMode='cover'
-                style={styles.btnImg}
+                  source={icons.pause}
+                  resizeMode='cover'
+                  style={styles.btnImg}
                 />
               </TouchableOpacity>
-                : 
+              :
               <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
                 <Image
-                source={icons.play}
-                resizeMode='cover'
-                style={styles.btnImg}
+                  source={icons.play}
+                  resizeMode='cover'
+                  style={styles.btnImg}
                 />
               </TouchableOpacity>
             }

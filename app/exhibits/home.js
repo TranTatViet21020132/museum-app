@@ -21,7 +21,7 @@ const Exhibit = () => {
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
           ),
-          
+
         }}
       />
 

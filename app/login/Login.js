@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, Icons } from '../../constants';
 import axios from 'axios';
+import { Redirect } from 'expo-router';
 
 function log() {
     const [ agree, setAgree] = useState(false);
+    const [warning, setWarning] = useState(false);
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
 
     const [isPasswordShow, setIsPasswordShow] = useState(false);
+
 
     const handleLogin = async () => {
         try {
@@ -17,18 +21,26 @@ function log() {
                 email,
                 password,
               });
-
-              if(response.data === "0") {
+            
+              if (email === "" || password === "") {
+                setWarning(true)
+                setAgree(false);
+              } else if(response.data === "0") {
+                setWarning(true);
                 setAgree(false)
                 console.log("Failed")
-            } else {
+              } else {
+                await AsyncStorage.setItem("user-id", response.data._id);
+                setWarning(false);
                 setAgree(true)
                 navigation.navigate("main/home")
+                setLogin(true);
               }
         } catch (error) {
             console.error('An error occurred during login:', error);
         }
     }
+
     const handleRegister = () => {
         navigation.navigate('../register')
     }
@@ -37,6 +49,9 @@ function log() {
         <Text style={styles.mainHeader}>Login Form</Text>
         <Text style={styles.para}>Login and discover museum</Text>
 
+        <View style={{marginBottom: 10}}>
+            <Text style={{color: "red", fontSize: 16}}>{warning ? "Wrong email or password" : ""}</Text>
+        </View>
         <View>
             <TextInput style={styles.lableInput} value={email}
             onChangeText={(emailData) => {
@@ -59,7 +74,7 @@ function log() {
                   position: "absolute",
                   bottom: 30,
                   right: 15,
-                }}
+                }}  
               >
                 {
                     isPasswordShow == true 

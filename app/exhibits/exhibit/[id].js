@@ -34,7 +34,7 @@ const ExhibitLinks = () => {
 
   const handleBack = () => {
     titleParamStack.pop();
-  
+
     if (titleParamStack.length !== 0) {
       const prevTitleParam = titleParamStack.pop();
       console.log(prevTitleParam);
@@ -43,7 +43,7 @@ const ExhibitLinks = () => {
       router.push(`exhibits/exhibit/trung-bay-thuong-xuyen-p1`);
     }
   };
-  
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -80,7 +80,7 @@ const ExhibitLinks = () => {
       router.push(`exhibits/exhibit/audio/${params.id}`, { replace: true });
     }
   };
-  
+
   const paragraphs = data?.paragraph?.map((item, index, array) => {
     const newText = (item.text.startsWith('-') || /^\d/.test(item.text))
       ? `\n${item.text}`
@@ -105,44 +105,44 @@ const ExhibitLinks = () => {
       case "Contents":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <Specifics
-            title='Contents'
-            points={paragraphs ?? ["N/A"]}
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <Specifics
+              title='Contents'
+              points={paragraphs ?? ["N/A"]}
             />
-          }
+            }
           </>
-          
+
         );
 
       case "Images":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <JobAbout info={data?.images ?? "No data provided"} />
-          }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <JobAbout info={data?.images ?? "No data provided"} />
+            }
           </>
         );
 
       case "Related Articles":
         return (
           <>
-          {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something went wrong</Text>
-          ) : <Specifics
-            title='Related Articles'
-            points={error ? ["N/A"] : data?.navigator }
+            {isLoading ? (
+              <ActivityIndicator size='large' color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong</Text>
+            ) : <Specifics
+              title='Related Articles'
+              points={error ? ["N/A"] : data?.navigator}
             />
-          }
-          </>  
+            }
+          </>
         );
 
       default:
@@ -152,49 +152,49 @@ const ExhibitLinks = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-      {params.id === "trung-bay-thuong-xuyen-p1" 
-      ? 
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.background },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
-          ),
-          
-        }}
-      />
-      :
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.background },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.left}
-              dimension='60%'
-              handlePress={() => handleBack()}
-            />
-          ),
-          headerRight: () => (
-            <View style={{ flexDirection: 'row' }}>
-              {data?.speech && <ScreenHeaderBtn
-                iconUrl={icons.headphones}
+      {params.id === "trung-bay-thuong-xuyen-p1"
+        ?
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: COLORS.background },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
+            ),
+            headerRight: () => (
+              <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
+            ),
+
+          }}
+        />
+        :
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: COLORS.background },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <ScreenHeaderBtn
+                iconUrl={icons.left}
                 dimension='60%'
-                handlePress={() => handleAudioPlayer()}
+                handlePress={() => handleBack()}
               />
-              } 
-              <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
-            </View>
-          ),
-          headerTitle: "",
-        }}
-      />
+            ),
+            headerRight: () => (
+              <View style={{ flexDirection: 'row' }}>
+                {data?.speech && <ScreenHeaderBtn
+                  iconUrl={icons.headphones}
+                  dimension='60%'
+                  handlePress={() => handleAudioPlayer()}
+                />
+                }
+                <ScreenHeaderBtn iconUrl={images.profile} dimension='60%' />
+              </View>
+            ),
+            headerTitle: "",
+          }}
+        />
       }
-      
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -204,8 +204,8 @@ const ExhibitLinks = () => {
         >
           <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <View style={styles.container}>
-            <Text style={styles.title}>{data?.title || 'Loading...'}</Text>
-              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}> 
+              <Text style={styles.title}>{data?.title || 'Loading...'}</Text>
+              <ScrollView showsVerticalScrollIndicator={false} style={styles.contentContainer}>
                 <View style={{ padding: SIZES.medium }}>
                   <JobTabs
                     tabs={tabs}
