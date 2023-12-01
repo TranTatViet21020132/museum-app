@@ -50,7 +50,7 @@ export default function User({ navigation }) {
     // axios.get("http://192.168.1.6:5000/user/" + userID)
     //   .then(response => { setProfile(response.data) })
     //   .catch(error => console.error(error))
-    fetch("http://192.168.1.6:5000/user/" + userID)
+    fetch("http://192.168.1.128:5000/user/" + userID)
       .then(response => response.json()
         .then(data => {
           console.log(data);
@@ -74,7 +74,7 @@ export default function User({ navigation }) {
 
   const handleChangePassword = async (oldPassword, newPassword, userID) => {
     try {
-      const response = await axios.patch(('http://192.168.1.6:5000/user/' + userID + "/password"), {
+      const response = await axios.patch(('http://192.168.1.128:5000/user/' + userID + "/password"), {
         oldPassword: oldPassword,
         password: newPassword,
       });
@@ -100,7 +100,7 @@ export default function User({ navigation }) {
   console.log(name, age, gender)
   const handleChangeInformation = async (name, age, gender, userID) => {
     try {
-      const response = await axios.patch(("http://192.168.1.6:5000/user/" + userID + "/"), {
+      const response = await axios.patch(("http://192.168.1.128:5000/user/" + userID + "/"), {
         name: name,
         age: age,
         gender: gender,
