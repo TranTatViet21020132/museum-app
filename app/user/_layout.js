@@ -21,6 +21,7 @@ const User = () => {
           headerShadowVisible: false,
           headerTitle: "",
           href: null,
+          headerShown: false
         }}
         name="favourite" component={Favourite} />
     </Stack.Navigator>

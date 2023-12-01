@@ -1,5 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import {
+  ScreenHeaderBtn,
+} from "../../components";
+import { Stack } from "expo-router";
 import Modal from "react-native-modal";
 import { ListItem } from '@rneui/themed'
 import { useEffect, useState } from 'react';
@@ -36,7 +40,7 @@ export default function User({ navigation }) {
       try {
         const user = await AsyncStorage.getItem("user-id");
         setUserID(user)
-        axios.get(`http://192.168.1.6:5000/user/${user}`)
+        axios.get(`http://192.168.1.128:5000/user/${user}`)
           .then(response => { setProfile(response.data) })
           .catch(error =>
             console.error(error)
@@ -57,7 +61,7 @@ export default function User({ navigation }) {
 
   const handleChangePassword = async (oldPassword, newPassword, userID) => {
     try {
-      const response = await axios.patch(('http://192.168.1.6:5000/user/' + userID + "/password"), {
+      const response = await axios.patch(('http://192.168.1.128:5000/user/' + userID + "/password"), {
         oldPassword: oldPassword,
         password: newPassword,
       });
@@ -82,7 +86,7 @@ export default function User({ navigation }) {
 
   const handleChangeInformation = async (name, age, gender, userID) => {
     try {
-      const response = await axios.patch(("http://192.168.1.6:5000/user/" + userID + "/"), {
+      const response = await axios.patch(("http://192.168.1.128:5000/user/" + userID + "/"), {
         name: name,
         age: age,
         gender: gender,
@@ -104,6 +108,13 @@ export default function User({ navigation }) {
   return (
 
     <SafeAreaView style={styles.container}>
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: COLORS.background },
+          headerShadowVisible: false,
+        }}
+      />
+
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: 'row', marginTop: 15 }}>
           <Avatar.Image
@@ -291,7 +302,6 @@ export default function User({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30,
     backgroundColor: COLORS.background,
     color: "white",
   },

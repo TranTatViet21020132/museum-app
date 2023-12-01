@@ -53,7 +53,7 @@ const SearchLinks = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://192.168.1.6:5000/gallery/${params.id}`);
+      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -67,7 +67,7 @@ const SearchLinks = () => {
     let newLikeList = [];
     const user = await AsyncStorage.getItem("user-id");
     try {
-      const response1 = await axios.get(`http://192.168.1.6:5000/user/${user}/like`)
+      const response1 = await axios.get(`http://192.168.1.128:5000/user/${user}/like`)
       const checkIsInLikeList = response1.data.like.includes(params.id);
       if (checkIsInLikeList) {
         newLikeList = response1.data.like
@@ -76,7 +76,7 @@ const SearchLinks = () => {
         newLikeList = [...response1.data.like, params.id];
         console.log(newLikeList)
       }
-      await axios.patch(`http://192.168.1.6:5000/user/${user}/like`, {
+      await axios.patch(`http://192.168.1.128:5000/user/${user}/like`, {
         like: newLikeList
       })
     } catch (error) {
