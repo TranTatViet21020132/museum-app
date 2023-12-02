@@ -40,7 +40,7 @@ const SearchLinks = () => {
     titleParamStack.pop();
     if (titleParamStack.length != 0) {
       const prevTitleParam = titleParamStack.pop();
-      router.push(`search-details/${prevTitleParam}`);
+      router.push(`search/search-details/${prevTitleParam}`);
     } else {
       router.back();
     }

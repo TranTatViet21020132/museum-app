@@ -71,7 +71,7 @@ const SearchList = () => {
                 renderItem={({ item }) => (
                     <SearchListCard
                         item={item}
-                        handleNavigate={() => router.push(`search/search-details/${item.titleParam}`)}
+                        handleNavigate={() => router.replace(`search/search-details/${item.titleParam}`)}
                     />
                 )}
                 keyExtractor={(item) => item.titleParam}

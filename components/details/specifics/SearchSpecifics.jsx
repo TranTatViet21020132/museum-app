@@ -11,7 +11,7 @@ const SearchSpecifics = ({ title, points }) => {
   const [selectedExhibit, setSelectedExhibit] = useState();
 
   const handleCardPress = (item) => {
-    router.push(`/search/search-details/${item.titleParam}`);
+    router.replace(`/search/search-details/${item.titleParam}`);
     setSelectedExhibit(item.titleParam);
     console.log("working");
   };
