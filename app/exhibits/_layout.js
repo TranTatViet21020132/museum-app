@@ -21,7 +21,7 @@ const ExhibitScreen = () => {
           headerShadowVisible: false,
           headerTitle: "",
           href: null,
-          headerShown: false
+          headerShown: false,
         }}
         name="exhibit" component={ExhibitStack} />
     </Stack.Navigator>

@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from "expo-font";
 import { Ionicons } from '@expo/vector-icons';
 import SearchScreen from '../search/_layout';
-import HomeScreen from '../main/home';
+import HomeScreen from './home';
+import MuseumInfoScreen from '../museum/[id]'
 
 import ExhibitScreen from '../exhibits/_layout';
 import User from '../user/_layout';
@@ -24,6 +25,15 @@ const HomeStack = () => {
       }}
       
        name="home-screen" component={HomeScreen}/>
+       <Stack.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+        unmountOnBlur: true,
+      }}
+      
+       name="museum/[id]" component={MuseumInfoScreen}/>
     </Stack.Navigator>
   );
 };
