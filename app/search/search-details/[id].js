@@ -183,11 +183,7 @@ const SearchLinks = () => {
             />
           ),
           headerRight: () => (
-            <View style={{ marginRight: 30 }}>
-              <TouchableOpacity onPress={() => { handleAddFavourite() }} >
-                <Ionicons name="heart" size={30} color="white" />
-              </TouchableOpacity>
-            </View>
+            <ScreenHeaderBtn iconUrl={icons.heart} dimension="60%" handlePress={handleAddFavourite} />
           ),
           headerTitle: "",
         }}

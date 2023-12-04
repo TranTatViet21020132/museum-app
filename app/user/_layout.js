@@ -2,7 +2,7 @@
 import "react-native-gesture-handler"
 import { createStackNavigator } from '@react-navigation/stack';
 import UserInfor from "./userInfor"
-import Favourite from "./favourite";
+import Favourite from "./favourite/_layout";
 const Stack = createStackNavigator()
 
 const User = () => {
@@ -21,6 +21,8 @@ const User = () => {
           headerShadowVisible: false,
           headerTitle: "",
           href: null,
+          headerShown: false
+
         }}
         name="favourite" component={Favourite} />
     </Stack.Navigator>

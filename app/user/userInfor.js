@@ -1,5 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import {
+  ScreenHeaderBtn,
+} from "../../components";
+import { Stack } from "expo-router";
 import Modal from "react-native-modal";
 import { ListItem } from '@rneui/themed'
 import { useEffect, useState } from 'react';
@@ -104,6 +108,12 @@ export default function User({ navigation }) {
   return (
 
     <SafeAreaView style={styles.container}>
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: COLORS.background },
+          headerShadowVisible: false,
+        }}
+      />
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: 'row', marginTop: 15 }}>
           <Avatar.Image
@@ -154,7 +164,7 @@ export default function User({ navigation }) {
         {expanded &&
           <>
             <View >
-              <TouchableRipple onPress={() => toggleModal1()} style={{ backgroundColor: "grey" }}>
+              <TouchableRipple onPress={() => toggleModal1()} style={{ backgroundColor: "#83829A" }}>
                 <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Password</Text>
               </TouchableRipple>
             </View>
@@ -231,7 +241,7 @@ export default function User({ navigation }) {
             }
 
             <View>
-              <TouchableRipple onPress={() => toggleModal2()} style={{ backgroundColor: "grey" }}>
+              <TouchableRipple onPress={() => toggleModal2()} style={{ backgroundColor: "#83829A" }}>
                 <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Password</Text>
               </TouchableRipple>
             </View>
@@ -291,9 +301,9 @@ export default function User({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30,
     backgroundColor: COLORS.background,
     color: "white",
+    paddingTop: 20,
   },
   userInfoSection: {
     paddingHorizontal: 30,

@@ -3,7 +3,7 @@ import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../../constants';
 
-const Welcome = () => {
+const Welcome = ({ navigation }) => {
 
     return (
         <LinearGradient
@@ -12,7 +12,7 @@ const Welcome = () => {
             }}
             colors={["white", "#83829A", "black"]}
         >
-            <View style={{ flex: 1 , marginTop: 30}}>
+            <View style={{ flex: 1, marginTop: 30 }}>
                 <View>
                     <Image
                         source={require("../../assets/images/1.jpg")}
@@ -113,17 +113,21 @@ const Welcome = () => {
                         }}>Enjoy your tour!</Text>
                     </View>
 
-                    <TouchableOpacity style={{ display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                backgroundColor: "#83829A",
-                                                padding: 10,
-                                                borderRadius: 10,
-                                                width: "95%",
-                                                marginTop: 20}} onPress={() => navigation.navigate("/login")}>
-                        <Text style={{color: "white",
-                                        fontSize: 20,
-                                        fontWeight: "bold",}}>Login</Text>
+                    <TouchableOpacity style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "#83829A",
+                        padding: 10,
+                        borderRadius: 10,
+                        width: "95%",
+                        marginTop: 20
+                    }} onPress={() => navigation.navigate("login")}>
+                        <Text style={{
+                            color: "white",
+                            fontSize: 20,
+                            fontWeight: "bold",
+                        }}>Login</Text>
                     </TouchableOpacity>
 
 

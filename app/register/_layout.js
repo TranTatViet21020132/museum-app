@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, Icons } from '../../constants';
 import axios from 'axios';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const widthWindow = Dimensions.get("window").width * 0.9;
 
@@ -16,7 +17,6 @@ function Register({ navigation }) {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
-    const [gender, setGender] = useState();
 
     const [isPasswordShow, setIsPasswordShow] = useState(false);
 
@@ -27,7 +27,6 @@ function Register({ navigation }) {
                 password,
                 name,
                 age,
-                gender
             });
 
             if (email === "" || password === "" || name === "" || age === "") {
@@ -55,85 +54,81 @@ function Register({ navigation }) {
     }
 
     return (
-        <View style={styles.mainContainer}>
-            <Text style={styles.mainHeader}>Register Form</Text>
-            <Text style={styles.para}>Register and discover museum</Text>
+        <LinearGradient
+            style={{
+                flex: 1
+            }}
+            colors={["white", "#83829A", "black"]}>
+            <View style={styles.mainContainer}>
+                <Text style={styles.mainHeader}>Register Form</Text>
+                <Text style={styles.para}>Register and discover museum</Text>
 
-            <View style={{ marginBottom: 10 }}>
-                <Text style={{ color: "red", fontSize: 16 }}>
-                    {warning ? "Fill all field" : ""}
-                    {accountExisted ? "Email account already existed" : ""}
+                <View style={{ marginBottom: 10 }}>
+                    <Text style={{ color: "red", fontSize: 16 }}>
+                        {warning ? "Fill all field" : ""}
+                        {accountExisted ? "Email account already existed" : ""}
+                    </Text>
+                </View>
+                <View>
+                    <TextInput style={styles.lableInput} value={email}
+                        onChangeText={(emailData) => {
+                            setemail(emailData);
+                        }} autoCapitalize='none' autoCorrect={false}
+                        placeholder='Enter your email'
+                        placeholderTextColor='#7d7d7d' />
+                </View>
+                <View>
+                    <TextInput style={styles.lableInput} value={password}
+                        onChangeText={(passwordData) => {
+                            setPassword(passwordData);
+                        }} autoCapitalize='none' secureTextEntry={!isPasswordShow}
+                        placeholder='Enter your password'
+                        placeholderTextColor='#7d7d7d' />
+
+                    <TouchableOpacity
+                        onPress={() => setIsPasswordShow(!isPasswordShow)}
+                        style={{
+                            position: "absolute",
+                            bottom: 30,
+                            right: 15,
+                        }}
+                    >
+                        {
+                            isPasswordShow == true
+                                ? (<Ionicons name="eye" size={24} color={COLORS.background} />)
+                                : (<Ionicons name="eye-off" size={24} color={COLORS.background} />)
+                        }
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <TextInput style={styles.lableInput} value={name}
+                        onChangeText={(nameData) => {
+                            setName(nameData);
+                        }} autoCapitalize='none' autoCorrect={false}
+                        placeholder='Enter your name'
+                        placeholderTextColor='#7d7d7d' />
+                </View>
+                <View>
+                    <TextInput style={styles.lableInput} value={age}
+                        onChangeText={(ageData) => {
+                            setAge(ageData);
+                        }} autoCapitalize='none' autoCorrect={false}
+                        placeholder='Enter your age'
+                        placeholderTextColor='#7d7d7d' />
+                </View>
+
+
+                <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} disabled={agree} onPress={handleRegister}>
+                    <Text style={styles.buttonText}>Submit</Text>
+                </TouchableOpacity>
+
+                <Text style={styles.forgotStyle} onPress={handleLogin}>
+                    <Text style={{ color: "gray", fontSize: 17 }}>Already member?</Text>
+                    Sign In
                 </Text>
             </View>
-            <View>
-                <TextInput style={styles.lableInput} value={email}
-                    onChangeText={(emailData) => {
-                        setemail(emailData);
-                    }} autoCapitalize='none' autoCorrect={false}
-                    placeholder='Enter your email'
-                    placeholderTextColor='#7d7d7d' />
-            </View>
-            <View>
-                <TextInput style={styles.lableInput} value={password}
-                    onChangeText={(passwordData) => {
-                        setPassword(passwordData);
-                    }} autoCapitalize='none' secureTextEntry={!isPasswordShow}
-                    placeholder='Enter your password'
-                    placeholderTextColor='#7d7d7d' />
-
-                <TouchableOpacity
-                    onPress={() => setIsPasswordShow(!isPasswordShow)}
-                    style={{
-                        position: "absolute",
-                        bottom: 30,
-                        right: 15,
-                    }}
-                >
-                    {
-                        isPasswordShow == true
-                            ? (<Ionicons name="eye" size={24} color={COLORS.background} />)
-                            : (<Ionicons name="eye-off" size={24} color={COLORS.background} />)
-                    }
-                </TouchableOpacity>
-            </View>
-
-            <View>
-                <TextInput style={styles.lableInput} value={name}
-                    onChangeText={(nameData) => {
-                        setName(nameData);
-                    }} autoCapitalize='none' autoCorrect={false}
-                    placeholder='Enter your name'
-                    placeholderTextColor='#7d7d7d' />
-            </View>
-            <View>
-                <TextInput style={styles.lableInput} value={age}
-                    onChangeText={(ageData) => {
-                        setAge(ageData);
-                    }} autoCapitalize='none' autoCorrect={false}
-                    placeholder='Enter your age'
-                    placeholderTextColor='#7d7d7d' />
-            </View>
-
-            <View style={styles.container}>
-                <Picker
-                    selectedValue={gender}
-                    onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-                    style={styles.picker}
-                >
-                    <Picker.Item label="Male" value="Male" style={styles.pickerItem} />
-                    <Picker.Item label="Female" value="Female" style={styles.pickerItem} />
-                    <Picker.Item label="Other" value="Other" style={styles.pickerItem} />
-                </Picker>
-            </View>
-            <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} disabled={agree} onPress={handleRegister}>
-                <Text style={styles.buttonText}>Submit</Text>
-            </TouchableOpacity>
-
-            <Text style={styles.forgotStyle} onPress={handleLogin}>
-                <Text style={{ color: "gray", fontSize: 17 }}>Already member?</Text>
-                Sign In
-            </Text>
-        </View>
+        </LinearGradient>
     )
 }
 
@@ -161,7 +156,7 @@ const styles = StyleSheet.create({
     lableInput: {
         borderWidth: 1,
         borderColor: "gray",
-        backgroundColor: "#EEEDF1",
+        backgroundColor: "#E2E8E9",
         borderRadius: 10,
         width: widthWindow,
         height: 55,
@@ -208,20 +203,6 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 30,
         fontSize: 18,
-    },
-    picker: {
-        paddingLeft: 20,
-        width: 200,
-        height: 50,
-        backgroundColor: '#EEEDF1',
-        borderRadius: 8,
-        fontSize: 16,
-        border: "1px solid black"
-    },
-    pickerItem: {
-        color: 'red',
-        fontSize: 18,
-        textAlign: 'center',
     },
 })
 export default Register
