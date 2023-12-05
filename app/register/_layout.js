@@ -135,7 +135,7 @@ function Register({ navigation }) {
 const styles = StyleSheet.create({
     mainContainer: {
         height: "100%",
-        paddingHorizontal: 20,
+        paddingHorizontal: "5%",
         paddingTop: 40,
         marginTop: 80
     },

@@ -12,6 +12,7 @@ import { COLORS, icons, SIZES } from '../../../constants'
 import styles from '../../search/id.style'
 
 const Favourite = ({ navigation }) => {
+  const params = useSearchParams();
   const [searchLoader, setSearchLoader] = useState(false);
   const [page, setPage] = useState(1);
   const itemPerPage = 5;
@@ -54,7 +55,7 @@ const Favourite = ({ navigation }) => {
   }
   useEffect(() => {
     fetchFavourite();
-  }, [])
+  }, [params.id])
 
   useEffect(() => {
     fetchTitleList();
@@ -80,7 +81,12 @@ const Favourite = ({ navigation }) => {
   const message = () => {
     showMessage({
       message: "Delete successfully!",
-      type: "info"
+      type: "success",
+      icon: "success",
+      position: "bottom",
+      duration: 1000,
+      titleStyle: { fontSize: 20 },
+      style: { paddingLeft: "30%" }
     })
   }
   const handleDeleteExhibit = async (deleteItem) => {
@@ -164,8 +170,10 @@ const Favourite = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           )}
-        />}
-      <FlashMessage position="bottom" durartion={1000} style={{ backgroundColor: "#83829A" }} />
+        />
+      }
+      <FlashMessage />
+
     </SafeAreaView>
   )
 }

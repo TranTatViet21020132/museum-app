@@ -146,10 +146,12 @@ export default function User({ navigation }) {
         </View>
       </View>
 
+      <View style={{ borderWidth: 0.5, borderColor: "white" }}>
+      </View>
       <View style={styles.menuWrapper}>
         <TouchableRipple onPress={() => { navigation.navigate("favourite") }}>
           <View style={styles.menuItem}>
-            <Ionicons name="heart-outline" color="#FF6347" size={25} />
+            <Ionicons name="heart-outline" color="orange" size={25} />
             <Text style={styles.menuItemText}>Your Favorites</Text>
           </View>
 
@@ -157,7 +159,7 @@ export default function User({ navigation }) {
 
         <TouchableRipple onPress={() => { setExpanded(!expanded) }}>
           <View style={styles.menuItem}>
-            <Ionicons name="settings-outline" color="#FF6347" size={25} />
+            <Ionicons name="settings-outline" color="orange" size={25} />
             <Text style={styles.menuItemText}>Settings</Text>
           </View>
         </TouchableRipple>
@@ -173,7 +175,7 @@ export default function User({ navigation }) {
               <Modal isVisible={modalVisible1} style={{ display: "flex", margin: "0%", marginTop: "20%", borderRadius: 10 }}>
                 <View style={{ backgroundColor: "#D3D3D3", paddingBottom: "65%" }}>
                   <View style={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end", paddingHorizontal: 10, paddingVertical: 5 }}>
-                    <Ionicons name='close-outline' size={26} color="black" onPress={toggleModal1} />
+                    <Ionicons name='close-outline' size={30} color="black" onPress={toggleModal1} />
                   </View>
                   <View style={styles.changePassword}>
                     <Text style={{ fontSize: 23, fontWeight: 'bold', marginBottom: 30 }}>Change Password</Text>
@@ -242,14 +244,14 @@ export default function User({ navigation }) {
 
             <View>
               <TouchableRipple onPress={() => toggleModal2()} style={{ backgroundColor: "#83829A" }}>
-                <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Password</Text>
+                <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Information</Text>
               </TouchableRipple>
             </View>
             {
               <Modal isVisible={modalVisible2} style={{ display: "flex", margin: "0%", marginTop: "20%", borderRadius: 10 }}>
                 <View style={{ backgroundColor: "#D3D3D3", paddingBottom: "65%" }}>
                   <View style={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end", paddingHorizontal: 10, paddingVertical: 5 }}>
-                    <Ionicons name='close-outline' size={26} color="black" onPress={toggleModal2} />
+                    <Ionicons name='close-outline' size={30} color="black" onPress={toggleModal2} />
                   </View>
                   <View style={styles.changePassword}>
                     <View>
@@ -289,7 +291,7 @@ export default function User({ navigation }) {
         }
         <TouchableRipple onPress={() => { AsyncStorage.removeItem("user-id"); navigation.navigate("login") }}>
           <View style={styles.menuItem}>
-            <Ionicons name="exit-outline" color="#FF6347" size={25} />
+            <Ionicons name="exit-outline" color="orange" size={25} />
             <Text style={styles.menuItemText}>Logout</Text>
           </View>
         </TouchableRipple>
@@ -324,8 +326,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginBottom: 10,
-    border: "1px solid transparent",
-    borderBottomColor: "black"
+    borderWidth: 0.5,
+    borderBottomColor: "white",
+    borderTopColor: "transparent",
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
   },
   menuWrapper: {
     marginTop: 10,
@@ -334,7 +339,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 30,
-    border: "1px solid transparent",
   },
   menuItemText: {
     color: 'white',

@@ -42,10 +42,12 @@
     "react-native-screens": "~3.22.0",
     "react-native-simple-audio-player": "^1.0.3",
     "react-native-sound": "^0.11.2",
+    "react-native-toast-message": "^2.1.8",
     "react-native-track-player": "^4.0.1",
     "react-native-vector-icons": "^10.0.2",
     "react-native-video": "^5.2.1",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "toastify-react-native": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
