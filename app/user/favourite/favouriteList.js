@@ -95,7 +95,6 @@ const Favourite = ({ navigation }) => {
     } catch (error) {
       console.error(error)
     }
-    message();
   }
 
 
