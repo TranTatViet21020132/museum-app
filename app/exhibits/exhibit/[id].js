@@ -88,7 +88,6 @@ const ExhibitLinks = () => {
     refetch();
   }, [params.id]);
 
-
   const handleAddFavourite = async () => {
     let newLikeList = [];
     const user = await AsyncStorage.getItem("user-id");

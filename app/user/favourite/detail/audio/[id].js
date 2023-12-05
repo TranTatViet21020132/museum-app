@@ -119,9 +119,9 @@ const AudioFavourite = ({ navigation }) => {
     }, [sound]);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-            <View style={{ paddingTop: 30 }} >
+            <View style={{ paddingTop: 30, marginLeft: 8 }} >
                 <ScreenHeaderBtn
-                    iconUrl={icons.left}
+                    iconUrl={icons.back}
                     dimension='60%'
                     handlePress={() => { navigation.navigate("detail/[id]"); }}
                 />
