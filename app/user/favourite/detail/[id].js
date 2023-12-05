@@ -119,14 +119,24 @@ const FavouriteDetail = ({ navigation }) => {
     }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-            <View style={{ display: "flex", flexDirection: "row" }}>
-                <View style={{ paddingTop: 30 }} >
-                    <ScreenHeaderBtn
-                        iconUrl={icons.left}
-                        dimension='60%'
-                        handlePress={() => { handleBack() }}
-                    />
-                </View>
+            <View style={{ display: "flex", flexDirection: "row", marginBottom: 30 }}>
+                <Stack.Screen
+                    options={{
+                        headerStyle: { backgroundColor: COLORS.background },
+                        headerShadowVisible: false,
+                        headerLeft: () => (
+                            <View style={{ flexDirection: 'row', marginLeft: 8 }}>
+                                <ScreenHeaderBtn
+                                    iconUrl={icons.back}
+                                    dimension='100%'
+                                    handlePress={() => { handleBack() }}
+                                />
+                            </View>
+
+                        ),
+                        headerTitle: "",
+                    }}
+                />
 
                 {data?.speech && <View style={{ paddingTop: 30, paddingLeft: "55%" }} >
                     <ScreenHeaderBtn

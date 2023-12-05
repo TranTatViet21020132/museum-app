@@ -100,13 +100,23 @@ const Favourite = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-      <View style={{ paddingTop: 25 }} >
-        <ScreenHeaderBtn
-          iconUrl={icons.left}
-          dimension='60%'
-          handlePress={() => { navigation.navigate("UserInfor"); AsyncStorage.removeItem("item") }}
-        />
-      </View>
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: COLORS.background },
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <View style={{ flexDirection: 'row', marginLeft: 8 }}>
+              <ScreenHeaderBtn
+                iconUrl={icons.back}
+                dimension='100%'
+                handlePress={() => { navigation.navigate("UserInfor"); AsyncStorage.removeItem("item") }}
+              />
+            </View>
+
+          ),
+          headerTitle: "",
+        }}
+      />
       {favouriteList.length == 0 ?
         <View style={styles.container}>
           <Text style={styles.searchTitle}>Your Favourite is Empty</Text>

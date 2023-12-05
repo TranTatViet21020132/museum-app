@@ -68,7 +68,7 @@ const SearchList = () => {
                     headerStyle: { backgroundColor: COLORS.background },
                     headerShadowVisible: false,
                     headerLeft: () => (
-                        <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 8 }}>
                             <ScreenHeaderBtn
                                 iconUrl={icons.back}
                                 dimension='100%'

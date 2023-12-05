@@ -33,7 +33,7 @@ const AudioFavourite = ({ navigation }) => {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`http://192.168.1.128:5000/gallery/${nameExhibit}`);
+            const response = await axios.get(`http://192.168.1.6:5000/gallery/${nameExhibit}`);
             setData(response.data);
             setIsLoading(false);
         } catch (error) {
@@ -119,9 +119,9 @@ const AudioFavourite = ({ navigation }) => {
     }, [sound]);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-            <View style={{ paddingTop: 30 }} >
+            <View style={{ paddingTop: 30, marginLeft: 8 }} >
                 <ScreenHeaderBtn
-                    iconUrl={icons.left}
+                    iconUrl={icons.back}
                     dimension='60%'
                     handlePress={() => { navigation.navigate("detail/[id]"); }}
                 />
