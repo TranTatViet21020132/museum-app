@@ -25,7 +25,7 @@ const SearchList = () => {
         setSearchResult([]);
 
         try {
-            const response = await axios.post('http://192.168.1.128:5000/gallery/search/', {
+            const response = await axios.post('http://192.168.1.6:5000/gallery/search/', {
                 query: params.id, // Assuming params.id is the query parameter
             });
 
@@ -64,21 +64,21 @@ const SearchList = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <Stack.Screen
-            options={{
-                headerStyle: { backgroundColor: COLORS.background },
-                headerShadowVisible: false,
-                headerLeft: () => (
-                <View style={{ flexDirection: 'row', marginLeft: 22 }}>
-                    <ScreenHeaderBtn
-                    iconUrl={icons.back}
-                    dimension='100%'
-                    handlePress={() => router.back()}
-                />
-                </View>
-                
-                ),
-                headerTitle: "",
-            }}
+                options={{
+                    headerStyle: { backgroundColor: COLORS.background },
+                    headerShadowVisible: false,
+                    headerLeft: () => (
+                        <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+                            <ScreenHeaderBtn
+                                iconUrl={icons.back}
+                                dimension='100%'
+                                handlePress={() => router.back()}
+                            />
+                        </View>
+
+                    ),
+                    headerTitle: "",
+                }}
             />
             <FlatList
                 data={searchResultPerPage}

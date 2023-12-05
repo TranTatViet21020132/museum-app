@@ -46,6 +46,21 @@ const SearchDetail = () => {
     }
   };
 
+  const [isSave, setIsSave] = useState(false)
+  const setSaveForExhibition = async () => {
+    const user = await AsyncStorage.getItem("user-id");
+    try {
+      const response1 = await axios.get(`http://192.168.1.6:5000/user/${user}/like`)
+      const checkIsInLikeList = response1.data.like.includes(params.id);
+      setIsSave(checkIsInLikeList)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    setSaveForExhibition();
+  })
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -53,7 +68,7 @@ const SearchDetail = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
+      const response = await axios.get(`http://192.168.1.6:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -67,22 +82,25 @@ const SearchDetail = () => {
     let newLikeList = [];
     const user = await AsyncStorage.getItem("user-id");
     try {
-      const response1 = await axios.get(`http://192.168.1.128:5000/user/${user}/like`)
+      const response1 = await axios.get(`http://192.168.1.6:5000/user/${user}/like`)
       const checkIsInLikeList = response1.data.like.includes(params.id);
       if (checkIsInLikeList) {
-        newLikeList = response1.data.like
+        newLikeList = response1.data.like.filter(item => item !== params.id)
+        setIsSave(false);
         console.log(newLikeList)
       } else {
         newLikeList = [...response1.data.like, params.id];
+        setIsSave(true);
         console.log(newLikeList)
       }
-      await axios.patch(`http://192.168.1.128:5000/user/${user}/like`, {
+      await axios.patch(`http://192.168.1.6:5000/user/${user}/like`, {
         like: newLikeList
       })
     } catch (error) {
       console.error(error)
     }
   }
+
 
   useEffect(() => {
     fetchData();
@@ -186,12 +204,12 @@ const SearchDetail = () => {
           headerLeft: () => (
             <View style={{ flexDirection: 'row', marginLeft: 22 }}>
               <ScreenHeaderBtn
-              iconUrl={icons.back}
-              dimension='100%'
-              handlePress={() => handleBack()}
-            />
+                iconUrl={icons.back}
+                dimension='100%'
+                handlePress={() => handleBack()}
+              />
             </View>
-            
+
           ),
           headerRight: () => (
             <View style={{ flexDirection: 'row', marginRight: 16 }}>
@@ -201,13 +219,19 @@ const SearchDetail = () => {
                 handlePress={() => handleAudioPlayer()}
               />
               }
-              <ScreenHeaderBtn iconUrl={icons.save} dimension='70%' 
-              handlePress={() => handleAddFavourite()}/>
+              {isSave ?
+                <ScreenHeaderBtn iconUrl={icons.save_orange} dimension='70%'
+                  handlePress={() => { handleAddFavourite(); }} />
+                :
+                <ScreenHeaderBtn iconUrl={icons.save} dimension='70%'
+                  handlePress={() => { handleAddFavourite(); }} />
+              }
             </View>
           ),
           headerTitle: "",
         }}
       />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -228,6 +252,7 @@ const SearchDetail = () => {
                   />
 
                   {displayTabContent()}
+
                 </View>
               </ScrollView>
             </View>

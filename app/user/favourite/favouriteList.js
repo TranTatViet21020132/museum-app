@@ -5,6 +5,7 @@ import { Stack, useRouter, useSearchParams } from 'expo-router'
 import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
 import { Ionicons } from '@expo/vector-icons';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 import ScreenHeaderBtn from '../../../components/common/header/ScreenHeaderBtn'
 import FavouriteListCard from "../../../components/common/cards/search/FavouriteListCard"
 import { COLORS, icons, SIZES } from '../../../constants'
@@ -22,7 +23,7 @@ const Favourite = ({ navigation }) => {
     try {
       const user = await AsyncStorage.getItem("user-id");
 
-      axios.get(`http://192.168.1.128:5000/user/${user}/like`)
+      axios.get(`http://192.168.1.6:5000/user/${user}/like`)
         .then(response => { setfavouriteList(response.data.like) })
         .catch(error =>
           console.error(error)
@@ -37,7 +38,7 @@ const Favourite = ({ navigation }) => {
     setSearchLoader(true);
     try {
       const promises = favouriteList.map(async (item) => {
-        const response = await axios.get(`http://192.168.1.128:5000/gallery/${item}`);
+        const response = await axios.get(`http://192.168.1.6:5000/gallery/${item}`);
         return response.data.title;
       });
 
@@ -76,13 +77,17 @@ const Favourite = ({ navigation }) => {
     setTitleListPerPage(limitedData);
   }, [page, titleList, itemPerPage]);
 
+  const message = () => {
+    showMessage({
+      message: "Delete successfully!",
+      type: "info"
+    })
+  }
   const handleDeleteExhibit = async (deleteItem) => {
-    // console.log(item)
-    // console.log(favouriteList[item]);
     const newFavouriteArray = favouriteList.filter(item => item !== deleteItem)
     try {
       const user = await AsyncStorage.getItem("user-id")
-      await axios.patch(`http://192.168.1.128:5000/user/${user}/like`, {
+      await axios.patch(`http://192.168.1.6:5000/user/${user}/like`, {
         like: newFavouriteArray
       })
       fetchFavourite()
@@ -90,80 +95,78 @@ const Favourite = ({ navigation }) => {
     } catch (error) {
       console.error(error)
     }
+    message();
   }
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-      <Stack.Screen
-        options={{
-            headerStyle: { backgroundColor: COLORS.background },
-            headerShadowVisible: false,
-            headerLeft: () => (
-            <View style={{ flexDirection: 'row', marginLeft: 8 }}>
-                <ScreenHeaderBtn
-                iconUrl={icons.back}
-                dimension='100%'
-                handlePress={() => { navigation.navigate("UserInfor"); AsyncStorage.removeItem("item") }}
+      <View style={{ paddingTop: 25 }} >
+        <ScreenHeaderBtn
+          iconUrl={icons.left}
+          dimension='60%'
+          handlePress={() => { navigation.navigate("UserInfor"); AsyncStorage.removeItem("item") }}
+        />
+      </View>
+      {favouriteList.length == 0 ?
+        <View style={styles.container}>
+          <Text style={styles.searchTitle}>Your Favourite is Empty</Text>
+        </View>
+        :
+        <FlatList
+          data={titleListPerPage}
+          renderItem={({ item, index }) => (
+            <FavouriteListCard
+              item={item}
+              handleNavigate={() => { navigation.navigate("detail/[id]"); AsyncStorage.setItem("item", favouriteList[index + 5 * (page - 1)]) }}
+              handleDelete={() => { handleDeleteExhibit(favouriteList[index + 5 * (page - 1)]); message() }}
             />
+          )}
+          keyExtractor={(item, index) => (item + index).toString()}
+          contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
+          ListHeaderComponent={() => (
+            <>
+              <View style={styles.container}>
+                <Text style={styles.searchTitle}>Your Favourite</Text>
+              </View>
+              <View style={styles.loaderContainer}>
+                {searchLoader ? (
+                  <ActivityIndicator size='large' color={COLORS.primary} />
+                ) : (
+                  <Text></Text>
+                )}
+              </View>
+            </>
+          )}
+          ListFooterComponent={() => (
+            <View style={styles.footerContainer}>
+              <TouchableOpacity
+                style={styles.paginationButton}
+                onPress={() => handlePagination('left')}
+              >
+                <Image
+                  source={icons.chevronLeft}
+                  style={styles.paginationImage}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+              <View style={styles.paginationTextBox}>
+                <Text style={styles.paginationText}>{page}</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.paginationButton}
+                onPress={() => handlePagination('right')}
+              >
+                <Image
+                  source={icons.chevronRight}
+                  style={styles.paginationImage}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
             </View>
-            
-            ),
-            headerTitle: "",
-        }}
-      />
-      <FlatList
-        data={titleListPerPage}
-        renderItem={({ item, index }) => (
-          <FavouriteListCard
-            item={item}
-            handleNavigate={() => { navigation.navigate("detail/[id]"); AsyncStorage.setItem("item", favouriteList[index + 5 * (page - 1)]) }}
-            handleDelete={() => handleDeleteExhibit(favouriteList[index + 5 * (page - 1)])}
-          />
-        )}
-        keyExtractor={(item, index) => (item + index).toString()}
-        contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
-        ListHeaderComponent={() => (
-          <>
-            <View style={styles.container}>
-              <Text style={styles.searchTitle}>Your Favourite</Text>
-            </View>
-            <View style={styles.loaderContainer}>
-              {searchLoader ? (
-                <ActivityIndicator size='large' color={COLORS.primary} />
-              ) : (
-                <Text></Text>
-              )}
-            </View>
-          </>
-        )}
-        ListFooterComponent={() => (
-          <View style={styles.footerContainer}>
-            <TouchableOpacity
-              style={styles.paginationButton}
-              onPress={() => handlePagination('left')}
-            >
-              <Image
-                source={icons.chevronLeft}
-                style={styles.paginationImage}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-            <View style={styles.paginationTextBox}>
-              <Text style={styles.paginationText}>{page}</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.paginationButton}
-              onPress={() => handlePagination('right')}
-            >
-              <Image
-                source={icons.chevronRight}
-                style={styles.paginationImage}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          </View>
-        )}
-      />
+          )}
+        />}
+      <FlashMessage position="bottom" durartion={1000} style={{ backgroundColor: "#83829A" }} />
     </SafeAreaView>
   )
 }

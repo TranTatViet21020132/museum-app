@@ -52,16 +52,16 @@ const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
               onPress={toggleDropdown}
             >
               <Animated.View
-              style={{ 
-                backgroundColor: COLORS.gray3,
-                padding: 10,
-                borderRadius: 10, 
-                marginTop: 100,
-                opacity: fadeAnim,
-                shadowColor: COLORS.lightWhite,
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.5,
-                shadowRadius: 15,
+                style={{
+                  backgroundColor: COLORS.gray3,
+                  padding: 10,
+                  borderRadius: 10,
+                  marginTop: 100,
+                  opacity: fadeAnim,
+                  shadowColor: COLORS.lightWhite,
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.5,
+                  shadowRadius: 15,
                 }}>
                 {categories.map((category, index) => (
                   <Animated.View key={category} style={{ opacity: fadeAnim.interpolate({ inputRange: [0, 1], outputRange: [1, 1] }) }}>

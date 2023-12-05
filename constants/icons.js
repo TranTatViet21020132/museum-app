@@ -15,6 +15,7 @@ import forward from '../assets/icons/forward5s.png';
 import replay from '../assets/icons/replay5s.png';
 import save from '../assets/icons/save.png';
 import back from '../assets/icons/back.png';
+import save_orange from "../assets/icons/save-orange.png"
 
 export default {
   heart,
@@ -33,5 +34,6 @@ export default {
   forward,
   replay,
   save,
-  back
+  back,
+  save_orange
 };

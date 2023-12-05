@@ -30,7 +30,7 @@ const AudioPlayerScreen = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
+      const response = await axios.get(`http://192.168.1.6:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -117,22 +117,22 @@ const AudioPlayerScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: COLORS.background },
-            headerShadowVisible: false,
-            headerLeft: () => (
-              <View style={{ flexDirection: 'row', marginLeft: 24 }}>
-                <ScreenHeaderBtn
+        options={{
+          headerStyle: { backgroundColor: COLORS.background },
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <View style={{ flexDirection: 'row', marginLeft: 24 }}>
+              <ScreenHeaderBtn
                 iconUrl={icons.back}
                 dimension='100%'
                 handlePress={() => router.back()}
               />
-              </View>
-              
-            ),
-            headerTitle: "",
-          }}
-        />
+            </View>
+
+          ),
+          headerTitle: "",
+        }}
+      />
       <View style={styles.audioContainer}>
         <Text style={styles.audioTitle}>
           {data?.title}
@@ -157,12 +157,12 @@ const AudioPlayerScreen = () => {
         />
         <View style={styles.playbacks}>
           <Pressable
-          style={({pressed}) => [
-            {
-              backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
-            },
-            styles.timerControl,
-          ]}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+              },
+              styles.timerControl,
+            ]}
           >
             <Image
               source={icons.replay}
@@ -172,14 +172,14 @@ const AudioPlayerScreen = () => {
           </Pressable>
           <View>
             {isPlaying ?
-              <Pressable 
-              style={({pressed}) => [
-                {
-                  backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
-                },
-                styles.btnContainer,
-              ]}
-              onPress={() => togglePlayPause()}>
+              <Pressable
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                  },
+                  styles.btnContainer,
+                ]}
+                onPress={() => togglePlayPause()}>
                 <Image
                   source={icons.pause}
                   resizeMode='cover'
@@ -188,12 +188,12 @@ const AudioPlayerScreen = () => {
               </Pressable>
               :
               <Pressable
-              style={({pressed}) => [
-                {
-                  backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
-                },
-                styles.btnContainer,
-              ]} onPress={() => togglePlayPause()}>
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                  },
+                  styles.btnContainer,
+                ]} onPress={() => togglePlayPause()}>
                 <Image
                   source={icons.play}
                   resizeMode='cover'
@@ -203,12 +203,12 @@ const AudioPlayerScreen = () => {
             }
           </View>
           <Pressable
-          style={({pressed}) => [
-            {
-              backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
-            },
-            styles.timerControl,
-          ]}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+              },
+              styles.timerControl,
+            ]}
           >
             <Image
               source={icons.forward}

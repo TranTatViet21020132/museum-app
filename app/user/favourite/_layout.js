@@ -14,6 +14,7 @@ const Favourite = () => {
                 options={{
                     headerShadowVisible: false,
                     headerTitle: "",
+                    headerShown: false
                 }}
                 name="favourite-list"
                 component={FavouriteList}

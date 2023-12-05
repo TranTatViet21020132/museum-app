@@ -23,7 +23,7 @@ function Log({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.1.128:5000/login', {
+      const response = await axios.post('http://192.168.1.6:5000/login', {
         email,
         password,
       });
@@ -55,7 +55,7 @@ function Log({ navigation }) {
       style={{
         flex: 1
       }}
-      colors={[  "#9f9eb9", COLORS.background ]}>
+      colors={["#9f9eb9", COLORS.background]}>
       <View style={styles.mainContainer}>
         <Text style={styles.mainHeader}>Login</Text>
         <Text style={styles.para}>Login and discover museum</Text>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     width: widthWindow,
     height: 55,
     marginBottom: 20,
-    paddingLeft: 20,
+    paddingLeft: "5%",
     alignItems: "center",
     textAlign: "left",
     fontSize: 20,
