@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import { View, Text, Pressable, SafeAreaView, Image } from 'react-native';
 import { Audio } from 'expo-av';
 import { Stack } from "expo-router";
 import { useRouter, useSearchParams } from "expo-router";
@@ -25,6 +25,7 @@ const AudioPlayerScreen = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isPlayPausePressed, setIsPlayPausePressed] = useState(false);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -116,22 +117,27 @@ const AudioPlayerScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.background },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.left}
-              dimension='60%'
-              handlePress={() => router.back()}
-            />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
-          ),
-          headerTitle: "",
-        }}
-      />
+          options={{
+            headerStyle: { backgroundColor: COLORS.background },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <View style={{ flexDirection: 'row', marginLeft: 24 }}>
+                <ScreenHeaderBtn
+                iconUrl={icons.back}
+                dimension='100%'
+                handlePress={() => router.back()}
+              />
+              </View>
+              
+            ),
+            headerRight: () => (
+              <View style={{ flexDirection: 'row', marginRight: 20 }}>
+                <ScreenHeaderBtn iconUrl={icons.save} dimension='70%' />
+              </View>
+            ),
+            headerTitle: "",
+          }}
+        />
       <View style={styles.audioContainer}>
         <Text style={styles.audioTitle}>
           {data?.title}
@@ -155,39 +161,66 @@ const AudioPlayerScreen = () => {
           thumbTintColor={COLORS.primary}
         />
         <View style={styles.playbacks}>
-          <TouchableOpacity style={styles.timerControl}>
+          <Pressable
+          style={({pressed}) => [
+            {
+              backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+            },
+            styles.timerControl,
+          ]}
+          >
             <Image
               source={icons.replay}
               resizeMode='cover'
               style={styles.btnImg}
             />
-          </TouchableOpacity>
+          </Pressable>
           <View>
             {isPlaying ?
-              <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
+              <Pressable 
+              style={({pressed}) => [
+                {
+                  backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                },
+                styles.btnContainer,
+              ]}
+              onPress={() => togglePlayPause()}>
                 <Image
                   source={icons.pause}
                   resizeMode='cover'
                   style={styles.btnImg}
                 />
-              </TouchableOpacity>
+              </Pressable>
               :
-              <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
+              <Pressable
+              style={({pressed}) => [
+                {
+                  backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                },
+                styles.btnContainer,
+              ]} onPress={() => togglePlayPause()}>
                 <Image
                   source={icons.play}
                   resizeMode='cover'
                   style={styles.btnImg}
                 />
-              </TouchableOpacity>
+              </Pressable>
             }
           </View>
-          <TouchableOpacity style={styles.timerControl}>
+          <Pressable
+          style={({pressed}) => [
+            {
+              backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+            },
+            styles.timerControl,
+          ]}
+          >
             <Image
               source={icons.forward}
               resizeMode='cover'
               style={styles.btnImg}
             />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>

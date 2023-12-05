@@ -113,24 +113,12 @@ function Register({ navigation }) {
                     placeholder='Enter your age'
                     placeholderTextColor='#7d7d7d' />
             </View>
-
-            <View style={styles.container}>
-                <Picker
-                    selectedValue={gender}
-                    onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-                    style={styles.picker}
-                >
-                    <Picker.Item label="Male" value="Male" style={styles.pickerItem} />
-                    <Picker.Item label="Female" value="Female" style={styles.pickerItem} />
-                    <Picker.Item label="Other" value="Other" style={styles.pickerItem} />
-                </Picker>
-            </View>
             <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} disabled={agree} onPress={handleRegister}>
                 <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
 
             <Text style={styles.forgotStyle} onPress={handleLogin}>
-                <Text style={{ color: "gray", fontSize: 17 }}>Already member?</Text>
+                <Text style={{ color: "gray", fontSize: 17 }}>Already a member? </Text>
                 Sign In
             </Text>
         </View>

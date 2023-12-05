@@ -13,6 +13,8 @@ import pause from '../assets/icons/pause.png';
 import play from '../assets/icons/play.png';
 import forward from '../assets/icons/forward5s.png';
 import replay from '../assets/icons/replay5s.png';
+import save from '../assets/icons/save.png';
+import back from '../assets/icons/back.png';
 
 export default {
   heart,
@@ -29,5 +31,7 @@ export default {
   pause,
   play,
   forward,
-  replay
+  replay,
+  save,
+  back
 };

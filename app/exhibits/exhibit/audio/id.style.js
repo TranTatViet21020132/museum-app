@@ -37,9 +37,8 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   btnContainer: {
-    width: 70,
-    height: 70,
-    backgroundColor: COLORS.white,
+    width: 90,
+    height: 90,
     borderRadius: 10000,
     justifyContent: "center",
     alignItems: "center",
@@ -47,8 +46,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   btnImg:{
-    width: "60%",
-    height: "60%",
+    width: "80%",
+    height: "80%",
     borderRadius: SIZES.small / 1.25,
   },
   playbacks: {
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
   timerControl: {
     width: 40,
     height: 40,
-    backgroundColor: COLORS.white,
     borderRadius: 10000,
     justifyContent: "center",
     alignItems: "center",

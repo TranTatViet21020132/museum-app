@@ -93,7 +93,7 @@ function Log({ navigation }) {
       </TouchableOpacity>
 
       <Text style={styles.forgotStyle} onPress={handleRegister}>
-        <Text style={{ color: "gray", fontSize: 17 }}>Don't have an account?</Text>
+        <Text style={{ color: "gray", fontSize: 17 }}>Don't have an account? </Text>
         Sign Up
       </Text>
     </View>

@@ -4,7 +4,7 @@ import styles from './screenheader.style';
 import { icons, COLORS } from '../../../constants';
 import { useRouter } from "expo-router";
 
-const categories = ['Giới thiệu', 'Lịch sử bảo tàng', 'Tham quan', 'Nội quy', 'Lệ phí', "Vị trí"];
+const categories = ['Giới thiệu', 'Lịch sử bảo tàng', 'Tham quan', 'Nội quy', 'Lệ phí'];
 
 const ScreenHeaderBtn = ({ iconUrl, dimension, handlePress }) => {
   const router = useRouter();

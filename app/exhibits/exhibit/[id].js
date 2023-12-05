@@ -159,10 +159,14 @@ const ExhibitLinks = () => {
             headerStyle: { backgroundColor: COLORS.background },
             headerShadowVisible: false,
             headerLeft: () => (
-              <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
+              <View style={{ flexDirection: 'row', marginLeft: 24 }}>
+                <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
+              </View>
             ),
             headerRight: () => (
-              <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
+              <View style={{ flexDirection: 'row', marginRight: 20 }}>
+                <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
+              </View>
             ),
 
           }}
@@ -173,21 +177,24 @@ const ExhibitLinks = () => {
             headerStyle: { backgroundColor: COLORS.background },
             headerShadowVisible: false,
             headerLeft: () => (
-              <ScreenHeaderBtn
-                iconUrl={icons.left}
-                dimension='60%'
+              <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+                <ScreenHeaderBtn
+                iconUrl={icons.back}
+                dimension='100%'
                 handlePress={() => handleBack()}
               />
+              </View>
+              
             ),
             headerRight: () => (
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', marginRight: 16 }}>
                 {data?.speech && <ScreenHeaderBtn
                   iconUrl={icons.headphones}
-                  dimension='60%'
+                  dimension='70%'
                   handlePress={() => handleAudioPlayer()}
                 />
                 }
-                <ScreenHeaderBtn iconUrl={images.profile} dimension='60%' />
+                <ScreenHeaderBtn iconUrl={icons.save} dimension='70%' />
               </View>
             ),
             headerTitle: "",

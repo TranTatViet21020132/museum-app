@@ -12,18 +12,22 @@ const Exhibit = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.background },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.heart} dimension='60%' />
-          ),
+          options={{
+            headerStyle: { backgroundColor: COLORS.background },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <View style={{ flexDirection: 'row', marginLeft: 24 }}>
+                <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
+              </View>
+            ),
+            headerRight: () => (
+              <View style={{ flexDirection: 'row', marginRight: 20 }}>
+                <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
+              </View>
+            ),
 
-        }}
-      />
+          }}
+        />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
