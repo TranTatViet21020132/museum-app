@@ -33,7 +33,7 @@ const AudioFavourite = ({ navigation }) => {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`http://192.168.1.6:5000/gallery/${nameExhibit}`);
+            const response = await axios.get(`http://192.168.1.128:5000/gallery/${nameExhibit}`);
             setData(response.data);
             setIsLoading(false);
         } catch (error) {
