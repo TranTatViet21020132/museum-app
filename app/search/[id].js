@@ -12,8 +12,10 @@ import styles from '../../styles/search'
 const SearchList = () => {
     const params = useSearchParams();
     const router = useRouter();
+    const itemPerPage = 10;
 
     const [searchResult, setSearchResult] = useState([]);
+    const [searchResultPerPage, setSearchResultPerPage] = useState([])
     const [searchLoader, setSearchLoader] = useState(false);
     const [searchError, setSearchError] = useState(null);
     const [page, setPage] = useState(1);
@@ -28,6 +30,7 @@ const SearchList = () => {
             });
 
             setSearchResult(response.data); // Set the search results from the API response
+            console.log(searchResult)
         } catch (error) {
             setSearchError('Oops, something went wrong'); // Handle error appropriately
         } finally {
@@ -36,10 +39,11 @@ const SearchList = () => {
     };
 
     const handlePagination = (direction) => {
+        const maxPage = Math.ceil(searchResult.length / itemPerPage);
         if (direction === 'left' && page > 1) {
             setPage(page - 1);
             handleSearch();
-        } else if (direction === 'right') {
+        } else if (direction === 'right' && page < maxPage) {
             setPage(page + 1);
             handleSearch();
         }
@@ -48,7 +52,15 @@ const SearchList = () => {
     useEffect(() => {
         handleSearch();
     }, [page]);
+    useEffect(() => {
+        // Update limitedData based on the current page and itemsPerPage
+        const startIndex = (page - 1) * itemPerPage;
+        const endIndex = startIndex + itemPerPage;
+        const limitedData = searchResult.slice(startIndex, endIndex);
 
+        // Update the state with the limitedData
+        setSearchResultPerPage(limitedData);
+    }, [page, searchResult, itemPerPage]);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <Stack.Screen
@@ -67,14 +79,14 @@ const SearchList = () => {
                 }}
             />
             <FlatList
-                data={searchResult}
+                data={searchResultPerPage}
                 renderItem={({ item }) => (
                     <SearchListCard
                         item={item}
                         handleNavigate={() => router.replace(`search/search-details/${item.titleParam}`)}
                     />
                 )}
-                keyExtractor={(item) => item.titleParam}
+                keyExtractor={(item, key) => (item.titleParam + key).toString()}
                 contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
                 ListHeaderComponent={() => (
                     <>

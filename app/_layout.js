@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <Stack.Navigator initialRouteName='login'>
+    <Stack.Navigator initialRouteName='welcome'>
 
       <Stack.Screen options={{
         headerShadowVisible: false,

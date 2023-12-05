@@ -13,6 +13,7 @@ const ExhibitScreen = () => {
           headerShadowVisible: false,
           headerTitle: "",
           href: null,
+          // headerShown: false
         }}
 
         name="trung-bay-thuong-xuyen-p1" component={ExhibitMain} />

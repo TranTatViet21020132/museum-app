@@ -114,7 +114,6 @@ export default function User({ navigation }) {
           headerShadowVisible: false,
         }}
       />
-
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: 'row', marginTop: 15 }}>
           <Avatar.Image
@@ -165,7 +164,7 @@ export default function User({ navigation }) {
         {expanded &&
           <>
             <View >
-              <TouchableRipple onPress={() => toggleModal1()} style={{ backgroundColor: "grey" }}>
+              <TouchableRipple onPress={() => toggleModal1()} style={{ backgroundColor: "#83829A" }}>
                 <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Password</Text>
               </TouchableRipple>
             </View>
@@ -242,7 +241,7 @@ export default function User({ navigation }) {
             }
 
             <View>
-              <TouchableRipple onPress={() => toggleModal2()} style={{ backgroundColor: "grey" }}>
+              <TouchableRipple onPress={() => toggleModal2()} style={{ backgroundColor: "#83829A" }}>
                 <Text style={{ marginLeft: 50, fontSize: 16, marginTop: 15, marginBottom: 15, color: "white" }}>Change Password</Text>
               </TouchableRipple>
             </View>
@@ -304,6 +303,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.background,
     color: "white",
+    paddingTop: 20,
   },
   userInfoSection: {
     paddingHorizontal: 30,
