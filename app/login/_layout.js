@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { COLORS, Icons } from '../../constants';
 import axios from 'axios';
 import { Redirect } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const widthWindow = Dimensions.get("window").width * 0.9;
 function Log({ navigation }) {
@@ -50,53 +51,59 @@ function Log({ navigation }) {
     navigation.navigate('register', { screen: "register" })
   }
   return (
-    <View style={styles.mainContainer}>
-      <Text style={styles.mainHeader}>Login Form</Text>
-      <Text style={styles.para}>Login and discover museum</Text>
-      <View style={{ marginBottom: 10 }}>
-        <Text style={{ color: "red", fontSize: 16 }}>{warning ? "Wrong email or password" : ""}</Text>
-      </View>
-      <View>
-        <TextInput style={styles.lableInput} value={email}
-          onChangeText={(emailData) => {
-            setemail(emailData);
-          }} autoCapitalize='none' autoCorrect={false}
-          placeholder='Enter your email'
-          placeholderTextColor='#7d7d7d' />
-      </View>
-      <View>
-        <TextInput style={styles.lableInput} value={password}
-          onChangeText={(passwordData) => {
-            setPassword(passwordData);
-          }} autoCapitalize='none' secureTextEntry={!isPasswordShow}
-          placeholder='Enter your password'
-          placeholderTextColor='#7d7d7d' />
+    <LinearGradient
+      style={{
+        flex: 1
+      }}
+      colors={["white", "#83829A", "black"]}>
+      <View style={styles.mainContainer}>
+        <Text style={styles.mainHeader}>Login Form</Text>
+        <Text style={styles.para}>Login and discover museum</Text>
+        <View style={{ marginBottom: 10 }}>
+          <Text style={{ color: "red", fontSize: 16 }}>{warning ? "Wrong email or password" : ""}</Text>
+        </View>
+        <View>
+          <TextInput style={styles.lableInput} value={email}
+            onChangeText={(emailData) => {
+              setemail(emailData);
+            }} autoCapitalize='none' autoCorrect={false}
+            placeholder='Enter your email'
+            placeholderTextColor='#7d7d7d' />
+        </View>
+        <View>
+          <TextInput style={styles.lableInput} value={password}
+            onChangeText={(passwordData) => {
+              setPassword(passwordData);
+            }} autoCapitalize='none' secureTextEntry={!isPasswordShow}
+            placeholder='Enter your password'
+            placeholderTextColor='#7d7d7d' />
 
-        <TouchableOpacity
-          onPress={() => setIsPasswordShow(!isPasswordShow)}
-          style={{
-            position: "absolute",
-            bottom: 34,
-            right: 15,
-          }}
-        >
-          {
-            isPasswordShow == true
-              ? (<Ionicons name="eye" size={24} color={COLORS.background} />)
-              : (<Ionicons name="eye-off" size={24} color={COLORS.background} />)
-          }
+          <TouchableOpacity
+            onPress={() => setIsPasswordShow(!isPasswordShow)}
+            style={{
+              position: "absolute",
+              bottom: 34,
+              right: 15,
+            }}
+          >
+            {
+              isPasswordShow == true
+                ? (<Ionicons name="eye" size={24} color={COLORS.background} />)
+                : (<Ionicons name="eye-off" size={24} color={COLORS.background} />)
+            }
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#70779E" }]} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
+        <Text style={styles.forgotStyle} onPress={handleRegister}>
+          <Text style={{ color: "gray", fontSize: 17 }}>Don't have an account?</Text>
+          Sign Up
+        </Text>
       </View>
-
-      <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.forgotStyle} onPress={handleRegister}>
-        <Text style={{ color: "gray", fontSize: 17 }}>Don't have an account? </Text>
-        Sign Up
-      </Text>
-    </View>
+    </LinearGradient>
   )
 }
 
@@ -125,7 +132,7 @@ const styles = StyleSheet.create({
   lableInput: {
     borderWidth: 1,
     borderColor: "gray",
-    backgroundColor: "#EEEDF1",
+    backgroundColor: "#E2E8E9",
     borderRadius: 10,
     width: widthWindow,
     height: 55,

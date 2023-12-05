@@ -2,7 +2,7 @@
 import "react-native-gesture-handler"
 import { createStackNavigator } from '@react-navigation/stack';
 import UserInfor from "./userInfor"
-import Favourite from "./favourite";
+import Favourite from "./favourite/_layout";
 const Stack = createStackNavigator()
 
 const User = () => {

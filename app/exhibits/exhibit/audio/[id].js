@@ -40,7 +40,7 @@ const AudioPlayerScreen = () => {
       setIsLoading(false);
     }
   };
-
+  // console.log(data)
   const refetch = () => {
     setIsLoading(true);
     fetchData();

@@ -13,7 +13,6 @@ const ExhibitStack = () => {
         options={{
           headerShadowVisible: false,
           headerTitle: "",
-
         }}
         name="[id]"
         component={ExhibitLinks}
