@@ -69,9 +69,7 @@ const ExhibitLinks = () => {
   };
 
   useEffect(() => {
-    if (params.id && !params.id.startsWith("http")) {
-      refetch();
-    }
+    refetch();
   }, [params.id]);
 
   const handleAudioPlayer = () => {

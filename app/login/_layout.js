@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, Icons } from '../../constants';
+import { COLORS, icons, FONT } from '../../constants';
 import axios from 'axios';
 import { Redirect } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -55,9 +55,9 @@ function Log({ navigation }) {
       style={{
         flex: 1
       }}
-      colors={["white", "#83829A", "black"]}>
+      colors={[  "#9f9eb9", COLORS.background ]}>
       <View style={styles.mainContainer}>
-        <Text style={styles.mainHeader}>Login Form</Text>
+        <Text style={styles.mainHeader}>Login</Text>
         <Text style={styles.para}>Login and discover museum</Text>
         <View style={{ marginBottom: 10 }}>
           <Text style={{ color: "red", fontSize: 16 }}>{warning ? "Wrong email or password" : ""}</Text>
@@ -99,7 +99,7 @@ function Log({ navigation }) {
         </TouchableOpacity>
 
         <Text style={styles.forgotStyle} onPress={handleRegister}>
-          <Text style={{ color: "gray", fontSize: 17 }}>Don't have an account?</Text>
+          <Text style={{ color: "gray", fontSize: 17 }}>Don't have an account? </Text>
           Sign Up
         </Text>
       </View>
@@ -109,23 +109,23 @@ function Log({ navigation }) {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 50,
+    marginTop: 100,
     height: "100%",
     paddingHorizontal: 15,
     paddingTop: 40,
   },
   mainHeader: {
-    fontSize: 30,
+    fontSize: 34,
     fontWeight: "bold",
     letterSpacing: 1.5,
     marginBottom: 10,
     marginTop: 20,
-    color: "#DD5A2D",
+    color: "#AEC9E3",
     paddingTop: 30,
   },
   para: {
     fontSize: 20,
-    color: "black",
+    color: COLORS.lightWhite,
     paddingBottom: 30,
     lineHeight: 25,
   },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   forgotStyle: {
-    color: "#FF5A2D",
+    color: "#B5A8D1",
     fontSize: 18,
     fontWeight: "bold",
     marginTop: 30,

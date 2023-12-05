@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainSearchScreen from './home';
 import SearchList from './[id]';
-import SearchDetails from './search-details/[id]';
+import SearchDetails from './search-details/_layout';
 
 const Stack = createStackNavigator();
 
@@ -30,8 +30,9 @@ const SearchScreen = () => {
         headerShadowVisible: false,
         headerTitle: "",
         href: null,
+        headerShown: false
       }}
-       name="search-details/[id]" component={SearchDetails}/>
+       name="search-details" component={SearchDetails}/>
     </Stack.Navigator>
   )
 }

@@ -12,7 +12,7 @@ const Welcome = ({ navigation }) => {
             }}
             colors={["white", "#83829A", "black"]}
         >
-            <View style={{ flex: 1, marginTop: 30 }}>
+            <View style={{ flex: 1, marginTop: 50 }}>
                 <View>
                     <Image
                         source={require("../../assets/images/1.jpg")}
@@ -87,7 +87,7 @@ const Welcome = ({ navigation }) => {
                 <View style={{
                     paddingHorizontal: 22,
                     position: "absolute",
-                    top: 330,
+                    top: 460,
                     width: "100%"
                 }}>
                     <Text style={{
@@ -127,7 +127,7 @@ const Welcome = ({ navigation }) => {
                             color: "white",
                             fontSize: 20,
                             fontWeight: "bold",
-                        }}>Login</Text>
+                        }}>Continue</Text>
                     </TouchableOpacity>
 
 

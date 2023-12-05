@@ -64,19 +64,21 @@ const SearchList = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <Stack.Screen
-                options={{
-                    headerStyle: { backgroundColor: COLORS.background },
-                    headerShadowVisible: false,
-                    headerBackVisible: false,
-                    headerLeft: () => (
-                        <ScreenHeaderBtn
-                            iconUrl={icons.left}
-                            dimension='60%'
-                            handlePress={() => router.back()}
-                        />
-                    ),
-                    headerTitle: "",
-                }}
+            options={{
+                headerStyle: { backgroundColor: COLORS.background },
+                headerShadowVisible: false,
+                headerLeft: () => (
+                <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+                    <ScreenHeaderBtn
+                    iconUrl={icons.back}
+                    dimension='100%'
+                    handlePress={() => router.back()}
+                />
+                </View>
+                
+                ),
+                headerTitle: "",
+            }}
             />
             <FlatList
                 data={searchResultPerPage}

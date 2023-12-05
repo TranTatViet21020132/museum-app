@@ -58,9 +58,9 @@ function Register({ navigation }) {
             style={{
                 flex: 1
             }}
-            colors={["white", "#83829A", "black"]}>
+            colors={["#9f9eb9", COLORS.background]}>
             <View style={styles.mainContainer}>
-                <Text style={styles.mainHeader}>Register Form</Text>
+                <Text style={styles.mainHeader}>Register</Text>
                 <Text style={styles.para}>Register and discover museum</Text>
 
                 <View style={{ marginBottom: 10 }}>
@@ -124,7 +124,7 @@ function Register({ navigation }) {
                 </TouchableOpacity>
 
                 <Text style={styles.forgotStyle} onPress={handleLogin}>
-                    <Text style={{ color: "gray", fontSize: 17 }}>Already member?</Text>
+                    <Text style={{ color: "gray", fontSize: 17 }}>Already a member? </Text>
                     Sign In
                 </Text>
             </View>
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
         height: "100%",
         paddingHorizontal: 20,
         paddingTop: 40,
+        marginTop: 80
     },
     mainHeader: {
         fontSize: 30,
@@ -144,12 +145,12 @@ const styles = StyleSheet.create({
         letterSpacing: 1.5,
         marginBottom: 10,
         marginTop: 20,
-        color: "#DD5A2D",
+        color: "#AEC9E3",
         paddingTop: 30,
     },
     para: {
         fontSize: 20,
-        color: "#7d7d7d",
+        color: COLORS.lightWhite,
         paddingBottom: 30,
         lineHeight: 25,
     },
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     forgotStyle: {
-        color: "#FF5A2D",
+        color: "#B5A8D1",
         fontSize: 18,
         fontWeight: "bold",
         paddingTop: 30,

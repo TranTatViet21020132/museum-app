@@ -22,7 +22,7 @@ const Favourite = ({ navigation }) => {
     try {
       const user = await AsyncStorage.getItem("user-id");
 
-      axios.get(`http://192.168.1.6:5000/user/${user}/like`)
+      axios.get(`http://192.168.1.128:5000/user/${user}/like`)
         .then(response => { setfavouriteList(response.data.like) })
         .catch(error =>
           console.error(error)
@@ -37,7 +37,7 @@ const Favourite = ({ navigation }) => {
     setSearchLoader(true);
     try {
       const promises = favouriteList.map(async (item) => {
-        const response = await axios.get(`http://192.168.1.6:5000/gallery/${item}`);
+        const response = await axios.get(`http://192.168.1.128:5000/gallery/${item}`);
         return response.data.title;
       });
 
@@ -82,7 +82,7 @@ const Favourite = ({ navigation }) => {
     const newFavouriteArray = favouriteList.filter(item => item !== deleteItem)
     try {
       const user = await AsyncStorage.getItem("user-id")
-      await axios.patch(`http://192.168.1.6:5000/user/${user}/like`, {
+      await axios.patch(`http://192.168.1.128:5000/user/${user}/like`, {
         like: newFavouriteArray
       })
       fetchFavourite()
@@ -94,13 +94,23 @@ const Favourite = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-      <View style={{ paddingTop: 25 }} >
-        <ScreenHeaderBtn
-          iconUrl={icons.left}
-          dimension='60%'
-          handlePress={() => { navigation.navigate("UserInfor"); AsyncStorage.removeItem("item") }}
-        />
-      </View>
+      <Stack.Screen
+        options={{
+            headerStyle: { backgroundColor: COLORS.background },
+            headerShadowVisible: false,
+            headerLeft: () => (
+            <View style={{ flexDirection: 'row', marginLeft: 8 }}>
+                <ScreenHeaderBtn
+                iconUrl={icons.back}
+                dimension='100%'
+                handlePress={() => { navigation.navigate("UserInfor"); AsyncStorage.removeItem("item") }}
+            />
+            </View>
+            
+            ),
+            headerTitle: "",
+        }}
+      />
       <FlatList
         data={titleListPerPage}
         renderItem={({ item, index }) => (

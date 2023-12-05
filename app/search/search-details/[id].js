@@ -25,7 +25,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 const tabs = ["Contents", "Images", "Related Articles"];
 
-const SearchLinks = () => {
+const SearchDetail = () => {
   const params = useSearchParams();
   const router = useRouter();
   const [titleParamStack, setTitleParamStack] = useState([]);
@@ -99,6 +99,14 @@ const SearchLinks = () => {
       router.params.refetch = false; // reset refetch flag
     }
   });
+
+  const handleAudioPlayer = () => {
+    if (data?.speech) {
+      console.log('Audio URI:', data.speech);
+      router.push(`search/search-details/audio/${params.id}`, { replace: true });
+    }
+  };
+
 
   const paragraphs = data?.paragraph?.map((item, index, array) => {
     const newText = (item.text.startsWith('-') || /^\d/.test(item.text))
@@ -176,14 +184,26 @@ const SearchLinks = () => {
           headerStyle: { backgroundColor: COLORS.background },
           headerShadowVisible: false,
           headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.left}
-              dimension='60%'
+            <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+              <ScreenHeaderBtn
+              iconUrl={icons.back}
+              dimension='100%'
               handlePress={() => handleBack()}
             />
+            </View>
+            
           ),
           headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.heart} dimension="60%" handlePress={handleAddFavourite} />
+            <View style={{ flexDirection: 'row', marginRight: 16 }}>
+              {data?.speech && <ScreenHeaderBtn
+                iconUrl={icons.headphones}
+                dimension='70%'
+                handlePress={() => handleAudioPlayer()}
+              />
+              }
+              <ScreenHeaderBtn iconUrl={icons.save} dimension='70%' 
+              handlePress={() => handleAddFavourite()}/>
+            </View>
           ),
           headerTitle: "",
         }}
@@ -218,4 +238,4 @@ const SearchLinks = () => {
   );
 };
 
-export default SearchLinks;
+export default SearchDetail;

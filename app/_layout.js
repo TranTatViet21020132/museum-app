@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MainScreen from '../app/main/_layout'
 import LoginScreen from '../app/login/_layout'
 import Register from '../app/register/_layout';
-import User from "./user/_layout"
 import Welcome from './welcome/_layout';
 
 const Stack = createStackNavigator();

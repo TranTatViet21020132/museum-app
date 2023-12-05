@@ -8,7 +8,7 @@ const ExhibitCard = ({ item, selectedExhibit, handleCardPress }) => {
       style={styles.container(selectedExhibit, item)}
       onPress={() => handleCardPress(item)}
     >
-      <TouchableOpacity style={styles.logoContainer(selectedExhibit, item)}>
+      <TouchableOpacity style={styles.logoContainer(selectedExhibit, item)} onPress={() => handleCardPress(item)}>
         <Image
           source={{ uri: item.avatar }}
           style={styles.logoImage}

@@ -26,12 +26,13 @@ const styles = StyleSheet.create({
   contentTitle: {
     fontSize: SIZES.large,
     fontWeight: "bold",
-    color: "#008000",
+    color: "#B5A8D1",
     marginBottom: SIZES.medium
   },
   content: {
     fontSize: SIZES.medium,
-    color: COLORS.lightWhite
+    color: COLORS.lightWhite,
+    lineHeight: SIZES.xLarge
   }
 });
 

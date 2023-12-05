@@ -28,14 +28,16 @@ const styles = StyleSheet.create({
     color: "#008000",
     marginBottom: SIZES.medium
   },
+  contentTitle: {
+    fontSize: SIZES.large,
+    fontWeight: "bold",
+    color: "#B5A8D1",
+    marginBottom: SIZES.medium
+  },
   content: {
     fontSize: SIZES.medium,
-    color: COLORS.lightWhite
-  },
-  criteriaTitle: {
-    fontSize: SIZES.medium,
     color: COLORS.lightWhite,
-    fontWeight: "bold"
+    lineHeight: SIZES.xLarge
   }
 });
 

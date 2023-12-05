@@ -1,15 +1,12 @@
-import { Stack, useRouter, useSearchParams } from "expo-router";
-import { useCallback, useState } from "react";
+import { Stack, useSearchParams } from "expo-router";
 import {
   View,
-  Text,
   SafeAreaView,
   ScrollView,
-  RefreshControl,
 } from "react-native";
 
 import {
-  Introduction, Regulations, Fees, History, Visits, Location, ScreenHeaderBtn
+  Introduction, Regulations, Fees, History, Visits, ScreenHeaderBtn
 } from "../../components";
 import { COLORS, icons, SIZES } from "../../constants";
 
@@ -43,11 +40,6 @@ const MuseumInfo = () => {
           <Fees />
         );
 
-      case "Vị trí":
-        return (
-          <Location />
-        );
-
       default:
         return null;
     }
@@ -56,22 +48,16 @@ const MuseumInfo = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.background },
-          headerShadowVisible: false,
-          headerBackVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.menu}
-              dimension='60%'
-            />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.share} dimension='60%' />
-          ),
-          headerTitle: "",
-        }}
-      />
+          options={{
+            headerStyle: { backgroundColor: COLORS.background },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <View style={{ flexDirection: 'row', marginLeft: 12 }}>
+                <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
+              </View>
+            ),
+          }}
+        />
 
       <>
         <ScrollView showsVerticalScrollIndicator={false}>

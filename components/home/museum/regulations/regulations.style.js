@@ -25,12 +25,14 @@ const styles = StyleSheet.create({
   },
   contentTitle: {
     fontSize: SIZES.large,
-    color: "#008000",
+    fontWeight: "bold",
+    color: "#B5A8D1",
     marginBottom: SIZES.medium
   },
   content: {
     fontSize: SIZES.medium,
-    color: COLORS.lightWhite
+    color: COLORS.lightWhite,
+    lineHeight: SIZES.xLarge
   }
 });
 
