@@ -59,7 +59,7 @@ const SearchDetail = () => {
   }
   useEffect(() => {
     setSaveForExhibition();
-  })
+  }, [])
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

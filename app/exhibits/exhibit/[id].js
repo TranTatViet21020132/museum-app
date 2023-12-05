@@ -59,7 +59,7 @@ const ExhibitLinks = () => {
   }
   useEffect(() => {
     setSaveForExhibition();
-  })
+  }, [])
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
