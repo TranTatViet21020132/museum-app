@@ -117,7 +117,7 @@ export default function User({ navigation }) {
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: 'row', marginTop: 15 }}>
           <Avatar.Image
-            source={require("../../assets/images/kemal.jpg")}
+            source={require("../../assets/images/avatar-user.jpg")}
             size={80}
           />
           <View style={{ marginLeft: 20 }}>

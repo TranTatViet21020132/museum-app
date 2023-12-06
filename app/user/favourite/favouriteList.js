@@ -85,7 +85,7 @@ const Favourite = ({ navigation }) => {
       icon: "success",
       position: "bottom",
       duration: 1000,
-      titleStyle: { fontSize: 20 },
+      titleStyle: { fontSize: 16 },
       style: { paddingLeft: "30%" }
     })
   }

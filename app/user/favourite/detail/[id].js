@@ -12,7 +12,7 @@ import {
     Specifics,
     ScreenHeaderBtn
 } from "../../../../components";
-
+import { Stack } from "expo-router";
 import SearchSpecifics from "../../../../components/details/specifics/SearchSpecifics";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -145,7 +145,6 @@ const FavouriteDetail = ({ navigation }) => {
                         handlePress={() => { navigation.navigate("audio/[id]") }}
                     />
                 </View>}
-
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
