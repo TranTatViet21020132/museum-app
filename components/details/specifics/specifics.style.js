@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.gray3,
     borderRadius: SIZES.medium,
     padding: SIZES.medium,
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   title: {
     fontSize: SIZES.large,

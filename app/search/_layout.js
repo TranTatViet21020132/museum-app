@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import SearchBar from './search';
-import SearchDetails from './[id]';
+import MainSearchScreen from './home';
+import SearchList from './[id]';
+import SearchDetails from './search-details/_layout';
 
 const Stack = createStackNavigator();
 
@@ -16,14 +17,22 @@ const SearchScreen = () => {
         headerShown: false
       }}
       
-       name="search" component={SearchBar}/>
-       <Stack.Screen
+       name="search-bar" component={MainSearchScreen}/>
+      <Stack.Screen
       options={{
         headerShadowVisible: false,
         headerTitle: "",
         href: null,
       }}
-       name="search/[id]" component={SearchDetails}/>
+       name="[id]" component={SearchList}/>
+      <Stack.Screen
+      options={{
+        headerShadowVisible: false,
+        headerTitle: "",
+        href: null,
+        headerShown: false
+      }}
+       name="search-details" component={SearchDetails}/>
     </Stack.Navigator>
   )
 }

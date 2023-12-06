@@ -3,114 +3,97 @@ import { ActivityIndicator, FlatList, Image, TouchableOpacity, View } from 'reac
 import { Stack, useRouter, useSearchParams } from 'expo-router'
 import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
-import NearbyCard from '../../components/common/cards/nearby/NearbyCard'
+
+import SearchListCard from '../../components/common/cards/search/SearchListCard'
 import ScreenHeaderBtn from '../../components/common/header/ScreenHeaderBtn'
 import { COLORS, icons, SIZES } from '../../constants'
 import styles from '../../styles/search'
 
-const SearchDetails = () => {
+const SearchList = () => {
     const params = useSearchParams();
     const router = useRouter();
+    const itemPerPage = 10;
 
     const [searchResult, setSearchResult] = useState([]);
+    const [searchResultPerPage, setSearchResultPerPage] = useState([])
     const [searchLoader, setSearchLoader] = useState(false);
     const [searchError, setSearchError] = useState(null);
     const [page, setPage] = useState(1);
 
     const handleSearch = async () => {
         setSearchLoader(true);
-        setSearchResult([])
+        setSearchResult([]);
 
-        // try {
-        //     const response = await axios.get('https://jsearch.p.rapidapi.com/search', {
-        //         headers: {
-        //             'X-RapidAPI-Key': 'fe9aad9640msh4dd0f7155173007p1e414fjsn27697d7b6eae',
-        //             "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
-        //         },
-        //         params: {
-        //           query: params.id,
-        //           page: 1,
-        //         },
-        //       });
-        //     setSearchResult(response.data.data);
-
-        // }  catch (error) {
-        //         setSearchError(error);
-        //         console.log(error);
-        //     } finally {
-        //         setSearchLoader(false);
-        //     }
         try {
-            const options = {
-                method: "GET",
-                url: `https://jsearch.p.rapidapi.com/search`,
-                headers: {
-                    'X-RapidAPI-Key': 'fe9aad9640msh4dd0f7155173007p1e414fjsn27697d7b6eae',
-                    "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
-                },
-                params: {
-                    query: params.id,
-                    // page: page.toString(),
-                    page: 1,
-                },
-            };
+            const response = await axios.post('http://192.168.1.6:5000/gallery/search/', {
+                query: params.id, // Assuming params.id is the query parameter
+            });
 
-            const response = await axios.request(options);
-            setSearchResult(response.data.data);
+            setSearchResult(response.data); // Set the search results from the API response
+            console.log(searchResult)
         } catch (error) {
-            setSearchError(error);
-            console.log(error);
+            setSearchError('Oops, something went wrong'); // Handle error appropriately
         } finally {
             setSearchLoader(false);
         }
     };
 
     const handlePagination = (direction) => {
+        const maxPage = Math.ceil(searchResult.length / itemPerPage);
         if (direction === 'left' && page > 1) {
-            setPage(page - 1)
-            handleSearch()
-        } else if (direction === 'right') {
-            setPage(page + 1)
-            handleSearch()
+            setPage(page - 1);
+            handleSearch();
+        } else if (direction === 'right' && page < maxPage) {
+            setPage(page + 1);
+            handleSearch();
         }
-    }
+    };
 
     useEffect(() => {
-        handleSearch()
-    }, [])
+        handleSearch();
+    }, [page]);
+    useEffect(() => {
+        // Update limitedData based on the current page and itemsPerPage
+        const startIndex = (page - 1) * itemPerPage;
+        const endIndex = startIndex + itemPerPage;
+        const limitedData = searchResult.slice(startIndex, endIndex);
 
+        // Update the state with the limitedData
+        setSearchResultPerPage(limitedData);
+    }, [page, searchResult, itemPerPage]);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
             <Stack.Screen
                 options={{
-                headerStyle: { backgroundColor: COLORS.background },
-                headerShadowVisible: false,
-                headerBackVisible: false,
-                headerLeft: () => (
-                    <ScreenHeaderBtn
-                    iconUrl={icons.left}
-                    dimension='60%'
-                    handlePress={() => router.back()}
-                    />
-                ),
-                headerTitle: "",
+                    headerStyle: { backgroundColor: COLORS.background },
+                    headerShadowVisible: false,
+                    headerLeft: () => (
+                        <View style={{ flexDirection: 'row', marginLeft: 8 }}>
+                            <ScreenHeaderBtn
+                                iconUrl={icons.back}
+                                dimension='100%'
+                                handlePress={() => router.back()}
+                            />
+                        </View>
+
+                    ),
+                    headerTitle: "",
                 }}
             />
             <FlatList
-                data={searchResult}
+                data={searchResultPerPage}
                 renderItem={({ item }) => (
-                    <NearbyCard
-                        job={item}
-                        handleNavigate={() => router.push(`/job-details/${item.job_id}`)}
+                    <SearchListCard
+                        item={item}
+                        handleNavigate={() => router.replace(`search/search-details/${item.titleParam}`)}
                     />
                 )}
-                keyExtractor={(item) => item.job_id}
+                keyExtractor={(item, key) => (item.titleParam + key).toString()}
                 contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
                 ListHeaderComponent={() => (
                     <>
                         <View style={styles.container}>
-                            <Text style={styles.searchTitle}>{params.id}</Text>
-                            <Text style={styles.noOfSearchedJobs}>Job Opportunities</Text>
+                            <Text style={styles.searchTitle}>Searching results for: {params.id}</Text>
                         </View>
                         <View style={styles.loaderContainer}>
                             {searchLoader ? (
@@ -153,4 +136,4 @@ const SearchDetails = () => {
     )
 }
 
-export default SearchDetails;
+export default SearchList;

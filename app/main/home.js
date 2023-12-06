@@ -13,18 +13,16 @@ const Home = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
       <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.background },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
-          ),
-          
-        }}
-      />
+          options={{
+            headerStyle: { backgroundColor: COLORS.background },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <View style={{ flexDirection: 'row', marginLeft: 12 }}>
+                <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
+              </View>
+            ),
+          }}
+        />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View

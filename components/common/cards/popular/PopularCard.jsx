@@ -1,39 +1,27 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./popularcard.style";
-import { checkImageURL } from "../../../../utils";
-
-const PopularCard = ({ item, selectedJob, handleCardPress }) => {
+//"https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg"
+const PopularCard = ({ item, selectedExhibit, handleCardPress }) => {
   return (
     <TouchableOpacity
-      style={styles.container(selectedJob, item)}
+      style={styles.container(selectedExhibit, item)}
       onPress={() => handleCardPress(item)}
     >
-      <TouchableOpacity style={styles.logoContainer(selectedJob, item)}>
+      <TouchableOpacity style={styles.logoContainer(selectedExhibit, item)}>
         <Image
-          source={{
-            uri: checkImageURL(item?.employer_logo)
-              ? item.employer_logo
-              : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
-          }}
-          resizeMode='contain'
+          source={{ uri: item.thumbnail }}
           style={styles.logoImage}
-        />
+          resizeMode="contain"
+        /> 
       </TouchableOpacity>
-      <Text style={styles.companyName} numberOfLines={1}>
-        {item.employer_name}
-      </Text>
-
       <View style={styles.infoContainer}>
-        <Text style={styles.jobName(selectedJob, item)} numberOfLines={1}>
-          {item.job_title}
+        <Text style={styles.title(selectedExhibit, item)} numberOfLines={1}>
+          {item.title}
         </Text>
-        <View style={styles.infoWrapper}>
-          <Text style={styles.publisher(selectedJob, item)}>
-            {item?.job_publisher} -
+        <Text style={styles.viewed}>
+            Views: {item?.viewed}
           </Text>
-          <Text style={styles.location}> {item.job_country}</Text>
-        </View>
       </View>
     </TouchableOpacity>
   );

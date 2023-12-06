@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from "expo-font";
 import { Ionicons } from '@expo/vector-icons';
 import SearchScreen from '../search/_layout';
-import HomeScreen from '../main/home';
-import JobDetails from '../job-details/[id]';
+import HomeScreen from './home';
+import MuseumInfoScreen from '../museum/[id]'
+
 import ExhibitScreen from '../exhibits/_layout';
 import User from '../user/_layout';
-import Register from '../register/Register';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -17,21 +17,23 @@ const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-      }}
-      
-       name="home" component={HomeScreen}/>
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          unmountOnBlur: true,
+        }}
+
+        name="home-screen" component={HomeScreen} />
       <Stack.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-      }}
-      
-       name="job-details/[id]" component={JobDetails}/>
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          unmountOnBlur: true,
+        }}
+
+        name="museum/[id]" component={MuseumInfoScreen} />
     </Stack.Navigator>
   );
 };
@@ -52,58 +54,59 @@ const Layout = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'home') {
+          if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'search') {
+          } else if (route.name === 'Search') {
             iconName = focused ? 'search' : 'search-outline';
-          } else if (route.name === "exhibits") {
+          } else if (route.name === "Exhibits") {
             iconName = focused ? "copy" : "copy-outline";
-          } else if (route.name === "user") {
+          } else if (route.name === "User") {
             iconName = focused ? "person" : "person-outline";
           }
-
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        
-        tabBarStyle: { backgroundColor: "#333333", display: "flex" },
+
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: [
+          { backgroundColor: "#333333", display: "flex" },
+          null
+        ]
       })}
-      tabBarOptions={{
-        activeTintColor: 'white',
-        inactiveTintColor: 'gray',
-      }}
     >
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        headerShown: false,
-      }}
-      
-      name="home" component={HomeStack} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+        }}
+
+        name="Home" component={HomeStack} />
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-      }}
-      name="exhibits" component={ExhibitScreen} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+        }}
+        name="Exhibits" component={ExhibitScreen} />
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        headerShown: false,
-      }}
-      name="search" component={SearchScreen} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+        }}
+        name="Search" component={SearchScreen} />
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        headerShown: false,
-      }}
-      name="user" component={Register} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+        }}
+        name="User" component={User} />
     </Tab.Navigator>
   );
 };

@@ -1,44 +1,32 @@
-import { SafeAreaView, ScrollView, View } from "react-native";
-import { Stack } from "expo-router";
+import 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
+import ExhibitMain from './home';
+import ExhibitStack from './exhibit/_layout';
 
-import { COLORS, icons, images, SIZES } from "../../constants";
-import {
-  ScreenHeaderBtn
-} from "../../components";
+const Stack = createStackNavigator();
 
-import ExhibitWelcome from '../../components/exhibits/exhibits-welcome/ExhibitWelcome'
-
-const Exhibit = () => {
+const ExhibitScreen = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+    <Stack.Navigator>
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: COLORS.background },
           headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
-          ),
-          
+          headerTitle: "",
+          href: null,
+          // headerShown: false
         }}
-      />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            flex: 1,
-            padding: SIZES.medium,
-          }}
-        >
-          <ExhibitWelcome />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        name="trung-bay-thuong-xuyen-p1" component={ExhibitMain} />
+      <Stack.Screen
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+        }}
+        name="exhibit" component={ExhibitStack} />
+    </Stack.Navigator>
   );
 };
 
-
-
-export default Exhibit;
+export default ExhibitScreen;

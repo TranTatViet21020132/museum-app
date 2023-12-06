@@ -19,7 +19,7 @@ const SearchBar = () => {
   const handleClick = () => {
     if (searchTerm) {
       console.log(searchTerm);
-      router.push(`/search/${searchTerm}`)
+      router.replace(`/search/${searchTerm}`)
     }
   }
 
@@ -32,6 +32,7 @@ const SearchBar = () => {
             value={searchTerm}
             onChangeText={(text) => setSearchTerm(text)}
             placeholder='What are you looking for?'
+            placeholderTextColor="white"
           />
         </View>
 
