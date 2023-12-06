@@ -30,7 +30,7 @@ const AudioPlayerScreen = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://192.168.1.6:5000/gallery/${params.id}`);
+      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {

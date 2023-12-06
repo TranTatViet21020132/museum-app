@@ -20,12 +20,6 @@ const Exhibit = () => {
                 <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
               </View>
             ),
-            headerRight: () => (
-              <View style={{ flexDirection: 'row', marginRight: 20 }}>
-                <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
-              </View>
-            ),
-
           }}
         />
 

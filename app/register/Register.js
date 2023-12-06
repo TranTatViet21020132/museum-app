@@ -82,16 +82,6 @@ function Register() {
             placeholderTextColor='#7d7d7d' />
         </View>
         
-        <View style={styles.container}>
-          <Picker
-            onValueChange={(itemValue, itemIndex) => setGender(itemValue.lowerCase())}
-            style={styles.picker}
-          >
-            <Picker.Item  label="Male" value="Male" style={styles.pickerItem}/>
-            <Picker.Item  label="Female" value="Female" style={styles.pickerItem}/>
-            <Picker.Item  label="Other" value="Other" style={styles.pickerItem} />
-          </Picker>
-        </View>
         <TouchableOpacity style={[styles.buttonStyle, {backgroundColor:"#e58a2e"}]} disabled={agree} onPress={Submit}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>

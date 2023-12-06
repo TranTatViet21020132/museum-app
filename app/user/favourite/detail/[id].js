@@ -4,7 +4,6 @@ import {
     ScrollView,
     SafeAreaView,
     ActivityIndicator,
-    TouchableOpacity
 } from "react-native";
 import {
     JobAbout,
@@ -19,6 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLORS, icons, SIZES } from "../../../../constants";
 import styles from "../id.style";
 import axios from "axios";
+import { Stack } from 'expo-router'
 
 const tabs = ["Contents", "Images", "Related Articles"];
 
@@ -35,7 +35,7 @@ const FavouriteDetail = ({ navigation }) => {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`http://192.168.1.6:5000/gallery/${nameExhibit}`);
+            const response = await axios.get(`http://192.168.1.128:5000/gallery/${nameExhibit}`);
             setData(response.data);
             setIsLoading(false);
         } catch (error) {
@@ -119,34 +119,33 @@ const FavouriteDetail = ({ navigation }) => {
     }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-            <View style={{ display: "flex", flexDirection: "row", marginBottom: 30 }}>
-                <Stack.Screen
-                    options={{
-                        headerStyle: { backgroundColor: COLORS.background },
-                        headerShadowVisible: false,
-                        headerLeft: () => (
-                            <View style={{ flexDirection: 'row', marginLeft: 8 }}>
-                                <ScreenHeaderBtn
-                                    iconUrl={icons.back}
-                                    dimension='100%'
-                                    handlePress={() => { handleBack() }}
-                                />
-                            </View>
+            <Stack.Screen
+                options={{
+                    headerStyle: { backgroundColor: COLORS.background },
+                    headerShadowVisible: false,
+                    headerLeft: () => (
+                    <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+                        <ScreenHeaderBtn
+                        iconUrl={icons.back}
+                        dimension='100%'
+                        handlePress={() => handleBack()}
+                        />
+                    </View>
 
-                        ),
-                        headerTitle: "",
-                    }}
-                />
-
-                {data?.speech && <View style={{ paddingTop: 30, paddingLeft: "55%" }} >
-                    <ScreenHeaderBtn
+                    ),
+                    headerRight: () => (
+                    <View style={{ flexDirection: 'row', marginRight: 16 }}>
+                        {data?.speech && <ScreenHeaderBtn
                         iconUrl={icons.headphones}
-                        dimension='60%'
+                        dimension='70%'
                         handlePress={() => { navigation.navigate("audio/[id]") }}
-                    />
-                </View>}
-
-            </View>
+                        />
+                        }
+                    </View>
+                    ),
+                    headerTitle: "",
+                }}
+            />
 
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View

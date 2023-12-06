@@ -50,7 +50,7 @@ const ExhibitLinks = () => {
   const setSaveForExhibition = async () => {
     const user = await AsyncStorage.getItem("user-id");
     try {
-      const response1 = await axios.get(`http://192.168.1.6:5000/user/${user}/like`)
+      const response1 = await axios.get(`http://192.168.1.128:5000/user/${user}/like`)
       const checkIsInLikeList = response1.data.like.includes(params.id);
       setIsSave(checkIsInLikeList)
     } catch (error) {
@@ -68,7 +68,7 @@ const ExhibitLinks = () => {
     console.log(params.id);
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://192.168.1.6:5000/gallery/${params.id}`);
+      const response = await axios.get(`http://192.168.1.128:5000/gallery/${params.id}`);
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -92,7 +92,7 @@ const ExhibitLinks = () => {
     let newLikeList = [];
     const user = await AsyncStorage.getItem("user-id");
     try {
-      const response1 = await axios.get(`http://192.168.1.6:5000/user/${user}/like`)
+      const response1 = await axios.get(`http://192.168.1.128:5000/user/${user}/like`)
       const checkIsInLikeList = response1.data.like.includes(params.id);
       if (checkIsInLikeList) {
         newLikeList = response1.data.like.filter(item => item !== params.id)
@@ -103,7 +103,7 @@ const ExhibitLinks = () => {
         setIsSave(true)
         console.log(newLikeList)
       }
-      await axios.patch(`http://192.168.1.6:5000/user/${user}/like`, {
+      await axios.patch(`http://192.168.1.128:5000/user/${user}/like`, {
         like: newLikeList
       })
     } catch (error) {
@@ -200,12 +200,6 @@ const ExhibitLinks = () => {
                 <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
               </View>
             ),
-            headerRight: () => (
-              <View style={{ flexDirection: 'row', marginRight: 20 }}>
-                <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
-              </View>
-            ),
-
           }}
         />
         :

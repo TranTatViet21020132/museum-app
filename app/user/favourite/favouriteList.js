@@ -24,7 +24,7 @@ const Favourite = ({ navigation }) => {
     try {
       const user = await AsyncStorage.getItem("user-id");
 
-      axios.get(`http://192.168.1.6:5000/user/${user}/like`)
+      axios.get(`http://192.168.1.128:5000/user/${user}/like`)
         .then(response => { setfavouriteList(response.data.like) })
         .catch(error =>
           console.error(error)
@@ -39,7 +39,7 @@ const Favourite = ({ navigation }) => {
     setSearchLoader(true);
     try {
       const promises = favouriteList.map(async (item) => {
-        const response = await axios.get(`http://192.168.1.6:5000/gallery/${item}`);
+        const response = await axios.get(`http://192.168.1.128:5000/gallery/${item}`);
         return response.data.title;
       });
 
@@ -93,7 +93,7 @@ const Favourite = ({ navigation }) => {
     const newFavouriteArray = favouriteList.filter(item => item !== deleteItem)
     try {
       const user = await AsyncStorage.getItem("user-id")
-      await axios.patch(`http://192.168.1.6:5000/user/${user}/like`, {
+      await axios.patch(`http://192.168.1.128:5000/user/${user}/like`, {
         like: newFavouriteArray
       })
       fetchFavourite()

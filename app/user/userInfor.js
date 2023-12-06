@@ -40,7 +40,7 @@ export default function User({ navigation }) {
       try {
         const user = await AsyncStorage.getItem("user-id");
         setUserID(user)
-        axios.get(`http://192.168.1.6:5000/user/${user}`)
+        axios.get(`http://192.168.1.128:5000/user/${user}`)
           .then(response => { setProfile(response.data) })
           .catch(error =>
             console.error(error)
@@ -61,7 +61,7 @@ export default function User({ navigation }) {
 
   const handleChangePassword = async (oldPassword, newPassword, userID) => {
     try {
-      const response = await axios.patch(('http://192.168.1.6:5000/user/' + userID + "/password"), {
+      const response = await axios.patch(('http://192.168.1.128:5000/user/' + userID + "/password"), {
         oldPassword: oldPassword,
         password: newPassword,
       });
@@ -86,7 +86,7 @@ export default function User({ navigation }) {
 
   const handleChangeInformation = async (name, age, gender, userID) => {
     try {
-      const response = await axios.patch(("http://192.168.1.6:5000/user/" + userID + "/"), {
+      const response = await axios.patch(("http://192.168.1.128:5000/user/" + userID + "/"), {
         name: name,
         age: age,
         gender: gender,
@@ -117,7 +117,7 @@ export default function User({ navigation }) {
       <View style={styles.userInfoSection}>
         <View style={{ flexDirection: 'row', marginTop: 15 }}>
           <Avatar.Image
-            source={require("../../assets/images/kemal.jpg")}
+            source={require("../../assets/images/profile.png")}
             size={80}
           />
           <View style={{ marginLeft: 20 }}>

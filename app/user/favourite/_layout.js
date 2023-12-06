@@ -1,7 +1,6 @@
 import "react-native-gesture-handler"
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { View, Text } from "react-native";
 import FavouriteList from "./favouriteList"
 import FavouriteDetail from "./detail/[id]"
 import AudioScreen from "./detail/audio/[id]"
@@ -22,7 +21,6 @@ const Favourite = () => {
                 options={{
                     headerShadowVisible: false,
                     headerTitle: "",
-                    headerShown: false
                 }}
                 name="detail/[id]"
                 component={FavouriteDetail}
@@ -31,7 +29,6 @@ const Favourite = () => {
                 options={{
                     headerShadowVisible: false,
                     headerTitle: "",
-                    headerShown: false
                 }}
                 name="audio/[id]"
                 component={AudioScreen}

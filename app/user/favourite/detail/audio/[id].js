@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import { View, Text, Pressable, SafeAreaView, Image } from 'react-native';
 import { Audio } from 'expo-av';
 import { Stack } from "expo-router";
-import { useRouter, useSearchParams } from "expo-router";
 import {
     ScreenHeaderBtn
 } from "../../../../../components";
@@ -33,7 +32,7 @@ const AudioFavourite = ({ navigation }) => {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`http://192.168.1.6:5000/gallery/${nameExhibit}`);
+            const response = await axios.get(`http://192.168.1.128:5000/gallery/${nameExhibit}`);
             setData(response.data);
             setIsLoading(false);
         } catch (error) {
@@ -119,13 +118,22 @@ const AudioFavourite = ({ navigation }) => {
     }, [sound]);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-            <View style={{ paddingTop: 30, marginLeft: 8 }} >
-                <ScreenHeaderBtn
-                    iconUrl={icons.back}
-                    dimension='60%'
-                    handlePress={() => { navigation.navigate("detail/[id]"); }}
-                />
-            </View>
+            <Stack.Screen
+                options={{
+                    headerStyle: { backgroundColor: COLORS.background },
+                    headerShadowVisible: false,
+                    headerLeft: () => (
+                    <View style={{ flexDirection: 'row', marginLeft: 22 }}>
+                        <ScreenHeaderBtn
+                        iconUrl={icons.back}
+                        dimension='100%'
+                        handlePress={() => { navigation.navigate("detail/[id]"); }}
+                        />
+                    </View>
+                    ),
+                    headerTitle: "",
+                }}
+            />
 
             <View style={styles.audioContainer}>
                 <Text style={styles.audioTitle}>
@@ -150,39 +158,66 @@ const AudioFavourite = ({ navigation }) => {
                     thumbTintColor={COLORS.primary}
                 />
                 <View style={styles.playbacks}>
-                    <TouchableOpacity style={styles.timerControl}>
+                    <Pressable
+                        style={({ pressed }) => [
+                        {
+                            backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                        },
+                        styles.timerControl,
+                        ]}
+                    >
                         <Image
-                            source={icons.replay}
-                            resizeMode='cover'
-                            style={styles.btnImg}
+                        source={icons.replay}
+                        resizeMode='cover'
+                        style={styles.btnImg}
                         />
-                    </TouchableOpacity>
+                    </Pressable>
                     <View>
                         {isPlaying ?
-                            <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
-                                <Image
-                                    source={icons.pause}
-                                    resizeMode='cover'
-                                    style={styles.btnImg}
-                                />
-                            </TouchableOpacity>
-                            :
-                            <TouchableOpacity style={styles.btnContainer} onPress={() => togglePlayPause()}>
-                                <Image
-                                    source={icons.play}
-                                    resizeMode='cover'
-                                    style={styles.btnImg}
-                                />
-                            </TouchableOpacity>
-                        }
-                    </View>
-                    <TouchableOpacity style={styles.timerControl}>
-                        <Image
-                            source={icons.forward}
+                        <Pressable
+                            style={({ pressed }) => [
+                            {
+                                backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                            },
+                            styles.btnContainer,
+                            ]}
+                            onPress={() => togglePlayPause()}>
+                            <Image
+                            source={icons.pause}
                             resizeMode='cover'
                             style={styles.btnImg}
+                            />
+                        </Pressable>
+                        :
+                        <Pressable
+                            style={({ pressed }) => [
+                            {
+                                backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                            },
+                            styles.btnContainer,
+                            ]} onPress={() => togglePlayPause()}>
+                            <Image
+                            source={icons.play}
+                            resizeMode='cover'
+                            style={styles.btnImg}
+                            />
+                        </Pressable>
+                        }
+                    </View>
+                    <Pressable
+                        style={({ pressed }) => [
+                        {
+                            backgroundColor: pressed ? "#7a7a7a" : COLORS.background,
+                        },
+                        styles.timerControl,
+                        ]}
+                    >
+                        <Image
+                        source={icons.forward}
+                        resizeMode='cover'
+                        style={styles.btnImg}
                         />
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </View>
         </SafeAreaView>
