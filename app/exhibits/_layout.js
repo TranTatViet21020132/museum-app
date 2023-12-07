@@ -24,7 +24,7 @@ const ExhibitScreen = () => {
           href: null,
           headerShown: false,
         }}
-        name="exhibit" component={ExhibitStack} />
+        name="exhibits" component={ExhibitStack} />
     </Stack.Navigator>
   );
 };
