@@ -4,7 +4,6 @@ import {
   ScrollView,
   SafeAreaView,
   ActivityIndicator,
-  TouchableOpacity
 } from "react-native";
 import {
   JobAbout,
@@ -12,7 +11,6 @@ import {
   Specifics,
   ScreenHeaderBtn
 } from "../../../components";
-import { Ionicons } from "@expo/vector-icons"
 import { Stack } from "expo-router";
 import SearchSpecifics from "../../../components/details/specifics/SearchSpecifics";
 import { useRouter, useSearchParams } from "expo-router";

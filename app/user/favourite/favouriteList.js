@@ -4,7 +4,6 @@ import { ActivityIndicator, FlatList, Image, ScrollView, TouchableOpacity, View 
 import { Stack, useRouter, useSearchParams } from 'expo-router'
 import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
-import { Ionicons } from '@expo/vector-icons';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 import ScreenHeaderBtn from '../../../components/common/header/ScreenHeaderBtn'
 import FavouriteListCard from "../../../components/common/cards/search/FavouriteListCard"

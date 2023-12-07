@@ -30,7 +30,6 @@ export default function User({ navigation }) {
   const toggleModal2 = () => {
     setModalVisible2(!modalVisible2);
   };
-
   const getUser = async () => {
     try {
       const user = await AsyncStorage.getItem("user-id");
@@ -186,7 +185,6 @@ export default function User({ navigation }) {
                       onPress={() => setIsPasswordShow(!isPasswordShow)}
                       style={{
                         position: "absolute",
-                        // bottom: 170,
                         top: 70,
                         right: 30,
                       }}
@@ -207,7 +205,6 @@ export default function User({ navigation }) {
                       onPress={() => setIsPasswordShow(!isPasswordShow)}
                       style={{
                         position: "absolute",
-                        // bottom: 100,
                         right: 30,
                         top: 140,
                       }}

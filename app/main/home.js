@@ -21,8 +21,6 @@ const Home = () => {
               <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
             </View>
           ),
-
-
         }}
       />
 
