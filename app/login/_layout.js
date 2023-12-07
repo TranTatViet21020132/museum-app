@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
-// import { useNavigation } from '@react-navigation/native';
-
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, Dimensions } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, icons, FONT } from '../../constants';
+import { COLORS } from '../../constants';
 import axios from 'axios';
-import { Redirect } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const widthWindow = Dimensions.get("window").width * 0.9;
 function Log({ navigation }) {
-  // const navigation = useNavigation();
 
-  const [login, setLogin] = useState(false);
-  const [agree, setAgree] = useState(false);
   const [warning, setWarning] = useState(false);
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,17 +24,13 @@ function Log({ navigation }) {
 
       if (email === "" || password === "") {
         setWarning(true)
-        setAgree(false);
       } else if (response.data === "0") {
         setWarning(true);
-        setAgree(false)
         console.log("Failed")
       } else {
         AsyncStorage.setItem("user-id", response.data._id);
         setWarning(false);
-        setAgree(true)
         navigation.navigate("main", { screen: "main" })
-        setLogin(true);
       }
     } catch (error) {
       console.error('An error occurred during login:', error);

@@ -87,7 +87,7 @@ const Welcome = ({ navigation }) => {
                 <View style={{
                     paddingHorizontal: 22,
                     position: "absolute",
-                    top: 460,
+                    top: "50%",
                     width: "100%"
                 }}>
                     <Text style={{

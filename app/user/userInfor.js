@@ -1,11 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
-import {
-  ScreenHeaderBtn,
-} from "../../components";
 import { Stack } from "expo-router";
 import Modal from "react-native-modal";
-import { ListItem } from '@rneui/themed'
 import { useEffect, useState } from 'react';
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../../constants"
@@ -35,20 +31,20 @@ export default function User({ navigation }) {
     setModalVisible2(!modalVisible2);
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const user = await AsyncStorage.getItem("user-id");
-        setUserID(user)
-        axios.get(`http://192.168.1.6:5000/user/${user}`)
-          .then(response => { setProfile(response.data) })
-          .catch(error =>
-            console.error(error)
-          )
-      } catch (error) {
-        console.log(error);
-      }
+  const getUser = async () => {
+    try {
+      const user = await AsyncStorage.getItem("user-id");
+      setUserID(user)
+      axios.get(`http://192.168.1.6:5000/user/${user}`)
+        .then(response => { setProfile(response.data) })
+        .catch(error =>
+          console.error(error)
+        )
+    } catch (error) {
+      console.log(error);
     }
+  }
+  useEffect(() => {
     getUser();
   }, [])
 
@@ -84,21 +80,20 @@ export default function User({ navigation }) {
     }
   }
 
-  const handleChangeInformation = async (name, age, gender, userID) => {
+  const handleChangeInformation = async (name, age, userID) => {
     try {
       const response = await axios.patch(("http://192.168.1.6:5000/user/" + userID + "/"), {
         name: name,
         age: age,
-        gender: gender,
       });
       console.log(response)
-      if (name == "" || age == "" || gender == "") {
+      if (name == "" || age == "") {
         setMessageChangeInformation("red")
       } else {
         setMessageChangeInformation("green");
         setTimeout(() => {
-          navigation.navigate("login");
-          AsyncStorage.removeItem("user-id");
+          getUser();
+          toggleModal2();
         }, 1000)
       }
     } catch (error) {
@@ -279,7 +274,7 @@ export default function User({ navigation }) {
                         <Text style={{ color: "red", fontSize: 16, marginVertical: 10, marginLeft: "5%" }}>Please fill all field!</Text>
                       )
                     }
-                    <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} onPress={() => handleChangeInformation(name, age, gender, userID)} >
+                    <TouchableOpacity style={[styles.buttonStyle, { backgroundColor: "#83829A" }]} onPress={() => handleChangeInformation(name, age, userID)} >
                       <Text style={styles.buttonText}>Submit</Text>
                     </TouchableOpacity>
                   </View>

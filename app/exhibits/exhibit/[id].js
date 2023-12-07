@@ -15,11 +15,10 @@ import * as React from 'react';
 import { Stack } from "expo-router";
 import { useRouter, useSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { COLORS, icons, images, SIZES } from "../../../constants";
+import { COLORS, icons, SIZES } from "../../../constants";
 import styles from "../id.style";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FlashMessage, { showMessage } from "react-native-flash-message";
 
 const tabs = ["Contents", "Images", "Related Articles"];
 
@@ -200,11 +199,7 @@ const ExhibitLinks = () => {
                 <ScreenHeaderBtn iconUrl={icons.menu} dimension='80%' />
               </View>
             ),
-            headerRight: () => (
-              <View style={{ flexDirection: 'row', marginRight: 20 }}>
-                <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
-              </View>
-            ),
+
 
           }}
         />

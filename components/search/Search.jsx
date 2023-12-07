@@ -32,6 +32,7 @@ const SearchBar = () => {
             value={searchTerm}
             onChangeText={(text) => setSearchTerm(text)}
             placeholder='What are you looking for?'
+            placeholderTextColor="white"
           />
         </View>
 

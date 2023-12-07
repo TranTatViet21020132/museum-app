@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native'
-import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, Icons } from '../../constants';
+import { COLORS } from '../../constants';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 

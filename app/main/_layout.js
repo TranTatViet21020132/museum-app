@@ -17,23 +17,23 @@ const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        unmountOnBlur: true,
-      }}
-      
-       name="home-screen" component={HomeScreen}/>
-       <Stack.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        unmountOnBlur: true,
-      }}
-      
-       name="museum/[id]" component={MuseumInfoScreen}/>
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          unmountOnBlur: true,
+        }}
+
+        name="home-screen" component={HomeScreen} />
+      <Stack.Screen
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          unmountOnBlur: true,
+        }}
+
+        name="museum/[id]" component={MuseumInfoScreen} />
     </Stack.Navigator>
   );
 };
@@ -54,18 +54,18 @@ const Layout = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'home') {
+          if (route.name === 'home' || route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'search') {
+          } else if (route.name === 'search' || route.name === 'Search') {
             iconName = focused ? 'search' : 'search-outline';
-          } else if (route.name === "exhibits") {
+          } else if (route.name === "exhibits" || route.name === "Exhibits") {
             iconName = focused ? "copy" : "copy-outline";
-          }else if (route.name === "user") {
+          } else if (route.name === "user" || route.name === "User") {
             iconName = focused ? "person" : "person-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        
+
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: [
@@ -75,38 +75,42 @@ const Layout = () => {
       })}
     >
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        headerShown: false,
-      }}
-      
-      name="home" component={HomeStack} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+          tabBarLabel: 'Home',
+        }}
+
+        name="home" component={HomeStack} />
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        headerShown: false,
-      }}
-      name="exhibits" component={ExhibitScreen} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+          tabBarLabel: "Exhibits"
+        }}
+        name="exhibits" component={ExhibitScreen} />
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        headerShown: false,
-      }}
-      name="search" component={SearchScreen} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+          tabBarLabel: 'Search',
+        }}
+        name="search" component={SearchScreen} />
       <Tab.Screen
-      options={{
-        headerShadowVisible: false,
-        headerTitle: "",
-        href: null,
-        headerShown: false,
-      }}
-      name="user" component={User} />
+        options={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          href: null,
+          headerShown: false,
+          tabBarLabel: 'User',
+        }}
+        name="user" component={User} />
     </Tab.Navigator>
   );
 };
