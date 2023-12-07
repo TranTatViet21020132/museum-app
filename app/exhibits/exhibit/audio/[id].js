@@ -21,6 +21,9 @@ const AudioPlayerScreen = () => {
 
   const [duration, setDuration] = useState(0);
   const [position, setPosition] = useState(0);
+  const [forward5s, setForward5s] = useState(0);
+  const [replay5s, setReplay5s] = useState(0);
+
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -97,6 +100,25 @@ const AudioPlayerScreen = () => {
     }
   };
 
+  const handleForward5s = () => {
+    if (sound) {
+      const newPosition = Math.min(duration, position + 5000); // Forward 5 seconds
+      sound.setPositionAsync(newPosition);
+      setLastPosition(newPosition);
+      setForward5s(forward5s + 1);
+    }
+  };
+  
+  const handleReplay5s = () => {
+    if (sound) {
+      const newPosition = Math.max(0, position - 5000); // Replay 5 seconds
+      sound.setPositionAsync(newPosition);
+      setLastPosition(newPosition);
+      setReplay5s(replay5s + 1);
+    }
+  };
+  
+
   const togglePlayPause = () => {
     if (isPlaying) {
       pauseSound();
@@ -163,6 +185,7 @@ const AudioPlayerScreen = () => {
               },
               styles.timerControl,
             ]}
+            onPress={handleReplay5s}
           >
             <Image
               source={icons.replay}
@@ -209,6 +232,7 @@ const AudioPlayerScreen = () => {
               },
               styles.timerControl,
             ]}
+            onPress={handleForward5s}
           >
             <Image
               source={icons.forward}
