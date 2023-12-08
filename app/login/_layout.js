@@ -17,7 +17,7 @@ function Log({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.1.6:5000/login', {
+      const response = await axios.post('http://192.168.43.2:5000/login', {
         email,
         password,
       });

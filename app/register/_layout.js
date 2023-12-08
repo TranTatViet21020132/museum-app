@@ -21,7 +21,7 @@ function Register({ navigation }) {
 
     const handleRegister = async () => {
         try {
-            const response = await axios.post('http://192.168.1.6:5000/signup', {
+            const response = await axios.post('http://192.168.43.2:5000/signup', {
                 email,
                 password,
                 name,

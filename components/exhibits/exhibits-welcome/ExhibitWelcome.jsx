@@ -25,7 +25,7 @@ const ExhibitWelcome = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://192.168.1.6:5000/gallery/trung-bay-thuong-xuyen-p1");
+      const response = await axios.get("http://192.168.43.2:5000/gallery/trung-bay-thuong-xuyen-p1");
       setData(response.data);
       setIsLoading(false);
     } catch (error) {

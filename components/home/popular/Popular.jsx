@@ -6,6 +6,7 @@ import styles from './popular.style'
 import { COLORS, SIZES } from '../../../constants';
 import PopularCard from '../../common/cards/popular/PopularCard'
 import useFetch from '../../../hook/useFetch';
+import axios from 'axios';
 
 const Popular = () => {
   const router = useRouter();
@@ -14,10 +15,26 @@ const Popular = () => {
 
   const [selectedExhibit, setSelectedExhibit] = useState();
 
+  const handleViewCounts = async (titleParam, views) => {
+    console.log("TitleParam:", titleParam);
+    console.log("Views:", views);
+  
+    try {
+      const response = await axios.patch(("http://localhost:5000/popular"), {
+        titleParam: titleParam,
+        viewed: views
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  
   const handleCardPress = (item) => {
     router.replace(`/exhibits/exhibit/${item.titleParam}`);
-    console.log(item.titleParam);
     setSelectedExhibit(item.titleParam);
+    let newViews = item.viewed + 1; 
+    handleViewCounts(item.titleParam, newViews);
   };
 
   return (
